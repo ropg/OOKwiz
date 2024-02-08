@@ -11,6 +11,7 @@
 #include "Settings.h"
 #include "Device.h"
 #include "tools.h"
+#include "serial_output.h"
 
 typedef struct BufferPair {
     RawTimings raw;
