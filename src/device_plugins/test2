@@ -1,0 +1,8 @@
+DEVICE_PLUGIN_START(test2)
+
+bool receive(const RawTimings &raw, const Pulsetrain &train, const Meaning &meaning) override {
+    DEBUG("test2: I get it!\n");
+    return true;
+}
+
+DEVICE_PLUGIN_END(test2)

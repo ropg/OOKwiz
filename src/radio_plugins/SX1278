@@ -1,0 +1,61 @@
+#define PLUGIN_NAME     SX1278
+#define RADIOLIB_CLASS  SX1278
+
+RADIO_PLUGIN_START
+
+RADIOLIB_CLASS* radio;
+
+bool init() override {
+    SETTING_OR_ERROR(pin_cs);
+    SETTING_WITH_DEFAULT(frequency, 433.92);
+    SETTING_WITH_DEFAULT(bandwidth, 250);
+    SETTING_WITH_DEFAULT(bitrate, 9.6);
+    radiolibInit();
+    radio = new RADIOLIB_CLASS(radioLibModule);
+    int threshold_type_int = thresholdSetup(
+        RADIOLIB_SX127X_OOK_THRESH_FIXED,
+        RADIOLIB_SX127X_OOK_THRESH_AVERAGE,
+        RADIOLIB_SX127X_OOK_THRESH_PEAK
+    );
+    int threshold_level;
+    SETTING_WITH_DEFAULT(threshold_level, 6);
+    int tx_power;
+    SETTING_WITH_DEFAULT(tx_power, 20);
+    INFO("%s: Transmit power set to %i dBm, using %s pin.\n", QUOTE(PLUGIN_NAME), tx_power, Settings::isSet("tx_use_rfo") ? "RFO" : "PA_BOOST");
+    RADIO_DO(beginFSK());
+    RADIO_DO(setFrequency(frequency));
+    RADIO_DO(setRxBandwidth(bandwidth));
+    RADIO_DO(setBitRate(bitrate));
+    RADIO_DO(setOOK(true));
+    RADIO_DO(setCrcFiltering(false));
+    RADIO_DO(setDataShapingOOK(2));
+    RADIO_DO(setOokThresholdType(threshold_type_int));
+    RADIO_DO(setOokPeakThresholdDecrement(RADIOLIB_SX127X_OOK_PEAK_THRESH_DEC_1_8_CHIP));
+    RADIO_DO(setOokPeakThresholdStep(RADIOLIB_SX127X_OOK_PEAK_THRESH_STEP_0_5_DB));
+    RADIO_DO(setOokFixedOrFloorThreshold(threshold_level));
+    RADIO_DO(setRSSIConfig(RADIOLIB_SX127X_RSSI_SMOOTHING_SAMPLES_2, RADIOLIB_SX127X_OOK_AVERAGE_OFFSET_0_DB));
+    MODULE_DO(SPIsetRegValue(RADIOLIB_SX127X_REG_PREAMBLE_DETECT, RADIOLIB_SX127X_PREAMBLE_DETECTOR_OFF));
+    RADIO_DO(setDirectSyncWord(0, 0));
+    RADIO_DO(disableBitSync());
+    return true;
+}
+
+bool rx() override {
+    RADIO_DO(receiveDirect());
+    return true;
+}
+
+bool tx() override {
+    int tx_power;
+    SETTING_WITH_DEFAULT(tx_power, 20);
+    RADIO_DO(setOutputPower(tx_power, Settings::isSet("tx_use_rfo")));
+    RADIO_DO(transmitDirect());
+    return true;          
+}
+
+bool standby() override {
+    RADIO_DO(standby());
+    return true;
+}
+
+RADIO_PLUGIN_END

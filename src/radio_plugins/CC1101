@@ -1,0 +1,41 @@
+#define PLUGIN_NAME     CC1101
+#define RADIOLIB_CLASS  CC1101
+
+RADIO_PLUGIN_START
+
+RADIOLIB_CLASS* radio;
+
+bool init() override {
+    SETTING_OR_ERROR(pin_cs);
+    SETTING_WITH_DEFAULT(frequency, 433.92);
+    SETTING_WITH_DEFAULT(bandwidth, 232);
+    SETTING_WITH_DEFAULT(bitrate, 9.6);
+    radiolibInit();
+    int tx_power;
+    SETTING_WITH_DEFAULT(tx_power, 10);
+    INFO("%s: Transmit power set to %i dBm.\n", QUOTE(PLUGIN_NAME), tx_power);
+    radio = new RADIOLIB_CLASS(radioLibModule);
+    RADIO_DO(begin(frequency, bitrate, 50.0F, bandwidth, 7, 16));
+    RADIO_DO(setOOK(true));
+    return true;
+}
+
+bool rx() override {
+    RADIO_DO(receiveDirectAsync());
+    return true;
+}
+
+bool tx() override {
+    int tx_power;
+    SETTING_WITH_DEFAULT(tx_power, 10);
+    RADIO_DO(setOutputPower(tx_power));
+    RADIO_DO(transmitDirectAsync());
+    return true;          
+}
+
+bool standby() override {
+    RADIO_DO(standby());
+    return true;
+}
+
+RADIO_PLUGIN_END

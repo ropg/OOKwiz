@@ -1,0 +1,40 @@
+#define PLUGIN_NAME     generic
+ 
+RADIO_PLUGIN_START
+
+bool init() {
+    PIN_MODE(pin_rx, Settings::isSet("rx_pullup") ? INPUT_PULLUP : INPUT);
+    PIN_HIGH(Settings::getInt("pin_rx_pmos"));
+    PIN_LOW(Settings::getInt("pin_rx_nmos"));
+    PIN_LOW(Settings::getInt("pin_rx_vcc"));
+    PIN_LOW(Settings::getInt("pin_rx_gnd"));
+    PIN_LOW(Settings::getInt("pin_tx"));
+    PIN_HIGH(Settings::getInt("pin_tx_pmos"));
+    PIN_LOW(Settings::getInt("pin_tx_nmos"));
+    PIN_LOW(Settings::getInt("pin_tx_vcc"));
+    PIN_LOW(Settings::getInt("pin_tx_gnd"));
+    return true;
+}
+
+bool rx() {
+    init();
+    PIN_LOW(Settings::getInt("pin_rx_pmos"));
+    PIN_HIGH(Settings::getInt("pin_rx_nmos"));
+    PIN_HIGH(Settings::getInt("pin_rx_vcc"));
+    return true;
+}
+
+bool tx() {
+    init();
+    PIN_LOW(Settings::getInt("pin_tx_pmos"));
+    PIN_HIGH(Settings::getInt("pin_tx_nmos"));
+    PIN_HIGH(Settings::getInt("pin_tx_vcc"));
+    delayMicroseconds(Settings::getInt("tx_stable_time", 500));
+    return true;
+}
+
+bool standby() {
+    return init();
+}
+
+RADIO_PLUGIN_END

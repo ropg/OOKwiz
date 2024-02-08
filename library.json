@@ -1,0 +1,13 @@
+{
+    "name": "OOKwiz",
+    "description": "Receiving/analysing/sending on-off-keying signals for radio remote controls 📱, weather stations 🌦️ and more.",
+    "keywords": "ook, on-off-keying, 433",
+    "authors": {
+      "name": "Rop Gonggrijp",
+      "url": ""
+    },
+    "version": "0.1.0",
+    "frameworks": "arduino",
+    "platforms": "espressif32",
+    "headers": "OOKwiz.h"
+  }
