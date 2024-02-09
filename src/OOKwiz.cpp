@@ -9,6 +9,10 @@ int OOKwiz::pulse_gap_min_len;
 int OOKwiz::min_nr_pulses;
 int OOKwiz::max_nr_pulses;
 int OOKwiz::pulse_gap_len_new_packet;
+int OOKwiz::noise_penalty;
+int OOKwiz::noise_threshold;
+int OOKwiz::noise_score;
+bool OOKwiz::no_noise_fix = false;
 int64_t OOKwiz::last_transition;
 hw_timer_t* OOKwiz::transitionTimer = nullptr;
 hw_timer_t* OOKwiz::repeatTimer = nullptr;
@@ -83,6 +87,9 @@ bool OOKwiz::setup(bool skip_saved_defaults) {
     SETTING_OR_ERROR(pulse_gap_min_len);
     SETTING_OR_ERROR(min_nr_pulses);
     SETTING_OR_ERROR(max_nr_pulses);
+    SETTING_OR_ERROR(noise_penalty);
+    SETTING_OR_ERROR(noise_threshold);
+    no_noise_fix = Settings::isSet("no_noise_fix");
     rx_active_high = Settings::isSet("rx_active_high");
     tx_active_high = Settings::isSet("tx_active_high");
 
@@ -173,6 +180,7 @@ bool OOKwiz::loop() {
         SETTING(pulse_gap_min_len);
         SETTING(min_nr_pulses);
         SETTING(max_nr_pulses);
+        no_noise_fix = Settings::isSet("no_noise_fix");
         serial_cli_disable = Settings::isSet("serial_cli_disable");
         last_periodic = esp_timer_get_time();
     }
@@ -188,6 +196,7 @@ void IRAM_ATTR OOKwiz::ISR_transition() {
     if (rx_state == RX_WAIT_PREAMBLE) {
         // Set the state machine to put the transitions in isr_in
         if (t > first_pulse_min_len && digitalRead(Radio::pin_rx) != rx_active_high) {
+            noise_score = 0;
             isr_in.zap();
             isr_in.raw.intervals.reserve((max_nr_pulses * 2) + 1);
             rx_state = RX_RECEIVING_DATA;
@@ -196,14 +205,20 @@ void IRAM_ATTR OOKwiz::ISR_transition() {
     if (rx_state == RX_RECEIVING_DATA) {
         // t < pulse_gap_min_len means it's noise, so we assume transmission is over
         if (t < pulse_gap_min_len) {
-            process_raw();
-        } else {
-            isr_in.raw.intervals.push_back(t);
-            // Longer would be too long: stop and process what we have
-            if (isr_in.raw.intervals.size() == (max_nr_pulses * 2) + 1) {
+            noise_score += noise_penalty;
+            if (noise_score >= noise_threshold) {
                 process_raw();
+                return;
             }
+        } else {
+            noise_score -= noise_score > 0;
         }
+        isr_in.raw.intervals.push_back(t);
+        // Longer would be too long: stop and process what we have
+        if (isr_in.raw.intervals.size() == (max_nr_pulses * 2) + 1) {
+            process_raw();
+        }
+
     }
     last_transition = esp_timer_get_time();
     timerRestart(transitionTimer);
@@ -223,24 +238,50 @@ void IRAM_ATTR OOKwiz::ISR_repeatTimeout() {
 }
 
 void IRAM_ATTR OOKwiz::process_raw() {
-    isr_in.raw.intervals.shrink_to_fit();
     // reject if not the required minimum number of pulses
     if (isr_in.raw.intervals.size() < (min_nr_pulses * 2) + 1) {
         rx_state = RX_WAIT_PREAMBLE;
         return;
     }
-    rx_state = RX_PROCESSING;
     // Remove last transition if number is even because in that case the
     // last transition is the off state, which is not part of a train.
     if (isr_in.raw.intervals.size() % 2 == 0) {
         isr_in.raw.intervals.pop_back();
     }
+    if (!no_noise_fix) {
+        // fix noise: too-short transitions found are merged into one with transitions before and after.
+        bool noisy = true;
+        while (noisy) {
+            noisy = false;
+            for (int n = 1; n < isr_in.raw.intervals.size() - 1; n++) {
+                if (isr_in.raw.intervals[n] < pulse_gap_min_len) {
+                    int new_interval = isr_in.raw.intervals[n - 1] + isr_in.raw.intervals[n] + isr_in.raw.intervals[n + 1];
+                    isr_in.raw.intervals.erase(isr_in.raw.intervals.begin() + n - 1, isr_in.raw.intervals.begin() + n + 2);
+                    isr_in.raw.intervals.insert(isr_in.raw.intervals.begin() + n - 1, new_interval);
+                    noisy = true;
+                    break;
+                }
+            }
+        }
+        // Simply cut off last pulse and preceding gap if pulse too short.
+        if (isr_in.raw.intervals.back() < pulse_gap_min_len) {
+            isr_in.raw.intervals.pop_back();
+            isr_in.raw.intervals.pop_back();
+        }    
+        // Check we still meet the required minimum number of pulses after noise removal.
+        if (isr_in.raw.intervals.size() < (min_nr_pulses * 2) + 1) {
+            rx_state = RX_WAIT_PREAMBLE;
+            return;
+        }
+    }
+    // Release excess reserved memory
+    isr_in.raw.intervals.shrink_to_fit();
+    // And then go to normalizing, comparing, etc.
     isr_in.train.fromRawTimings(isr_in.raw);
     process_train();
 }
 
 void IRAM_ATTR OOKwiz::process_train() {
-    // Do again in case we're called directly by simulate()
     rx_state = RX_PROCESSING;
     // If there is no packet in the middle buffer, just put the new one there
     if (!isr_compare.train) {

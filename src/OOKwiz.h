@@ -52,6 +52,10 @@ private:
     static int pulse_gap_len_new_packet;
     static int min_nr_pulses;
     static int max_nr_pulses;
+    static int noise_penalty;
+    static int noise_threshold;
+    static int noise_score;
+    static bool no_noise_fix;
     static int64_t last_transition;
     static hw_timer_t *transitionTimer;
     static hw_timer_t *repeatTimer;

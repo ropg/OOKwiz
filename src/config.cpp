@@ -9,6 +9,8 @@ void factorySettings() {
     Settings::set("max_nr_pulses", 300);
     Settings::set("bin_width", 150);
     Settings::set("repeat_timeout", 150000L);
+    Settings::set("noise_penalty", 10);
+    Settings::set("noise_threshold", 30);
     Settings::set("visualizer_pixel", 200);
     Settings::set("print_raw");
     Settings::set("print_visualizer");
