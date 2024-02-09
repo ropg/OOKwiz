@@ -37,6 +37,9 @@ void (*OOKwiz::callback)(RawTimings, Pulsetrain, Meaning) = nullptr;
 /// @return true if setup succeeded, false if it could not complete, e.g. because the radio is not configured yet.
 bool OOKwiz::setup(bool skip_saved_defaults) {
 
+    // Make sure nothing is missed when we paste raw data to 'sim' or 'transmit' CLI commands.
+    Serial.setRxBufferSize(SERIAL_RX_BUFFER_SIZE);
+
     // Sometimes USB needs to wake up, and we want to see what OOKwiz does 
     // right after it is woken up with OOKwiz::setup().
     delay(1000);
