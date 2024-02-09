@@ -80,6 +80,7 @@ bool Meaning::fromPulsetrain(Pulsetrain &train) {
         return false;
     }
     // Now we walk the train's transitions and decipher
+    bool something_decoded = false;
     for (int n = 0; n < train.transitions.size(); n++) {
         int r;
         if (likely_PWM) {
@@ -90,7 +91,8 @@ bool Meaning::fromPulsetrain(Pulsetrain &train) {
         if (r == -1) {
             return false;
         } else if (r > 0) {
-            n += r - 1;  // Minus 1 bc the next for loop will also increment 1
+            n += r - 1;  // Minus 1 bc the next iteration will also increment 1
+            something_decoded = true;
             continue;
         }
         // Otherwise add as a pulse or gap
@@ -103,6 +105,10 @@ bool Meaning::fromPulsetrain(Pulsetrain &train) {
                 return false;
             }
         }
+    }
+    if (!something_decoded) {
+        zap();
+        return false;
     }
     if (train.repeats > 1) {
         suspected_incomplete = false;
