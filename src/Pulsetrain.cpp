@@ -160,7 +160,9 @@ bool IRAM_ATTR Pulsetrain::fromRawTimings(const RawTimings &raw) {
     }
     // Averages
     for (auto& bin : bins) {
-        bin.average = bin.average / bin.count;
+        if (bin.count > 0) {
+            bin.average = bin.average / bin.count;
+        }
     }
     // Set other metadata about this Pulsetrain
     first_at = esp_timer_get_time();
@@ -185,6 +187,9 @@ String Pulsetrain::visualizer() {
 }
 
 String Pulsetrain::visualizer(int base) {
+    if (base == 0) {
+        return "";
+    }
     uint8_t multiples[bins.size()];
     for (int m = 0; m < bins.size(); m++) {
         multiples[m] = max(((int)bins[m].average + (base / 2)) / base, 1);

@@ -77,6 +77,9 @@ String RawTimings::visualizer() {
 }
 
 String RawTimings::visualizer(int base) {
+    if (base == 0) {
+        return "";
+    }
     String ones_and_zeroes;
     String curstate;
     for (int n = 0; n < intervals.size(); n++) {
