@@ -1,40 +1,33 @@
-name: Update GitHub Pages Documentation
+name: Deploy Documentation to GitHub Pages
 
 on:
   push:
     branches:
-      - main
+      - main  # Trigger on commits to main branch
 
 jobs:
-  deploy-docs:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      
-      - name: Install Doxygen
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y doxygen
+    - uses: actions/checkout@v2
 
-      - name: Generate Doxygen Documentation
-        run: |
-          doxygen doxygen/Doxyfile
+    - name: Install Doxygen
+      run: sudo apt-get install doxygen
 
-      - name: Configure Git for GitHub Pages deployment
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-  
-      - name: Deploy to GitHub Pages
-        run: |
-          git fetch
-          git checkout gh-pages || git checkout --orphan gh-pages
-          git reset --hard
-          rm -rf *  # Clear old documentation
-          cp -r doxygen/html/* .
-          git add .
-          git commit -m "Update documentation" || echo "No changes to commit"
-          git push origin gh-pages --force
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Generate Documentation with Doxygen
+      run: |
+        cd doxygen
+        doxygen Doxyfile
+
+    - name: Deploy to GitHub Pages
+      run: |
+        git fetch
+        git checkout gh-pages || git checkout --orphan gh-pages
+        git rm -rf .
+        cp -r doxygen/html/* .
+        git add .
+        git commit -m "Deploy updated documentation" || echo "No changes to commit"
+        git push origin gh-pages --force
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
