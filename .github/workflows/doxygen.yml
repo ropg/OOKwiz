@@ -23,6 +23,7 @@ jobs:
         run: |
           cd doxygen
           doxygen Doxyfile
+          cp new_index.html index.html
           cd ..
 
       - name: Configure Git
@@ -36,7 +37,6 @@ jobs:
           git checkout gh-pages || git checkout --orphan gh-pages
           git rm -rf .  # Clear current contents
           cp -r doxygen/html/* .  # Copy the new docs
-          cp doxygen/new_index.html index.html
           git add .
           git commit -m "Deploy updated documentation" || echo "No changes to commit"
           git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ropg/OOKwiz.git gh-pages
