@@ -14,7 +14,9 @@ jobs:
       - name: Setup Doxygen
         uses: mattnotmitt/doxygen-action@v1
         with:
-          doxygen-path: 'doxygen/Doxyfile'
+          doxyfile-path: 'doxygen/Doxyfile'
+          working-directory: 'doxygen'
+          enable-latex: false
 
       - name: Configure Git
         run: |
