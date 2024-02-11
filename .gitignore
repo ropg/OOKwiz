@@ -1,4 +1,5 @@
 doxygen/*
 !doxygen/Doxyfile
+!doxygen/new_index.html
 PINS
 TODO.md
