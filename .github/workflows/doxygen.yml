@@ -13,30 +13,45 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Setup directories
+        run: |
+          mkdir main
+          mkdir gh-pages
+
+      - name: Checkout main branch
         uses: actions/checkout@v2
+        with:
+          path: 'main'
 
       - name: Install Doxygen
         run: sudo apt-get install doxygen
 
       - name: Generate Documentation with Doxygen
         run: |
-          cd doxygen
+          cd main/doxygen
           doxygen Doxyfile
+          cd ../..
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v2
+        with:
+          ref: 'gh-pages'
+          path: 'gh-pages'
+          fetch-depth: 0 # Important to fetch all history for branch comparison
+
+      - name: Clear gh-pages branch content
+        run: |
+          cd gh-pages
+          git rm -rf .  # Clear current contents safely
           cd ..
 
-      - name: Configure Git
+      - name: Copy Documentation to gh-pages directory
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+          cp -r main/doxygen/html/* gh-pages/
 
       - name: Deploy to GitHub Pages
         run: |
-          git fetch
-          git checkout gh-pages || git checkout --orphan gh-pages
-          git rm -rf .  # Clear current contents
-          cp -r doxygen/html/* .  # Copy the new docs
-          git rm -rf doxygen
+          cd gh-pages
           git add .
           git commit -m "Deploy updated documentation" || echo "No changes to commit"
           git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ropg/OOKwiz.git gh-pages
