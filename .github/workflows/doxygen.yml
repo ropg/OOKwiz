@@ -3,7 +3,7 @@ name: Update GitHub Pages Documentation
 on:
   push:
     branches:
-      - main  # Adjust this to match your default branch name if different
+      - main
 
 jobs:
   deploy-docs:
@@ -12,10 +12,10 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Setup Doxygen
-        uses: marketplace/actions/setup-doxygen
+        uses: mattnotmitt/doxygen-action@v1
 
       - name: Generate Doxygen Documentation
-        run: doxygen doxygen/Doxyfile  # Adjust if your Doxyfile is elsewhere
+        run: doxygen doxygen/Doxyfile
 
       - name: Configure Git
         run: |
@@ -28,7 +28,7 @@ jobs:
           git checkout gh-pages || git checkout --orphan gh-pages
           git reset --hard
           rm -rf *  # Clear old documentation
-          cp -r ${{ github.workspace }}/doxygen/html/* .  # Adjust this path as necessary
+          cp -r ${{ github.workspace }}/doxygen/html/* .
           git add .
           git commit -m "Update documentation" || echo "No changes to commit"
           git push origin gh-pages --force
