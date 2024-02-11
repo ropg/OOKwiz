@@ -11,17 +11,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: List doxygen directory contents
+      
+      - name: Install Doxygen
         run: |
-          ls -l doxygen/
+          sudo apt-get update
+          sudo apt-get install -y doxygen
 
-      - name: Setup Doxygen
-        uses: mattnotmitt/doxygen-action@v1
-        with:
-          doxyfile-path: 'doxygen/Doxyfile'
-          working-directory: 'doxygen'
-          enable-latex: false
+      - name: Generate Doxygen Documentation
+        run: |
+          doxygen doxygen/Doxyfile
 
       - name: Configure Git for GitHub Pages deployment
         run: |
@@ -34,7 +32,7 @@ jobs:
           git checkout gh-pages || git checkout --orphan gh-pages
           git reset --hard
           rm -rf *  # Clear old documentation
-          cp -r ${{ github.workspace }}/doxygen/html/* .
+          cp -r doxygen/html/* .
           git add .
           git commit -m "Update documentation" || echo "No changes to commit"
           git push origin gh-pages --force
