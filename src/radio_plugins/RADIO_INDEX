@@ -1,9 +1,0 @@
-// Do not forget to check that MAX_RADIOS in config.h is set to a number
-// equal to or greater than the number of plugins you load here.
-
-#include "RF69"
-#include "CC1101"
-#include "SX1276"
-#include "SX1278"
-#include "aurel_rtx_mid"
-#include "generic"

@@ -1,8 +1,0 @@
-DEVICE_PLUGIN_START(test);
-
-bool receive(const RawTimings &raw, const Pulsetrain &train, const Meaning &meaning) override {
-    DEBUG("test: I don't understand...\n");
-    return false;
-}
-
-DEVICE_PLUGIN_END(test);
