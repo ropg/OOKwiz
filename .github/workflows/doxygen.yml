@@ -6,28 +6,34 @@ on:
       - main  # Trigger on commits to main branch
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Install Doxygen
-      run: sudo apt-get install doxygen
+      - name: Install Doxygen
+        run: sudo apt-get install doxygen
 
-    - name: Generate Documentation with Doxygen
-      run: |
-        cd doxygen
-        doxygen Doxyfile
+      - name: Generate Documentation with Doxygen
+        run: |
+          cd doxygen
+          doxygen Doxyfile
 
-    - name: Deploy to GitHub Pages
-      run: |
-        git fetch
-        git checkout gh-pages || git checkout --orphan gh-pages
-        git rm -rf .
-        cp -r doxygen/html/* .
-        git add .
-        git commit -m "Deploy updated documentation" || echo "No changes to commit"
-        git push origin gh-pages --force
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Deploy to GitHub Pages
+        run: |
+          git fetch
+          git checkout gh-pages || git checkout --orphan gh-pages
+          git rm -rf .  # Clear current contents
+          cp -r ../doxygen/html/* .  # Copy new docs
+          git add .
+          git commit -m "Deploy updated documentation" || echo "No changes to commit"
+          git push origin gh-pages --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
