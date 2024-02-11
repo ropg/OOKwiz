@@ -13,9 +13,8 @@ jobs:
       
       - name: Setup Doxygen
         uses: mattnotmitt/doxygen-action@v1
-
-      - name: Generate Doxygen Documentation
-        run: doxygen doxygen/Doxyfile
+        with:
+          doxygen-path: 'doxygen/Doxyfile'
 
       - name: Configure Git
         run: |
