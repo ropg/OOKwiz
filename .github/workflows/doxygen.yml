@@ -9,8 +9,13 @@ jobs:
   deploy-docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: List doxygen directory contents
+        run: |
+          ls -l doxygen/
+
       - name: Setup Doxygen
         uses: mattnotmitt/doxygen-action@v1
         with:
@@ -18,7 +23,7 @@ jobs:
           working-directory: 'doxygen'
           enable-latex: false
 
-      - name: Configure Git
+      - name: Configure Git for GitHub Pages deployment
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
