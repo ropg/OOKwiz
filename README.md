@@ -309,19 +309,19 @@ you end up transmitting the packet from our example. Note that the last form mak
 
 ## Interacting with OOKwiz
 
-### `Settings` class
+### [`OOKwiz` class](https://ropg.github.io/OOKwiz/classOOKwiz.html)
 
-### `OOKwiz` class
+### [`Settings` class](https://ropg.github.io/OOKwiz/classSettings.html)
 
 ## Callback function and `OOKwiz::onReceive()`
 
 ## Same packet, three ways of looking at it
 
-### `RawTimings`
+### [`RawTimings`](https://ropg.github.io/OOKwiz/classRawTimings.html)
 
-### `Pulsetrain`
+### [`Pulsetrain`](https://ropg.github.io/OOKwiz/classPulsetrain.html)
 
-### `Meaning`
+### [`Meaning`](https://ropg.github.io/OOKwiz/classMeaning.html)
 
 ## Radio plugins
 
