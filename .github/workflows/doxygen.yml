@@ -1,18 +1,20 @@
-name: Generate Doxygen Documentation
+name: Generate and Deploy Doxygen Documentation
 
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main  # Adjust this if your default branch has a different name
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Ensures the entire history is fetched
 
-    - name: Setup Doxygen
-      uses: marketplace/actions/setup-doxygen
+    - name: Install Doxygen
+      run: sudo apt-get update && sudo apt-get install -y doxygen
 
     - name: Generate Doxygen Documentation
       run: |
@@ -20,8 +22,23 @@ jobs:
         doxygen Doxyfile
 
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@4.1.4
-      with:
-        branch: gh-pages  # The branch the action should deploy to.
-        folder: doxygen/html  # The folder the action should deploy.
-        clean: true  # Automatically remove deleted files from the deployment
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        # Configure Git
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+
+        # Check out the gh-pages branch or create it if it doesn't exist
+        git fetch
+        git checkout gh-pages || git checkout --orphan gh-pages
+        git reset --hard
+
+        # Copy Doxygen output to root
+        rm -rf *  # Clear old documentation
+        cp -r ../doxygen/html/* .  # Adjust the path as necessary
+
+        # Commit and push changes
+        git add .
+        git commit -m "Update documentation"
+        git push origin gh-pages --force
