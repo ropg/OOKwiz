@@ -3,7 +3,7 @@ name: Deploy Documentation to GitHub Pages
 on:
   push:
     branches:
-      - main  # Trigger on commits to main branch
+      - main
 
 jobs:
   deploy:
@@ -20,6 +20,7 @@ jobs:
         run: |
           cd doxygen
           doxygen Doxyfile
+          cd ..
 
       - name: Configure Git
         run: |
@@ -31,7 +32,7 @@ jobs:
           git fetch
           git checkout gh-pages || git checkout --orphan gh-pages
           git rm -rf .  # Clear current contents
-          cp -r ../doxygen/html/* .  # Copy new docs
+          cp -r doxygen/html/* .  # Corrected path
           git add .
           git commit -m "Deploy updated documentation" || echo "No changes to commit"
           git push origin gh-pages --force
