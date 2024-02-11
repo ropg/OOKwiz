@@ -23,7 +23,7 @@ jobs:
         run: |
           cd doxygen
           doxygen Doxyfile
-          cp new_index.html index.html
+          # cp new_index.html index.html
           cd ..
 
       - name: Configure Git
