@@ -1,5 +1,8 @@
 name: Deploy Documentation to GitHub Pages
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -32,9 +35,9 @@ jobs:
           git fetch
           git checkout gh-pages || git checkout --orphan gh-pages
           git rm -rf .  # Clear current contents
-          cp -r doxygen/html/* .  # Corrected path
+          cp -r doxygen/html/* .  # Copy the new docs
           git add .
           git commit -m "Deploy updated documentation" || echo "No changes to commit"
-          git push origin gh-pages --force
+          git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ropg/OOKwiz.git gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
