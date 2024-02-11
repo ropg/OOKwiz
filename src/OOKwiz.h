@@ -13,6 +13,10 @@
 #include "tools.h"
 #include "serial_output.h"
 
+/**
+ * In the ISR handling of packets, we want to operate on three sets of RawTimings and Pulsetrain 
+ * (isr_in, isr_compare and isr_out), hence this struct.
+*/
 typedef struct BufferPair {
     RawTimings raw;
     Pulsetrain train;
@@ -22,6 +26,21 @@ typedef struct BufferPair {
     }
 } BufferPair;
 
+/**
+ * \brief The static functions in the OOKwiz class provide the main controls for OOKwiz' functionality.
+ * Prefix them with `OOKwiz::` to use them from your own code.
+ * 
+ * Example use of functions from the OOKwiz class
+ * ```cpp
+ * void setup() {
+ *     OOKwiz::setup();
+ * }
+ * 
+ * void loop() {
+ *     OOKwiz::loop();
+ * }
+ * ```
+*/
 class OOKwiz {
 
 public:
@@ -29,6 +48,7 @@ public:
     static bool loop();
     static bool receive();
     static bool onReceive(void (*callback_function)(RawTimings, Pulsetrain, Meaning));
+    static bool standby();
     static bool simulate(String &str);
     static bool simulate(RawTimings &raw);
     static bool simulate(Pulsetrain &train);
@@ -37,7 +57,6 @@ public:
     static bool transmit(RawTimings &raw);
     static bool transmit(Pulsetrain &train);
     static bool transmit(Meaning &meaning);
-    static bool standby();
 
 private:
     static volatile enum Rx_State{

@@ -28,10 +28,10 @@ Meaning OOKwiz::loop_meaning;
 int64_t OOKwiz::last_periodic = 0;
 void (*OOKwiz::callback)(RawTimings, Pulsetrain, Meaning) = nullptr;
 
-/// @brief Starts OOKwiz. Loads settings, initializes the radio.
+/// @brief Starts OOKwiz. Loads settings, initializes the radio and starts receiving if it finds the appropriate settings.
 /**
- * If you set the GPIO pin for a button on your ESP32 in 'pin_rescue' and press this during boot, OOKwiz will not
- * initialize SPI and the radio, possibly breaking and endless boot loop. Set 'rescue_active_high' if the button
+ * If you set the GPIO pin for a button on your ESP32 in 'pin_rescue' and press it during boot, OOKwiz will not
+ * initialize SPI and the radio, possibly breaking an endless boot loop. Set 'rescue_active_high' if the button
  * connects to VCC instead of GND.
  * 
  * Normally, OOKwiz will start up in receive mode. If you set 'start_in_standby', it will start in standby mode instead.
@@ -118,63 +118,19 @@ bool OOKwiz::setup(bool skip_saved_defaults) {
 
 }
 
+/// @brief To be called from your own `loop()` function.
+/**
+ * Does the high-level processing of packets as soon as they are received and
+ * processed by the ISR functions. Handles the serial port output of each packet
+ * as well as calling the user's own callback function and the various device
+ * plugins.
+*/
+/// @return always returns `true` 
 bool OOKwiz::loop() {
-    // Does the higher-level processing that can't happen at the ISR-level
-    if (isr_out.train) {
-        // Copy away the isr output and allow isr machinery to fill with new
-        loop_train = isr_out.train;
-        loop_raw = isr_out.raw;
-        isr_out.zap();
-        // Print to Serial what needs to be printed
-        if (Settings::isSet("print_raw") ||
-            Settings::isSet("print_visualizer") ||
-            Settings::isSet("print_summary") ||
-            Settings::isSet("print_pulsetrain") ||
-            Settings::isSet("print_binlist") ||
-            Settings::isSet("print_meaning")
-        ) {
-            INFO("\n\n");
-        }
-        if (Settings::isSet("print_raw") && loop_raw) {
-            INFO("%s\n", loop_raw.toString().c_str());
-        }
-        if (Settings::isSet("print_visualizer")) {
-            // If we simulate a Pulsetrain, the raw buffer will be empty still,
-            // so we visualize the Pulsetrain instead. 
-            if (loop_raw) {
-                INFO("%s\n", loop_raw.visualizer().c_str());
-            } else {
-                INFO("%s\n", loop_train.visualizer().c_str());
-            }
-        }
-        if (Settings::isSet("print_summary")) {
-            INFO("%s\n", loop_train.summary().c_str());
-        }
-        if (Settings::isSet("print_pulsetrain")) {
-            INFO("%s\n", loop_train.toString().c_str());
-        }
-        if (Settings::isSet("print_binlist")) {
-            INFO("%s\n", loop_train.binList().c_str());
-        }
-        // Process the received pulsetrain for meaning
-        // (Done here so errors and debug output ends up in logical spot)
-        loop_meaning.fromPulsetrain(loop_train);
-        if (loop_meaning && Settings::isSet("print_meaning")) {
-            INFO("%s\n", loop_meaning.toString().c_str());
-        }
-        // Pass what was received to all the device plugins, making their output show up
-        // at the right spot underneath the meaning output.
-        Device::new_packet(loop_raw, loop_train, loop_meaning);
-        // received() can take it now.
-        if (callback != nullptr) {
-            callback(loop_raw, loop_train, loop_meaning);
-        }
-    }
     // Stuff that happens only once a seccond
     if (esp_timer_get_time() - last_periodic > 1000000) {
         // If any of the core parameters have changed in settings,
         // update their variables.
-        SETTING(pulse_gap_len_new_packet);
         SETTING(repeat_timeout);
         SETTING(first_pulse_min_len);
         SETTING(pulse_gap_min_len);
@@ -182,11 +138,75 @@ bool OOKwiz::loop() {
         SETTING(max_nr_pulses);
         no_noise_fix = Settings::isSet("no_noise_fix");
         serial_cli_disable = Settings::isSet("serial_cli_disable");
+        // The timers are a bit more involved as their new values need to be written
+        int new_p_g_l_n_p = Settings::getInt("pulse_gap_len_new_packet", -1);
+        if (new_p_g_l_n_p != pulse_gap_len_new_packet) {
+            pulse_gap_len_new_packet = new_p_g_l_n_p;
+            timerAlarmWrite(transitionTimer, pulse_gap_len_new_packet, true);
+        }
+        int new_r_t = Settings::getInt("repeat_timeout", -1);
+        if (new_r_t != repeat_timeout) {
+            repeat_timeout = new_r_t;
+            timerAlarmWrite(repeatTimer, repeat_timeout, true);
+        }
         last_periodic = esp_timer_get_time();
     }
     // Have CLI's loop check the serial port for data
     if (!serial_cli_disable) {
         CLI::loop();
+    }
+    // If there was not a packet received, we can end OOKwiz::loop() now.
+    if (!isr_out.train) {
+        return true;
+    }
+    // OK, so there's a new packet...
+    // Copy away the isr output and allow isr machinery to fill with new
+    loop_train = isr_out.train;
+    loop_raw = isr_out.raw;
+    isr_out.zap();
+    // Print to Serial what needs to be printed
+    if (Settings::isSet("print_raw") ||
+        Settings::isSet("print_visualizer") ||
+        Settings::isSet("print_summary") ||
+        Settings::isSet("print_pulsetrain") ||
+        Settings::isSet("print_binlist") ||
+        Settings::isSet("print_meaning")
+    ) {
+        INFO("\n\n");
+    }
+    if (Settings::isSet("print_raw") && loop_raw) {
+        INFO("%s\n", loop_raw.toString().c_str());
+    }
+    if (Settings::isSet("print_visualizer")) {
+        // If we simulate a Pulsetrain, the raw buffer will be empty still,
+        // so we visualize the Pulsetrain instead. 
+        if (loop_raw) {
+            INFO("%s\n", loop_raw.visualizer().c_str());
+        } else {
+            INFO("%s\n", loop_train.visualizer().c_str());
+        }
+    }
+    if (Settings::isSet("print_summary")) {
+        INFO("%s\n", loop_train.summary().c_str());
+    }
+    if (Settings::isSet("print_pulsetrain")) {
+        INFO("%s\n", loop_train.toString().c_str());
+    }
+    if (Settings::isSet("print_binlist")) {
+        INFO("%s\n", loop_train.binList().c_str());
+    }
+    // Process the received pulsetrain for meaning
+    // (Done here so errors and debug output ends up in logical spot)
+    loop_meaning.fromPulsetrain(loop_train);
+    if (loop_meaning && Settings::isSet("print_meaning")) {
+        INFO("%s\n", loop_meaning.toString().c_str());
+    }
+    // Pass what was received to all the device plugins, making their output show up
+    // at the right spot underneath the meaning output.
+    Device::new_packet(loop_raw, loop_train, loop_meaning);
+    // received() can take it now.
+    if (callback != nullptr) {
+        callback(loop_raw, loop_train, loop_meaning);
     }
     return true;
 }
@@ -203,7 +223,7 @@ void IRAM_ATTR OOKwiz::ISR_transition() {
         }
     }
     if (rx_state == RX_RECEIVING_DATA) {
-        // t < pulse_gap_min_len means it's noise, so we assume transmission is over
+        // t < pulse_gap_min_len means it's noise
         if (t < pulse_gap_min_len) {
             noise_score += noise_penalty;
             if (noise_score >= noise_threshold) {
@@ -290,7 +310,7 @@ void IRAM_ATTR OOKwiz::process_train() {
         // Start the timer on it expiring and being handed to the user
         timerRestart(repeatTimer);
     // Otherwise check if it's a duplicate
-    } else if (isr_in.train && sameAs(isr_in.train, isr_compare.train)) {
+    } else if (isr_in.train && isr_in.train.sameAs(isr_compare.train)) {
         // If so just add to number of repeats
         isr_compare.train.repeats++;
         // Check if the observed gap is smaller than what we had and if so store.
@@ -314,31 +334,44 @@ void IRAM_ATTR OOKwiz::process_train() {
     rx_state = RX_WAIT_PREAMBLE;
 }
 
-bool IRAM_ATTR OOKwiz::sameAs(const Pulsetrain &train1, const Pulsetrain &train2) {
-    if (train1.transitions.size() != train2.transitions.size()) {
-        return false;
-    }
-    if (train1.bins.size() != train2.bins.size()) {
-        return false;
-    }
-    for (int n = 0; n < train1.transitions.size(); n++) {
-        if (train1.transitions[n] != train2.transitions[n]) {
-            return false;
-        }
-    }
-    for (int m = 0; m < train1.bins.size(); m++) {
-        if (abs(train1.bins[m].average - abs(train2.bins[m].average)) > 300) {
-            return false;
-        }
-    }
-    return true;
-}
-
+/// @brief Use this to supply your own function that will be called every time a packet is received.
+/**
+ * The callback_function parameter has to be the function name of a function that takes the three 
+ * packet representations as arguments and does not return anything. Here's an example sketch:
+ * 
+ * ```
+ * setup() {
+ *     Serial.begin(115200);
+ *     OOKwiz::setup();
+ *     OOKwiz::onReceive(myReceiveFunction);
+ * }
+ * 
+ * loop() {
+ *     OOKwiz::loop();
+ * }
+ * 
+ * void myReceiveFunction(RawTimings raw, Pulsetrain train, Meaning meaning) {
+ *     Serial.println("A packet was received and myReceiveFunction was called.");
+ * }
+ * ```
+ * 
+ * Make sure your own function is defined exactly as like this, even if you don't need all the
+ * parameters. You may change the names of the function and the parameters, but nothing else. 
+*/
+/// @param callback_function The name of your own function, without parenthesis () after it. 
+/// @return always returns `true`
 bool OOKwiz::onReceive(void (*callback_function)(RawTimings, Pulsetrain, Meaning)) {
     callback = callback_function;
     return true;
 }
 
+/// @brief Tell OOKwiz to start receiving and processing packets.
+/**
+ * OOKwiz starts in receive mode normally, so you would only need to call this if your
+ * code has turned off reception (with `standby()`) or if you configured OOKwiz to not
+ * start in receive mode by setting `start_in_standby`.
+*/
+/// @return `true` if receive mode could be activated, `false` if not.
 bool OOKwiz::receive() {
     if (!Radio::radio_rx()) {
         return false;
@@ -360,6 +393,9 @@ bool OOKwiz::tryToBeNice(int ms) {
     return false;
 }
 
+/// @brief Pretends this string representation of a `RawTimings`, `Pulsetrain` or `Meaning` instance was just received by the radio.
+/// @param str The string representation of what needs to be simulated
+/// @return `true` if it worked, `false` if not. Will show error message telling you why it didn't work in latter case.
 bool OOKwiz::simulate(String &str) {
     if (RawTimings::maybe(str)) {
         RawTimings raw;
@@ -383,6 +419,9 @@ bool OOKwiz::simulate(String &str) {
     return false;
 }
 
+/// @brief Pretends this `RawTimings` instance was just received by the radio.
+/// @param raw  the instance to be simulated
+/// @return `true` if it worked, `false` if not. Will show error message telling you why it didn't work in latter case.
 bool OOKwiz::simulate(RawTimings &raw) {
     tryToBeNice(500);
     isr_in.raw = raw;
@@ -390,6 +429,9 @@ bool OOKwiz::simulate(RawTimings &raw) {
     return true;
 }
 
+/// @brief Pretends this `Pulsetrain` instance was just received by the radio.
+/// @param train  the instance to be simulated
+/// @return `true` if it worked, `false` if not. Will show error message telling you why it didn't work in latter case.
 bool OOKwiz::simulate(Pulsetrain &train) {
     tryToBeNice(500);
     isr_in.train = train;
@@ -398,6 +440,9 @@ bool OOKwiz::simulate(Pulsetrain &train) {
     return true;
 }
 
+/// @brief Pretends this `Meaning` instance was just received by the radio.
+/// @param meaning the instance to be simulated
+/// @return `true` if it worked, `false` if not. Will show error message telling you why it didn't work in latter case.
 bool OOKwiz::simulate(Meaning &meaning) {
     Pulsetrain train;
     if (train.fromMeaning(meaning)) {
@@ -406,6 +451,9 @@ bool OOKwiz::simulate(Meaning &meaning) {
     return false;
 }
 
+/// @brief Transmits this string representation of a `RawTimings`, `Pulsetrain` or `Meaning` instance.
+/// @param str The string representation of what needs to be simulated
+/// @return `true` if it worked, `false` if not. Will show error message telling you why it didn't work in latter case.
 bool OOKwiz::transmit(String &str) {
     if (RawTimings::maybe(str)) {
         RawTimings raw;
@@ -428,6 +476,9 @@ bool OOKwiz::transmit(String &str) {
     return false;
 }
 
+/// @brief Transmits this `RawTimings` instance.
+/// @param raw the instance to be transmitted
+/// @return `true` if it worked, `false` if not. Will show error message telling you why it didn't work in latter case.
 bool OOKwiz::transmit(RawTimings &raw) {
     bool rx_was_on = (rx_state != RX_OFF);
     // Set receiver state machine off, remove any incomplete packet in buffer
@@ -468,6 +519,9 @@ bool OOKwiz::transmit(RawTimings &raw) {
     return true;
 }
 
+/// @brief Transmits this `Pulsetrain` instance.
+/// @param train the instance to be transmitted
+/// @return `true` if it worked, `false` if not. Will show error message telling you why it didn't work in latter case.
 bool OOKwiz::transmit(Pulsetrain &train) {
     bool rx_was_on = (rx_state != RX_OFF);
     // Set receiver state machine off, remove any incomplete packet in buffer
@@ -512,6 +566,9 @@ bool OOKwiz::transmit(Pulsetrain &train) {
     return true;
 }
 
+/// @brief Transmits this `Meaning` instance.
+/// @param meaning the instance to be transmitted
+/// @return `true` if it worked, `false` if not. Will show error message telling you why it didn't work in latter case.
 bool OOKwiz::transmit(Meaning &meaning) {
     Pulsetrain train;
     if (train.fromMeaning(meaning)) {
@@ -520,6 +577,8 @@ bool OOKwiz::transmit(Meaning &meaning) {
     return false;
 }
 
+/// @brief Sets radio standby mode, turning off reception
+/// @return The counterpart to `receive()`, turns off reception.
 bool OOKwiz::standby() {
     if (rx_state != RX_OFF) {
         tryToBeNice(500);

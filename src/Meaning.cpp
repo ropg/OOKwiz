@@ -8,6 +8,9 @@
 
 // Helpful URL: https://gabor.heja.hu/blog/2020/03/16/receiving-and-decoding-433-mhz-radio-signals-from-wireless-devices/
 
+/// @brief See if String might be a representation of Maening. No guarantees until you try to convert it, but silent.
+/// @param str String that we are curious about
+/// @return `true` if it might be a Meaning String, `false` if not.
 bool Meaning::maybe(String str) {
     if (str.indexOf("(") != -1) {
         DEBUG("Meaning::maybe() returns true.\n");
@@ -16,15 +19,21 @@ bool Meaning::maybe(String str) {
     return false;
 }
 
+/// @brief If you try to evaluate the instance as a bool, for instance in `if (myMeaning) ...`, it will be `true` if this holds Meaning elements.
 Meaning::operator bool() {
     return (elements.size() > 0);
 }
 
+/// @brief empty out all Meaning elements
 void Meaning::zap() {
     elements.clear();
     suspected_incomplete = false;
 }
 
+
+/// @brief Convert Pulsetrain to Meaning
+/// @param train Pulsetrain we want to convert
+/// @return `true` if there was data found, `false` otherwise.
 bool Meaning::fromPulsetrain(Pulsetrain &train) {
     // Clear out current Meaning
     zap();
@@ -116,6 +125,13 @@ bool Meaning::fromPulsetrain(Pulsetrain &train) {
     return (elements.size() > 0);
 }
 
+/// @brief Decode PWM data with specified timings from given range in Pulsetrain to a new Meaning element. Normally called by `fromPulsetrain`, but can be used from user code also.
+/// @param train Pulsetrain we're reading from
+/// @param from start at this interval
+/// @param to end before this interval
+/// @param space bin number (NOT time in µs) for space (first if bit 0)
+/// @param mark bin number (NOT time in µs) for mark (first if bit 1)
+/// @return Number of intervals read before read error (mark-mark, space-space or bin number not mark or space)
 int Meaning::parsePWM(const Pulsetrain &train, int from, int to, int space, int mark) {
     DEBUG ("Entered parsePWM with from: %i, to: %i space: %i, mark: %i\n", from, to, space, mark);
     uint8_t tmp_data[MAX_MEANING_DATA] = { 0 };
@@ -157,6 +173,14 @@ int Meaning::parsePWM(const Pulsetrain &train, int from, int to, int space, int 
     }
 }
 
+/// @brief Decode PPM data with specified timings from given range in Pulsetrain to a new Meaning element. Normally called by `fromPulsetrain`, but can be used from user code also.
+/// @param train Pulsetrain we're reading from
+/// @param from start at this interval
+/// @param to end before this interval
+/// @param space bin number (NOT time in µs) for space (first if bit 0)
+/// @param mark bin number (NOT time in µs) for mark (first if bit 1)
+/// @param filler bin number for delineator interval between the mark and space intervals
+/// @return Number of intervals read before read error
 int Meaning::parsePPM(const Pulsetrain &train, int from, int to, int space, int mark, int filler) {
     DEBUG ("Entered parsePPM with from: %i, to: %i space: %i, mark: %i, filler: %i\n", from, to, space, mark, filler);
     uint8_t tmp_data[MAX_MEANING_DATA] = { 0 };
@@ -205,22 +229,8 @@ int Meaning::parsePPM(const Pulsetrain &train, int from, int to, int space, int 
     }
 }
 
-bool Meaning::addPulse(uint16_t pulse_time) {
-    MeaningElement new_element;
-    new_element.type = PULSE;
-    new_element.time1 = pulse_time;
-    elements.push_back(new_element);
-    return true;
-}
-
-bool Meaning::addGap(uint16_t gap_time) {
-    MeaningElement new_element;
-    new_element.type = GAP;
-    new_element.time1 = gap_time;
-    elements.push_back(new_element);
-    return true;
-}
-
+/// @brief Get the String representation, which looks like `pulse(5906) + pwm(timing 190/575, 24 bits 0x1772A4)`
+/// @return the String representation
 String Meaning::toString() {
     String res = "";
     for (const auto& element : elements) {
@@ -258,6 +268,8 @@ String Meaning::toString() {
     return res;
 }
 
+/// @brief Read a String representation like above, and store in this instance
+/// @return `true` if it worked, `false` (with error message) if it didn't.
 bool Meaning::fromString(String in) {
     in.toLowerCase();
     repeats = 1;
@@ -366,6 +378,35 @@ bool Meaning::fromString(String in) {
     return true;
 }
 
+/// @brief Adds a "pulse" Meaning element
+/// @param pulse_time time in µs
+/// @return `true`
+bool Meaning::addPulse(uint16_t pulse_time) {
+    MeaningElement new_element;
+    new_element.type = PULSE;
+    new_element.time1 = pulse_time;
+    elements.push_back(new_element);
+    return true;
+}
+
+/// @brief Adds a "gap"" Meaning element
+/// @param gap_time time in µs
+/// @return `true`
+bool Meaning::addGap(uint16_t gap_time) {
+    MeaningElement new_element;
+    new_element.type = GAP;
+    new_element.time1 = gap_time;
+    elements.push_back(new_element);
+    return true;
+}
+
+/// @brief Adds a new meaning element with the specified PPM-encoded data
+/// @param space time in µs
+/// @param mark time in µs
+/// @param filler time in µs
+/// @param bits Length of data at tmp_data IN BITS, not bytes
+/// @param tmp_data pointer to `uint8_t` array with the data
+/// @return `true`
 bool Meaning::addPPM(int space, int mark, int filler, int bits, uint8_t* tmp_data) {
     MeaningElement new_element;
     int len_in_bytes = (bits + 7) / 8;
@@ -381,6 +422,12 @@ bool Meaning::addPPM(int space, int mark, int filler, int bits, uint8_t* tmp_dat
     return true;
 }
 
+/// @brief Adds a new meaning element with the specified PWM-encoded data
+/// @param space time in µs
+/// @param mark time in µs
+/// @param bits Length of data at tmp_data IN BITS, not bytes
+/// @param tmp_data pointer to `uint8_t` array with the data
+/// @return `true`
 bool Meaning::addPWM(int space, int mark, int bits, uint8_t* tmp_data) {
     MeaningElement new_element;
     int len_in_bytes = (bits + 7) / 8;

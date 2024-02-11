@@ -20,6 +20,14 @@ pulse(5906) + pwm(timing 190/575, 24 bits 0x1772A4)  Repeated 6 times with 132 �
 
 &nbsp;
 
+## Other projects to do with on/off-keying
+
+### RFlink / RFlink32
+
+### rtl_433_esp
+
+&nbsp;
+
 ## Introduction
 
 On/Off Keying is the method of transmission used on various license-free radio frequencies to transmit signals. Remote controls for lights, garage doors, air conditioners as well as signals from outdoor weather stations and other sensors might be sent using On/Off Keying. The method of transmission is as basic as the name implies: no fancy modulations, just turn a transmitter on a given frequency on and off, and the timings of turning it on and off are used by the receiver to reconstruct a short digital message. Individidual pulses are usually in the order of about a millisecond long and messages are usually a low number of bytes.
@@ -38,7 +46,7 @@ Older modules are on a single fixed frequency, newer modules can be tuned to a s
 
 ## Hooking up a radio
 
-You can hook up any of the supported radio modules to any ESP32 device, board or module that has a few GPIO pins available for the user. I'll first describe an easy and known-to-work solution for when you're starting from scratch. This uses some hardware that is nice and compact and that OOKwiz is well-tested with. Then we'll describe hooking up some of the other supported radios.
+You can hook up any of the supported radio modules to any ESP32 device, board or module that has a few GPIO pins available for the user. I'll first describe an easy and known-to-work solution for when you're starting from scratch. This uses some hardware that is nice and compact and that OOKwiz is well-tested with. Then we'll describe hooking up some of the other supported radios. OOKwiz has various named setting that you will use to tell it about what radio you have, what GPIO pins it is connected to and much more. We'll get to how to do that in the 'Command Line Interpreter' section.
 
 ### Using M5AtomS3 and CC1101 radio module
 
@@ -78,7 +86,7 @@ A  [slightly newer version of this board](https://github.com/ropg/atom2radio) I 
 
 ### RadioLib-supported radios: CC1101, SX1276, SX1278, RF69 
 
-All these modules are very similar in that you talk to them using SPI to tell them things like the frequency, but then the actual reception and transmission are done via an active-low GPIO pin, which we connect to the ESP32 GPIO pin that we then set in our settings `pin_rx` and `pin_tx`. The SPI pins are easy: they are called MISO, MOSI, SCK and there's a chip-select that's either called CSN or CS.
+All these modules are very similar in that you talk to them using SPI to tell them things like frequency and transmit power, but then for on-off-keying the actual reception and transmission are done via an active-low GPIO pin, which we connect to the ESP32 GPIO pin that we then set in our settings `pin_rx` and `pin_tx`. The SPI pins are easy: they are called MISO, MOSI, SCK and there's a chip-select that's either called CSN or CS.
 
 The data GPIO pin is generally not the one used by these modules for interrupts, and cannot be remapped in software so you have to make sure that your module makes this pin available on its connector to the outside world, or be prepared to solder to the smaller radio-chip (module) that is on your larger module or breakout board. (The reason is that most people use these modules for FSK or LoRa, where information arrives in whole packets via SPI, whereas for OOK we are connected to the transceiver more directly.)
 
@@ -108,11 +116,11 @@ These fixed-frequency [transceiver modules](https://www.aurelwireless.com/wp-con
 
 #### generic
 
-These modules need a lot of pins set up that are driven high or low depending on whether you're transmitting or receiving. The functionality for this copied from rflink32 and nothing complex happens, so this should just work as is. If you're going to build new things, you will probably want to use newer radio modules.
+These modules need a lot of pins set up that are driven high or low depending on whether you're transmitting or receiving. The functionality for this copied from rflink32 and nothing complex happens, so this should just work as is. If you're going to build new things, you will probably want to use one of these newer RadioLib-supported radio modules.
 
-### Making your own plugin
+### Making your own radio plugin
 
-Whatever your radio is, the OOKwiz radio plugin just needs to know how to initialize your radio after startup, and then how to switch it between any of three modes: tx, rx and standby. The rest of OOKwiz just expects received data on the GPIO set in `rx_pin` and expects to transmit when it wiggles `tx_pin`. By default these pins are active low, meaning a transmission is when they go to ground. You can reverse that with the `rx_active_high` and `tx_active_high` settings. Take a look at the Aurel plugin if you want to see a maximally simply plugin.
+Whatever your radio is, the OOKwiz radio plugin just needs to know how to initialize your radio after startup, and then how to switch it between any of three modes: tx, rx and standby. The rest of OOKwiz just expects received data on the GPIO set in `rx_pin` and expects to transmit when it wiggles `tx_pin`. By default these pins are active low, meaning a transmission is when they go to ground. You can reverse that with the `rx_active_high` and `tx_active_high` settings. Take a look at the the existing plugins and you can probably figure out how to make your own. 
 
 &nbsp;
 
@@ -184,7 +192,7 @@ You should now be seeing output whenever on/off-keyed signals are received.
 
 #### Escaping boot loops without a rescue button set
 
-Haven't configured a rescue-button? Upload your sketch again from the Arduino IDE, now with "*Tools / Erase all flash before sketch upload*" enabled. Remember to turn that off again, or you'll keep erasing your settings every time you upload a new sketch.
+Set something wrond, stuck with a continuously rebooting ESP32 and haven't configured a rescue-button? Simply upload your sketch again from the Arduino IDE, this time with "*Tools / Erase all flash before sketch upload*" enabled. Remember to turn that off again, or you'll keep erasing your settings every time you upload a new sketch.
 
 &nbsp;
 
@@ -213,7 +221,7 @@ receive            - set radio to receive mode
 sim <string>       - Takes a RawTimings, Pulsetrain or Meaning string representation and
                      acts like it just came in off the air.
 transmit <string>  - Takes a RawTimings, Pulsetrain or Meaning string representation and
-                     transmit it.
+                     transmits it.
 
 rm default;reboot  - restore factory settings
 sr                 - shorthand for "save;reboot"
@@ -222,11 +230,13 @@ sr                 - shorthand for "save;reboot"
 See the OOKwiz README.md on GitHub for a quick-start guide and full documentation
 ```
 
+As you can see there's a list of commands there. Most important right now is to understand that there are settings and that you can see them all by simply entering `set`, change them by entering `set <setting-name> <value>` and remove them by entering `unset <setting-name>`. Some settings are flags and don't need a value, they can simply be turned on and off with `set <setting-name>` and `unset <setting-name>`. Once you have set up the settings that tell OOKwiz about your radio, you can save the settings and reboot by entering `save;reboot` (or `sr` for short).
+
 &nbsp;
 
 ## Receiving packets
 
-Now is a good time to play around. Press buttons on the remotes you have and see what it shows on the screen. Note that there's three formats for the data to be displayed: once as a **RawTimings** string that shows the microseconds (µs) between transitions.
+If OOKwiz is happy with your radio settings, now is a good time to play around. Press buttons on the remotes you have and see what shows on the Arduino IDE serial monitor. Note that there's three formats for the data to be displayed: once as a **RawTimings** string that shows the microseconds (µs) between transitions.
 
 ```
 5906,180,581,184,578,174,600,552,203,178,592,556,207,563,218,559,197,173,594,560,215,556,206,557,206,182,591,179,579,568,209,172,590,563,203,181,581,568,202,175,593,171,591,561,205,181,581,179,587
@@ -294,6 +304,60 @@ transmit pulse(5906) + pwm(timing 190/575, 24 bits 0x1772A4)  Repeated 6 times w
 you end up transmitting the packet from our example. Note that the last form makes it very convenient to just change a few bits in the data to see what happens.
 
 &nbsp;
+
+# OOKwiz and your own code
+
+## Interacting with OOKwiz
+
+### `Settings` class
+
+### `OOKwiz` class
+
+## Callback function and `OOKwiz::onReceive()`
+
+## Same packet, three ways of looking at it
+
+### `RawTimings`
+
+### `Pulsetrain`
+
+### `Meaning`
+
+## Radio plugins
+
+## Device plugins
+
+&nbsp;
+
+# OOKwiz' inner workings
+
+Below is a description of most of the relevant guts of OOKwiz, as coded in OOKwiz.cpp. Don't worry of you don't understand everything at first glance. It's there for reference and so you don't need to puzzle it together from code comments if you need to understand what's going on. 
+
+## What makes an incoming packet?
+
+OOKwiz uses Interrupt Service Routines (ISRs) to do the real-time aspect of receiving packets. Because all this work is done at this level, your program's `loop()` doesn't have to call `OOKwiz::loop()` often enough to catch every bit transition, but only often enough to pick up every processed packet. One of these ISRs is called for every transition of the receiver data GPIO pin as set in `pin_rx`. Normally it interprets a low voltage on this pin to mean there's a transmission received, and a high voltage to mean silence. This can be inverted by setting `rx_active_high`.
+
+Things start with the internal `enum` variable `rx_state` is set from `RX_OFF` to `RX_WAIT_PREAMBLE`. This happend after everything is initialized when you call `OOKwiz::setup()`, or after you called `OOKwiz::receive()` if your program had interrupted reception earlier. If the ISR is called after a transition while `rx_state` is `RX_WAIT_PREAMBLE`, it will look at the time since the previous transition in microseconds. If the transition was to a silent state (i.e. if a transmission just ended) and the transmission lasted more than `first_pulse_min_len` µs, it assumes a new transmission has started and changes `rx_state` to `RX_RECEIVING_DATA`. From then on, every transition the time since the last one is recorded in a RawTimings instance.
+
+If the time since the previous transition is less than `pulse_gap_min_len` it is assumed this was caused by noise, and the value from the `noise_penalty` setting is added to the internal variable `noise_score`. Every valid (long enough) transition after that will subtracts 1 from this score (but never below zero) because apparently valid data is still being received. If `noise_score` reaches `noise_threshold`, the packet is considered to have ended and passed on for noise fixing and further processing.
+
+Packets can also end when a second ISR is called. This is a timer ISR, and it is called `pulse_gap_len_new_packet` µs after any transition. So if a transmission or a silence takes longer than that, we assume this is either (in the case of silence), the end of a transmission, or (in the case of a tranmission), a preamble to the next one.
+
+In the factory defaults, both `first_pulse_min_len` and `pulse_gap_len_new_packet` are set to 2000 µs, (i.e. 2 ms), meaning any packet must start with a transmission of at least that length to be considered. You can set this much lower to start on any sequence of long-enough bits. Note that if you lower `pulse_gap_len_new_packet` too much, you risk processing packets before they're finished.
+
+## Further processing at the ISR-level
+
+Once they're considered ended, packets are passed on for further processing. First it is cheked whether the packet has at least as many pulses as set in `min_nr_pulses` (default 16). If that is the case, it is checked for noise transitions, those lasting shorter than `pulse_gap_min_len`, and the transitions directly before and after are merged with this one, effectively pretending that the noise never happened. If, after de-noising like this, the number of pulses is still over `min_nr_pulses` and under `max_nr_pulses` (default 300), the packet is passed on, otherwise it is ignored.
+
+There's actually three buffers being used at the ISR level. They are pairs of `RawTimings` and `Pulsetrain` instances, and they are called `isr_in`, `isr_compare` and `isr_out`. First of all, the raw timings that have been received and processed in `isr_in.raw` so far are normalized to a `Pulsetrain` in the accompanying `isr_in.train`. Then this train is compared to the train in `isr_compare`, if there is one. If there isn't one, `isr_in` is simply moved to `isr_compare` and the system returns to watiting for a next packet. `isr_compare` is sort of a holding station where any received packet has to wait for the amount of µs set in `repeat_timeout` to see if the same packet comes in again. If it does, that packet is ignored, except the `repeats` counter on the packet in `isr_compare` is increased and the smallest gap between received packets is recorded in the packet's `gap` variable.
+
+As soon as `repeat_timeout` expires or a new and different packet arrives, the packet in `isr_compare` is moved to `isr_out`, ready to be picked up by `OOKwiz::loop()` for final processing.
+
+## `OOKwiz::loop()`
+
+OOKwiz::loop() stores the `RawTimings` and `Pulsetrain` of the packet in its own temporary storage and empties `isr_out` so that the next packet can be put there. It generates a `Meaning` instance from `Pulsetrain` and prints all sorts of information about them, including their string representations, as individually enabled by various settings whose names start with `print_`. It then provides the `RawTimings`, `Pulsetrain` and `Meaning` to the user callback function, if one is set using `OOKwiz::onReceive()`, as well as passing them to all device plugins (see section about device plugins) that were not disabled in the settings.
+
+`OOKwiz::loop` also calls the `CLI::loop()` function to see if there's any serial data that needs to be processed, and once a second it sees if it needs to update any of the the internal variables described above that affect the recognition and processing of packets from the settings.
 
 # Coming soon: more of the manual
 

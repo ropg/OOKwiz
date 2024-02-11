@@ -7,6 +7,7 @@
 
 class Pulsetrain;
 
+/// @brief Encodes type of modulation for a MeaningElement
 typedef enum modulation {
     UNKNOWN,
     PULSE,
@@ -15,6 +16,7 @@ typedef enum modulation {
     PPM
 } modulation;
 
+/// @brief Chunks of parsed packet. Either a pulse, a gap or a block of decoded data 
 typedef struct MeaningElement {
     modulation type;
     std::vector<uint8_t> data;
@@ -24,11 +26,16 @@ typedef struct MeaningElement {
     uint16_t time3;
 } MeaningElement;
 
+/// @brief Holds the parsed packet as a collection of MeaningElements
 class Meaning {
 public:
+    /// @brief The MeaningElement structs that make up the parsed packet
     std::vector<MeaningElement> elements;
+    /// @brief Set when there were no repetitions and the number of bits detected is not divisible by 4
     bool suspected_incomplete = false;
+    /// @brief Number of repeats of the signal
     uint16_t repeats = 0;
+    /// @brief Shortest time between two repetitions
     uint16_t gap = 0;
 
     static bool maybe(String str);

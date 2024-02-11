@@ -7,10 +7,12 @@
 
 class Pulsetrain;
 
+/// @brief RawTimings instances store the time in µs of each interval
 class RawTimings {
 public:
     static bool maybe(String str);
 
+    /// @brief std::vector of uint16_t times in µs for each interval
     std::vector<uint16_t>intervals;
     
     operator bool();

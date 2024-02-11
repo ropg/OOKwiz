@@ -9,7 +9,9 @@
 // Note that anything marked IRAM_ATTR is used by the ISRs in OOKwiz.cpp and
 // SHALL NOT have Serial output
 
-// Quick early determination a String _might_ be a pulsetrain.
+/// @brief See if String might be a representation of Pulsetrain. No guarantees until you try to convert it, but silent.
+/// @param str String that we are curious about
+/// @return `true` if it might be a Pulsetrain String, `false` if not.
 bool Pulsetrain::maybe(String str) {
     if (str.length() < 10) {
         return false;
@@ -23,10 +25,12 @@ bool Pulsetrain::maybe(String str) {
     return true;
 }
 
+/// @brief If you try to evaluate the instance as a bool (e.g. `if (myPulsetrain) ...`) this will be `true` if there's transitions stored.
 IRAM_ATTR Pulsetrain::operator bool() {
     return (transitions.size() > 0);
 }
 
+/// @brief empty out all information about the stored pulses
 void IRAM_ATTR Pulsetrain::zap() {
     transitions.clear();
     bins.clear();
@@ -35,6 +39,31 @@ void IRAM_ATTR Pulsetrain::zap() {
     last_at = 0;
 }
 
+/// @brief Compare to other Pulsetrains to see if same packet. Ignores minor timing differences. Used internally by ISR processing to see if packet is a repeat.
+/// @param other_train Pulsetrain we're comparing this one to
+/// @return `true` if same, `false` if not
+bool IRAM_ATTR Pulsetrain::sameAs(const Pulsetrain &other_train) {
+    if (transitions.size() != other_train.transitions.size()) {
+        return false;
+    }
+    if (bins.size() != other_train.bins.size()) {
+        return false;
+    }
+    for (int n = 0; n < transitions.size(); n++) {
+        if (transitions[n] != other_train.transitions[n]) {
+            return false;
+        }
+    }
+    for (int m = 0; m < bins.size(); m++) {
+        if (abs(bins[m].average - abs(other_train.bins[m].average)) > 100) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/// @brief Get the String representation, which looks like `2010101100110101001101010010110011001100101100101,190,575,5906*6@132`
+/// @return the String representation
 String Pulsetrain::toString() const {
     if (transitions.size() == 0) {
         return "<empty Pulsetrain>";
@@ -53,6 +82,8 @@ String Pulsetrain::toString() const {
     return res;
 }
 
+/// @brief Read a String representation like above, and store in this instance
+/// @return `true` if it worked, `false` (with error message) if it didn't.
 bool Pulsetrain::fromString(String in) {
     zap();
     int first_comma = in.indexOf(",");
@@ -120,6 +151,8 @@ bool Pulsetrain::fromString(String in) {
     return true;
 }
 
+/// @brief Summary String a la `25 pulses over 24287 µs, repeated 6 times with gaps of 132 µs`
+/// @return the String in question
 String Pulsetrain::summary() const {
     String res = "";
     snprintf_append(res, 80, "%i pulses over %i µs", (transitions.size() + 1) / 2, duration);
@@ -129,6 +162,9 @@ String Pulsetrain::summary() const {
     return res;
 }
 
+/// @brief Convert RawTimings to Pulsetrain
+/// @param raw the RawTimings instance to convert from
+/// @return Always `true`
 bool IRAM_ATTR Pulsetrain::fromRawTimings(const RawTimings &raw) {
     int bin_width;
     SETTING_WITH_DEFAULT(bin_width, 150);
@@ -171,6 +207,8 @@ bool IRAM_ATTR Pulsetrain::fromRawTimings(const RawTimings &raw) {
     return true;
 }
 
+/// @brief Get information about the bins in this Pulsetrain, such as lowest, average and highest interval as well as number of pulses in each bin.
+/// @return multi-line String with bin information, 5 columns with header
 String Pulsetrain::binList() {
     String res = "";
     snprintf_append(res, 50, " bin     min     avg     max  count");
@@ -180,12 +218,17 @@ String Pulsetrain::binList() {
     return res;
 }
 
+/// @brief Returns the viasualizer (the blocky time-graph) for the pulses in this Pulsetrain instance
+/// @param base µs per (half-character) block. Every interval gets at least one block so all pulses are guaranteed visible
+/// @return visualizer String
 String Pulsetrain::visualizer() {
     int visualizer_pixel;
     SETTING_WITH_DEFAULT(visualizer_pixel, 200);
     return visualizer(visualizer_pixel);
 }
 
+/// @brief The visualizer like above, with base taken from `visualizer_pixel` setting.
+/// @return visualizer String
 String Pulsetrain::visualizer(int base) {
     if (base == 0) {
         return "";

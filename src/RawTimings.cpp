@@ -4,6 +4,18 @@
 #include "Settings.h"
 
 
+/// @brief Static method to see if String might be a representation of RawTimings. No guarantees until you try to convert it, but silent.
+/// @param str String that we are curious about
+/// @return `true` if it might be a RawTimings String, `false` if not.
+/**
+ * Static, so not called on any particular RawTimings instance but instead like:
+ * ```cpp
+ * if (RawTimings::maybe(someString)) {
+ *     ....
+ * }
+ * ```
+*/
+
 bool RawTimings::maybe(String str) {
     int comma = 0;
     for (int n = 0; n < str.length(); n++) {
@@ -21,14 +33,18 @@ bool RawTimings::maybe(String str) {
     return false;
 }
 
+/// @brief If you try to evaluate the instance as a bool, for instance in `if (myRawTimings) ...`, it will be `true` if there's intervals stored.
 RawTimings::operator bool() {
     return (intervals.size() > 0);
 }
 
+/// @brief empty out the stored intervals
 void RawTimings::zap() {
     intervals.clear();
 }
 
+/// @brief Get the String representation, which is a comma-separated list of intervals
+/// @return the String representation
 String RawTimings::toString() {
     String res = "";
     for (int count = 0; count < intervals.size(); count++) {
@@ -40,6 +56,8 @@ String RawTimings::toString() {
     return res;
 }
 
+/// @brief Read a String representation, which is a comma-separated list of intervals, and store in this instance
+/// @return `true` if it worked, `false` (with error message) if it didn't.
 bool RawTimings::fromString(const String &in) {
     bool error = false;
     intervals.clear();
@@ -64,18 +82,19 @@ bool RawTimings::fromString(const String &in) {
     return true;
 }
 
+/// @brief Convert Pulsetrain into RawTimings. Loses stats about bins as well as information about repeats.
+/// @param train the Puksetrain you want to convert from
+/// @return Always `true`
 bool RawTimings::fromPulsetrain(Pulsetrain &train) {
     for (int transition : train.transitions) {
         intervals.push_back(train.bins[transition].average);
     }
+    return true;
 }
 
-String RawTimings::visualizer() {
-    int visualizer_pixel;
-    SETTING_WITH_DEFAULT(visualizer_pixel, 200);
-    return visualizer(visualizer_pixel);
-}
-
+/// @brief Returns the viasualizer (the blocky time-graph) for the pulses in this RawTimings instance
+/// @param base µs per (half-character) block. Every interval gets at least one block so all pulses are guaranteed visible
+/// @return visualizer String
 String RawTimings::visualizer(int base) {
     if (base == 0) {
         return "";
@@ -103,4 +122,12 @@ String RawTimings::visualizer(int base) {
         }
     }
     return output;
+}
+
+/// @brief The visualizer like above, with base taken from `visualizer_pixel` setting.
+/// @return visualizer String
+String RawTimings::visualizer() {
+    int visualizer_pixel;
+    SETTING_WITH_DEFAULT(visualizer_pixel, 200);
+    return visualizer(visualizer_pixel);
 }
