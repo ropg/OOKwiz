@@ -1,44 +1,24 @@
-name: Generate and Deploy Doxygen Documentation
+- name: Setup Doxygen
+  uses: marketplace/actions/setup-doxygen
 
-on:
-  push:
-    branches:
-      - main  # Adjust this if your default branch has a different name
+- name: Generate Doxygen Documentation
+  run: |
+    doxygen doxygen/Doxyfile  # Adjust if your Doxyfile is elsewhere
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0  # Ensures the entire history is fetched
-
-    - name: Install Doxygen
-      run: sudo apt-get update && sudo apt-get install -y doxygen
-
-    - name: Generate Doxygen Documentation
-      run: |
-        cd doxygen
-        doxygen Doxyfile
-
-    - name: Deploy to GitHub Pages
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        # Configure Git
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-
-        # Check out the gh-pages branch or create it if it doesn't exist
-        git fetch
-        git checkout gh-pages || git checkout --orphan gh-pages
-        git reset --hard
-
-        # Copy Doxygen output to root
-        rm -rf *  # Clear old documentation
-        cp -r ../doxygen/html/* .  # Adjust the path as necessary
-
-        # Commit and push changes
-        git add .
-        git commit -m "Update documentation"
-        git push origin gh-pages --force
+- name: Configure Git
+  run: |
+    git config --global user.name "GitHub Actions"
+    git config --global user.email "actions@github.com"
+  
+- name: Deploy to GitHub Pages
+  run: |
+    git fetch
+    git checkout gh-pages || git checkout --orphan gh-pages
+    git reset --hard
+    rm -rf *  # Clear old documentation
+    cp -r ${{ github.workspace }}/doxygen/html/* .  # Adjust this path as necessary
+    git add .
+    git commit -m "Update documentation" || echo "No changes to commit"
+    git push origin gh-pages --force
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
