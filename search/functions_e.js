@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['zap_117',['zap',['../classSettings.html#a65f75ce8ff1ebba1245f99567924928d',1,'Settings::zap()'],['../classMeaning.html#a3b7af724b5c1ea315783452022a2897c',1,'Meaning::zap()'],['../classPulsetrain.html#a32f88d5064f8d52ed335aadfee36f958',1,'Pulsetrain::zap()'],['../classRawTimings.html#a6d22dd6da5edd26c7bf1b9467e16a8f1',1,'RawTimings::zap()']]]
+  ['validname_288',['validName',['../classSettings.html#ab9469d5d3c058412320b478cf662a103',1,'Settings']]],
+  ['visualizer_289',['visualizer',['../classPulsetrain.html#aefcd392c199947c4afcdd3c9de0ced3b',1,'Pulsetrain::visualizer()'],['../classPulsetrain.html#a44ca5bc980551ac7b4cb670e0224048b',1,'Pulsetrain::visualizer(int base)'],['../classRawTimings.html#abaedd23dec2455966aafbeb679575f68',1,'RawTimings::visualizer()'],['../classRawTimings.html#acc71a663684d673461ccbfda1c78011e',1,'RawTimings::visualizer(int base)']]]
 ];

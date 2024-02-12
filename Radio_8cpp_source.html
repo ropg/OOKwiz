@@ -70,7 +70,7 @@ $(function() {
 <div class="title">Radio.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="Radio_8h.html">&quot;Radio.h&quot;</a></div>
+<a href="Radio_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="Radio_8h.html">&quot;Radio.h&quot;</a></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="serial__output_8h.html">&quot;serial_output.h&quot;</a></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="tools_8h.html">&quot;tools.h&quot;</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&quot;radio_plugins/RADIO_INDEX&quot;</span></div>
@@ -78,37 +78,37 @@ $(function() {
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// static members</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">decltype</span>(<a class="code" href="classRadio.html">Radio</a>::store) <a class="code" href="classRadio.html">Radio</a>::store;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordtype">int</span> <a class="code" href="classRadio.html">Radio</a>::len = 0;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<a class="code" href="classRadio.html">Radio</a>* <a class="code" href="classRadio.html">Radio</a>::current = <span class="keywordtype">nullptr</span>;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">int</span> <a class="code" href="classRadio.html">Radio</a>::pin_rx;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">int</span> <a class="code" href="classRadio.html">Radio</a>::pin_tx;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordtype">int</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#ac2f182ade9d0b01f70106d6afca89e39">len</a> = 0;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<a class="code" href="classRadio.html">Radio</a>* <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#adb5551ddf480fa52e5ec0d67734cd01a">current</a> = <span class="keywordtype">nullptr</span>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">int</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#aa050f690a44616381149e441c3771c22">pin_rx</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">int</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#a494030dfa94967330e940894e8a23f84">pin_tx</a>;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// Uses char*, and does not DEBUG or INFO because this is ran pre-main by the </span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// constructor of the AutoRegister trick: String and Serial are not available yet. </span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::add(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classRadio.html">Radio</a> *pointer) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (len == <a class="code" href="config_8h.html#aece45bec903c0445f0e3e15e5712b23b">MAX_RADIOS</a>) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classRadio.html#a5390ea68c1d2b9aa3bb06dd02a28f1ef">   16</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#a5390ea68c1d2b9aa3bb06dd02a28f1ef">add</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classRadio.html">Radio</a> *pointer) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classRadio.html#ac2f182ade9d0b01f70106d6afca89e39">len</a> == <a class="code" href="config_8h.html#aece45bec903c0445f0e3e15e5712b23b">MAX_RADIOS</a>) {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    strncpy(store[len].name, name, <a class="code" href="config_8h.html#a2e32b84f40735f5ea532538344d86fe8">MAX_RADIO_NAME_LEN</a>);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    store[len].name[<a class="code" href="config_8h.html#a2e32b84f40735f5ea532538344d86fe8">MAX_RADIO_NAME_LEN</a>] = 0;   <span class="comment">// just in case</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    store[len].pointer = pointer;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    len++;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    strncpy(store[<a class="code" href="classRadio.html#ac2f182ade9d0b01f70106d6afca89e39">len</a>]<a class="code" href="classRadio.html#aad88b926e3acd1ea62e8fbf3dd9a7ca4">.</a><a class="code" href="classRadio.html#aad88b926e3acd1ea62e8fbf3dd9a7ca4">name</a>, name, <a class="code" href="config_8h.html#a2e32b84f40735f5ea532538344d86fe8">MAX_RADIO_NAME_LEN</a>);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    store[<a class="code" href="classRadio.html#ac2f182ade9d0b01f70106d6afca89e39">len</a>]<a class="code" href="classRadio.html#aad88b926e3acd1ea62e8fbf3dd9a7ca4">.</a><a class="code" href="classRadio.html#aad88b926e3acd1ea62e8fbf3dd9a7ca4">name</a>[<a class="code" href="config_8h.html#a2e32b84f40735f5ea532538344d86fe8">MAX_RADIO_NAME_LEN</a>] = 0;   <span class="comment">// just in case</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    store[<a class="code" href="classRadio.html#ac2f182ade9d0b01f70106d6afca89e39">len</a>]<a class="code" href="classRadio.html#a4a9c8cc5794612e151cdccc77f0b9498">.</a><a class="code" href="classRadio.html#a4a9c8cc5794612e151cdccc77f0b9498">pointer</a> = pointer;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="classRadio.html#ac2f182ade9d0b01f70106d6afca89e39">len</a>++;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::setup() {</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classRadio.html#aad1884f03968b4a79cedc093344b2d44">   27</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#aad1884f03968b4a79cedc093344b2d44">setup</a>() {</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="Settings_8h.html#a7b145ba731f7c94bc53744aa9b9859ad">MANDATORY</a>(radio);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="serial__output_8h.html#aedf01192151e10a6620567952711ff69">INFO</a>(<span class="stringliteral">&quot;Radio plugins loaded: %s\n&quot;</span>, list().c_str());</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (select(Settings::getString(<span class="stringliteral">&quot;radio&quot;</span>))) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">return</span> radio_init();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classRadio.html#a0cae11e5aa804f9f4eca8adf2f3ecfe9">radio_init</a><a class="code" href="classRadio.html#a0cae11e5aa804f9f4eca8adf2f3ecfe9">(</a><a class="code" href="classRadio.html#a0cae11e5aa804f9f4eca8adf2f3ecfe9">)</a>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::select(<span class="keyword">const</span> String &amp;name) {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> n = 0; n &lt; len; n++) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classRadio.html#aa706087f990733260337c6e18255260f">   36</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::select(<span class="keyword">const</span> String &amp;name) {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> n = 0; n &lt; <a class="code" href="classRadio.html#ac2f182ade9d0b01f70106d6afca89e39">len</a>; n++) {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> (strcmp(store[n].name, name.c_str()) == 0) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            current = store[n].pointer;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <a class="code" href="classRadio.html#adb5551ddf480fa52e5ec0d67734cd01a">current</a> = store[n]<a class="code" href="classRadio.html#a4a9c8cc5794612e151cdccc77f0b9498">.</a><a class="code" href="classRadio.html#a4a9c8cc5794612e151cdccc77f0b9498">pointer</a>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <a class="code" href="serial__output_8h.html#aedf01192151e10a6620567952711ff69">INFO</a>(<span class="stringliteral">&quot;Radio %s selected.\n&quot;</span>, name);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        }</div>
@@ -117,81 +117,81 @@ $(function() {
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;String <a class="code" href="classRadio.html">Radio</a>::list(String separator) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classRadio.html#af9b3d51da0c89e1126007d8e03e14cb7">   48</a></span>&#160;String <a class="code" href="classRadio.html">Radio</a>::list(String separator) {</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    String ret;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> n = 0; n &lt; len; n++) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> n = 0; n &lt; <a class="code" href="classRadio.html#ac2f182ade9d0b01f70106d6afca89e39">len</a>; n++) {</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        ret += store[n].name;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> (n &lt; len - 1) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> (n &lt; <a class="code" href="classRadio.html#ac2f182ade9d0b01f70106d6afca89e39">len</a> - 1) {</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            ret += separator;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> ret;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;String <a class="code" href="classRadio.html">Radio</a>::name() {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> n = 0; n &lt; len; n++) {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">if</span> (store[n].pointer == <span class="keyword">this</span>) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">return</span> String(store[n].name);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<a class="code" href="classRadio.html#a7dc23b5c54dab6e3499029a6db82812f">String</a> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#a7dc23b5c54dab6e3499029a6db82812f">name</a>() {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> n = 0; n &lt; <a class="code" href="classRadio.html#ac2f182ade9d0b01f70106d6afca89e39">len</a>; n++) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">if</span> (store[n]<a class="code" href="classRadio.html#a4a9c8cc5794612e151cdccc77f0b9498">.</a><a class="code" href="classRadio.html#a4a9c8cc5794612e151cdccc77f0b9498">pointer</a> == <span class="keyword">this</span>) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">return</span> String(store[n]<a class="code" href="classRadio.html#aad88b926e3acd1ea62e8fbf3dd9a7ca4">.</a><a class="code" href="classRadio.html#aad88b926e3acd1ea62e8fbf3dd9a7ca4">name</a>);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        }</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::radio_init() {</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classRadio.html#a0cae11e5aa804f9f4eca8adf2f3ecfe9">   67</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#a0cae11e5aa804f9f4eca8adf2f3ecfe9">radio_init</a>() {</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="Radio_8h.html#a096c183e65b856f189a8648b27f3c2bc">CHECK_RADIO_SET</a>;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="serial__output_8h.html#aedf01192151e10a6620567952711ff69">INFO</a>(<span class="stringliteral">&quot;Initializing radio.\n&quot;</span>);</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    pin_rx = Settings::getInt(<span class="stringliteral">&quot;pin_rx&quot;</span>);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    pin_tx = Settings::getInt(<span class="stringliteral">&quot;pin_tx&quot;</span>);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> current-&gt;init();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRadio.html#adb5551ddf480fa52e5ec0d67734cd01a">current</a><a class="code" href="classRadio.html#a94a5139beb31ff1ad0c6f5eb7868e415">-&gt;</a><a class="code" href="classRadio.html#a94a5139beb31ff1ad0c6f5eb7868e415">init</a><a class="code" href="classRadio.html#a94a5139beb31ff1ad0c6f5eb7868e415">(</a><a class="code" href="classRadio.html#a94a5139beb31ff1ad0c6f5eb7868e415">)</a>;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::radio_rx() {</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classRadio.html#a9de07fdb18f08f22d11b69d82460a17c">   75</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#a9de07fdb18f08f22d11b69d82460a17c">radio_rx</a>() {</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="Radio_8h.html#a096c183e65b856f189a8648b27f3c2bc">CHECK_RADIO_SET</a>;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="serial__output_8h.html#a96dd473db0b3d10bd43390cdacb00120">DEBUG</a>(<span class="stringliteral">&quot;Configuring radio for receiving.\n&quot;</span>);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">if</span> (pin_rx &lt; 0) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classRadio.html#aa050f690a44616381149e441c3771c22">pin_rx</a> &lt; 0) {</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <a class="code" href="serial__output_8h.html#a02ce8a968600d004ba60858425c46307">ERROR</a>(<span class="stringliteral">&quot;ERROR: pin_rx needs to be set receive.\n&quot;</span>);</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="Radio_8h.html#a7883f931b994eb0b0a604f887916cdb9">PIN_MODE</a>(pin_rx, INPUT);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> current-&gt;rx();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRadio.html#adb5551ddf480fa52e5ec0d67734cd01a">current</a><a class="code" href="classRadio.html#a00ddb9df151faa790e1a04f175287723">-&gt;</a><a class="code" href="classRadio.html#a00ddb9df151faa790e1a04f175287723">rx</a><a class="code" href="classRadio.html#a00ddb9df151faa790e1a04f175287723">(</a><a class="code" href="classRadio.html#a00ddb9df151faa790e1a04f175287723">)</a>;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::radio_tx() {</div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="classRadio.html#a9ef1e851273d1d5fdf9e52ee7ca27da1">   86</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#a9ef1e851273d1d5fdf9e52ee7ca27da1">radio_tx</a>() {</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="Radio_8h.html#a096c183e65b856f189a8648b27f3c2bc">CHECK_RADIO_SET</a>;</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="serial__output_8h.html#a96dd473db0b3d10bd43390cdacb00120">DEBUG</a>(<span class="stringliteral">&quot;Configuring radio for transmission.\n&quot;</span>);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (pin_tx &lt; 0) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classRadio.html#a494030dfa94967330e940894e8a23f84">pin_tx</a> &lt; 0) {</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="serial__output_8h.html#a02ce8a968600d004ba60858425c46307">ERROR</a>(<span class="stringliteral">&quot;ERROR: pin_tx needs to be set for transmit.\n&quot;</span>);</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="Radio_8h.html#a7883f931b994eb0b0a604f887916cdb9">PIN_MODE</a>(pin_tx, OUTPUT);</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <a class="code" href="Radio_8h.html#aad05a3ae90f8e3a9e69b5d9bf6b4cb03">PIN_WRITE</a>(pin_tx, !Settings::isSet(<span class="stringliteral">&quot;tx_active_high&quot;</span>));</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">return</span> current-&gt;tx();</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRadio.html#adb5551ddf480fa52e5ec0d67734cd01a">current</a><a class="code" href="classRadio.html#ab94d4629c883b87523df20e604742338">-&gt;</a><a class="code" href="classRadio.html#ab94d4629c883b87523df20e604742338">tx</a><a class="code" href="classRadio.html#ab94d4629c883b87523df20e604742338">(</a><a class="code" href="classRadio.html#ab94d4629c883b87523df20e604742338">)</a>;</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::radio_standby() {</div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classRadio.html#a4cdd1712dad548d9ca0e76bd2a9af182">   98</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#a4cdd1712dad548d9ca0e76bd2a9af182">radio_standby</a>() {</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="Radio_8h.html#a096c183e65b856f189a8648b27f3c2bc">CHECK_RADIO_SET</a>;</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="serial__output_8h.html#a96dd473db0b3d10bd43390cdacb00120">DEBUG</a>(<span class="stringliteral">&quot;Radio entering standby mode.\n&quot;</span>);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">return</span> current-&gt;standby();</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRadio.html#adb5551ddf480fa52e5ec0d67734cd01a">current</a><a class="code" href="classRadio.html#a8944e28c772586c2a0ed98126934ef78">-&gt;</a><a class="code" href="classRadio.html#a8944e28c772586c2a0ed98126934ef78">standby</a><a class="code" href="classRadio.html#a8944e28c772586c2a0ed98126934ef78">(</a><a class="code" href="classRadio.html#a8944e28c772586c2a0ed98126934ef78">)</a>;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::init() {</div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classRadio.html#a94a5139beb31ff1ad0c6f5eb7868e415">  104</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#a94a5139beb31ff1ad0c6f5eb7868e415">init</a>() {</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;}</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::rx() {</div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="classRadio.html#a00ddb9df151faa790e1a04f175287723">  108</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#a00ddb9df151faa790e1a04f175287723">rx</a>() {</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::tx() {</div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="classRadio.html#ab94d4629c883b87523df20e604742338">  112</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#ab94d4629c883b87523df20e604742338">tx</a>() {</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;}</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::standby() {</div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classRadio.html#a8944e28c772586c2a0ed98126934ef78">  116</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#a8944e28c772586c2a0ed98126934ef78">standby</a>() {</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">// RadioLib-specific</span></div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRadio.html">Radio</a>::radiolibInit() {</div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="classRadio.html#a8a14a0b8b0bb19febf8921ba900e7139">  122</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#a8a14a0b8b0bb19febf8921ba900e7139">radiolibInit</a>() {</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordtype">int</span> pin_sck;</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <a class="code" href="Settings_8h.html#a113856706189648e4adb0e60f203c48a">SETTING_WITH_DEFAULT</a>(pin_sck, -1);</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">int</span> pin_miso;</div>
@@ -228,7 +228,7 @@ $(function() {
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <a class="code" href="serial__output_8h.html#aedf01192151e10a6620567952711ff69">INFO</a>(<span class="stringliteral">&quot;%s: Frequency: %.2f Mhz, bandwidth %.1f kHz, bitrate %.3f kbps\n&quot;</span>, name().c_str(), frequency, bandwidth, bitrate);</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;}</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRadio.html">Radio</a>::showRadiolibResult(<span class="keyword">const</span> <span class="keywordtype">int</span> result, <span class="keyword">const</span> <span class="keywordtype">char</span>* action) {</div>
+<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="classRadio.html#a856c1b91f06c69898c4db425bd4acfab">  159</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#a856c1b91f06c69898c4db425bd4acfab">showRadiolibResult</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> result, <span class="keyword">const</span> <span class="keywordtype">char</span>* action) {</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordflow">switch</span> (result) {</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">case</span> 0:</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <a class="code" href="serial__output_8h.html#a96dd473db0b3d10bd43390cdacb00120">DEBUG</a>(<span class="stringliteral">&quot;%s: %s returned 0 (OK)\n&quot;</span>, name().c_str(), action);</div>
@@ -243,10 +243,10 @@ $(function() {
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    }</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;}</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="keywordtype">int</span> <a class="code" href="classRadio.html">Radio</a>::thresholdSetup(<span class="keyword">const</span> <span class="keywordtype">int</span> fixed, <span class="keyword">const</span> <span class="keywordtype">int</span> average, <span class="keyword">const</span> <span class="keywordtype">int</span> peak) {</div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="classRadio.html#a0ec0cff6be7cc89c602505ad817e82ff">  174</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="classRadio.html">Radio</a>::<a class="code" href="classRadio.html#a0ec0cff6be7cc89c602505ad817e82ff">thresholdSetup</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> fixed, <span class="keyword">const</span> <span class="keywordtype">int</span> average, <span class="keyword">const</span> <span class="keywordtype">int</span> peak) {</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    String threshold_type;</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <a class="code" href="Settings_8h.html#a113856706189648e4adb0e60f203c48a">SETTING_WITH_DEFAULT</a>(threshold_type, <span class="stringliteral">&quot;peak&quot;</span>);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="Settings_8h.html#a113856706189648e4adb0e60f203c48a">SETTING_WITH_DEFAULT</a>(threshold_level, 6);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="Settings_8h.html#a113856706189648e4adb0e60f203c48a">SETTING_WITH_DEFAULT</a>(<a class="code" href="classRadio.html#a58fd56cfe43580604e697e39c2b19693">threshold_level</a>, 6);</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <a class="code" href="serial__output_8h.html#aedf01192151e10a6620567952711ff69">INFO</a>(<span class="stringliteral">&quot;%s: Threshold type %s, level %i\n&quot;</span>, name().c_str(), threshold_type.c_str(), threshold_level);</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordflow">if</span> (threshold_type == <span class="stringliteral">&quot;fixed&quot;</span>) {</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="keywordflow">return</span> fixed;</div>

@@ -159,7 +159,7 @@ Static Public Member Functions</h2></td></tr>
 <p>If you set the GPIO pin for a button on your ESP32 in 'pin_rescue' and press it during boot, <a class="el" href="classOOKwiz.html" title="The static functions in the OOKwiz class provide the main controls for OOKwiz&#39; functionality....">OOKwiz</a> will not initialize SPI and the radio, possibly breaking an endless boot loop. Set 'rescue_active_high' if the button connects to VCC instead of GND.</p>
 <p>Normally, <a class="el" href="classOOKwiz.html" title="The static functions in the OOKwiz class provide the main controls for OOKwiz&#39; functionality....">OOKwiz</a> will start up in receive mode. If you set 'start_in_standby', it will start in standby mode instead. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">skip_saved_defaults</td><td>The settings in the SPIFFS file 'defaults' are not read when this is true, leaving only the factory defaults from <a class="el" href="config_8cpp_source.html">config.cpp</a>. <br  />
+    <tr><td class="paramname">skip_saved_defaults</td><td>The settings in the SPIFFS file 'defaults' are not read when this is true, leaving only the factory defaults from <a class="el" href="config_8cpp.html">config.cpp</a>. <br  />
  </td></tr>
   </table>
   </dd>

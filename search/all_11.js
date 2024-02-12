@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['zap_65',['zap',['../classSettings.html#a65f75ce8ff1ebba1245f99567924928d',1,'Settings::zap()'],['../classMeaning.html#a3b7af724b5c1ea315783452022a2897c',1,'Meaning::zap()'],['../classPulsetrain.html#a32f88d5064f8d52ed335aadfee36f958',1,'Pulsetrain::zap()'],['../classRawTimings.html#a6d22dd6da5edd26c7bf1b9467e16a8f1',1,'RawTimings::zap()']]]
+  ['unknown_184',['UNKNOWN',['../Meaning_8h.html#aa231d1416ae95c1ddb70794feee5448da6ce26a62afab55d7606ad4e92428b30c',1,'Meaning.h']]],
+  ['unset_185',['unset',['../classSettings.html#a501274ebe4f5033ffc48a26857d59490',1,'Settings']]]
 ];

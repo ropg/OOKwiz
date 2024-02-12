@@ -70,18 +70,18 @@ $(function() {
 <div class="title">tools.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="tools_8h.html">&quot;tools.h&quot;</a></div>
+<a href="tools_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="tools_8h.html">&quot;tools.h&quot;</a></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="config_8h.html">&quot;config.h&quot;</a></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;size_t getArduinoLoopTaskStackSize() {</div>
+<div class="line"><a name="l00004"></a><span class="lineno"><a class="line" href="tools_8h.html#ad7c2c3977d52dbed8919dc42e49b2c91">    4</a></span>&#160;<a class="code" href="tools_8h.html#ad7c2c3977d52dbed8919dc42e49b2c91">size_t</a> <a class="code" href="tools_8h.html#ad7c2c3977d52dbed8919dc42e49b2c91">getArduinoLoopTaskStackSize</a>() {</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="config_8h.html#a12374783e3e404573e1701c7500562aa">ARDUINO_LOOP_TASK_STACK_SIZE</a>;</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;}</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace</span> tools {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace</span> <a class="code" href="namespacetools.html">tools</a> {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="comment">/// @brief Takes spaces off start and end of supplied string, operates in place on String passed in.</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="comment">/// @param in (String) The string in question, will be modified if need be.</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordtype">void</span> trim(String &amp;in) {</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="namespacetools.html#af65c903a50ffc843b950355af6bd05f4">   12</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespacetools.html#af65c903a50ffc843b950355af6bd05f4">trim</a>(String &amp;in) {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keywordflow">while</span> (in.startsWith(<span class="stringliteral">&quot; &quot;</span>)) {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            in = in.substring(1);</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        }</div>
@@ -94,7 +94,7 @@ $(function() {
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">/// @param in (String) The string we&#39;re looking at.</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment">/// @param num (int) Which series of numbers you&#39;d like evaluated.</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">/// @return (long) The toInt() value you wre looking for, or -1 if there weren&#39;t that many series of digits.</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">long</span> nthNumberFrom(String &amp;in, <span class="keywordtype">int</span> num) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="namespacetools.html#aebc79defa17e988cc1f4583793ac6caf">   25</a></span>&#160;    <span class="keywordtype">long</span> <a class="code" href="namespacetools.html#aebc79defa17e988cc1f4583793ac6caf">nthNumberFrom</a>(String &amp;in, <span class="keywordtype">int</span> num) {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordtype">int</span> index = 0;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordtype">bool</span> on_numbers = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">int</span> count = 0;</div>
@@ -118,7 +118,7 @@ $(function() {
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">/// @param buf pointer to uint8_t array with enough space for the bits to me shifted in.</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="comment">/// @param len number of bits that have been shifted in so far.</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">/// @param bit bool holding the bit to be shifted in this time</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> shiftInBit(uint8_t* buf, <span class="keyword">const</span> <span class="keywordtype">int</span> len, <span class="keyword">const</span> <span class="keywordtype">bool</span> bit) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="namespacetools.html#af011045d2495e133fe7725d278f126b7">   49</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespacetools.html#af011045d2495e133fe7725d278f126b7">shiftInBit</a>(uint8_t* buf, <span class="keyword">const</span> <span class="keywordtype">int</span> len, <span class="keyword">const</span> <span class="keywordtype">bool</span> bit) {</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">int</span> len_bytes = (len + 7) / 8;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">bool</span> carry = bit;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> n = 0; n &lt; len_bytes; n++) {</div>
@@ -133,7 +133,7 @@ $(function() {
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="comment">/// @param buf (uint8_t*) pointer to array, MSB of leftmost byte gets shifted out first.</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">/// @param len (int) Number of bits in buffer in total.</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">/// @return (bool) the bit shifted out.</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">bool</span> shiftOutBit(uint8_t* buf, <span class="keyword">const</span> <span class="keywordtype">int</span> len) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="namespacetools.html#a6d8d8c9583a156e9fc64fc09d605782d">   64</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespacetools.html#a6d8d8c9583a156e9fc64fc09d605782d">shiftOutBit</a>(uint8_t* buf, <span class="keyword">const</span> <span class="keywordtype">int</span> len) {</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordtype">int</span> len_bytes = (len + 7) / 8;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordtype">bool</span> carry = 0;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> n = len_bytes - 1; n &gt;= 0; n--) {</div>
@@ -145,7 +145,7 @@ $(function() {
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">return</span> carry;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> split(<span class="keyword">const</span> String &amp;in, <span class="keyword">const</span> String &amp;separator, String &amp;before, String &amp;after) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="namespacetools.html#a07aa9b30761272a28221dad0c8fe6481">   76</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespacetools.html#a07aa9b30761272a28221dad0c8fe6481">split</a>(<span class="keyword">const</span> String &amp;in, <span class="keyword">const</span> String &amp;separator, String &amp;before, String &amp;after) {</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordtype">int</span> found = in.indexOf(separator);</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span> (found != -1) {</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            before = in.substring(0, found);</div>
@@ -158,7 +158,7 @@ $(function() {
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        }</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">bool</span> between(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;compare, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;lower_bound, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;upper_bound) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="namespacetools.html#a8d9d12165e3072508ba950ae0b7302a6">   89</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespacetools.html#a8d9d12165e3072508ba950ae0b7302a6">between</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;compare, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;lower_bound, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;upper_bound) {</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">if</span> (compare &gt;= lower_bound &amp;&amp; compare &lt;= upper_bound) {</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        }</div>

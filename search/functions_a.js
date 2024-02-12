@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['sameas_102',['sameAs',['../classPulsetrain.html#ac300e67b167e0d0fa89e2187dc9daf86',1,'Pulsetrain']]],
-  ['save_103',['save',['../classSettings.html#a76af4eb6ee6c473cbb30ea96f1777fc1',1,'Settings']]],
-  ['set_104',['set',['../classSettings.html#ae1a8a484348337b1412c27bd0efc5eb5',1,'Settings']]],
-  ['setup_105',['setup',['../classOOKwiz.html#aeb6ce0192e77cd8e3f24f1aa58ff7b65',1,'OOKwiz']]],
-  ['simulate_106',['simulate',['../classOOKwiz.html#aac81df5dd1203d47ec6b10c6da9e9d68',1,'OOKwiz::simulate(String &amp;str)'],['../classOOKwiz.html#a7d8b8f98a751798ade1b200b0d9faba6',1,'OOKwiz::simulate(RawTimings &amp;raw)'],['../classOOKwiz.html#abf1ae45911195adc5b58c3c4d6107050',1,'OOKwiz::simulate(Pulsetrain &amp;train)'],['../classOOKwiz.html#ab2d96cd1c398b0bb730c88698a74b2f1',1,'OOKwiz::simulate(Meaning &amp;meaning)']]],
-  ['standby_107',['standby',['../classOOKwiz.html#a0f91668e73cf87f0c150ec230443adb0',1,'OOKwiz']]],
-  ['summary_108',['summary',['../classPulsetrain.html#acc6284eb8394052923e93072e0e52295',1,'Pulsetrain']]]
+  ['radio_5finit_258',['radio_init',['../classRadio.html#a0cae11e5aa804f9f4eca8adf2f3ecfe9',1,'Radio']]],
+  ['radio_5frx_259',['radio_rx',['../classRadio.html#a9de07fdb18f08f22d11b69d82460a17c',1,'Radio']]],
+  ['radio_5fstandby_260',['radio_standby',['../classRadio.html#a4cdd1712dad548d9ca0e76bd2a9af182',1,'Radio']]],
+  ['radio_5ftx_261',['radio_tx',['../classRadio.html#a9ef1e851273d1d5fdf9e52ee7ca27da1',1,'Radio']]],
+  ['radiolibinit_262',['radiolibInit',['../classRadio.html#a8a14a0b8b0bb19febf8921ba900e7139',1,'Radio']]],
+  ['receive_263',['receive',['../classOOKwiz.html#aee9333712dd3338bb21978c5fc542592',1,'OOKwiz::receive()'],['../classDevice.html#aad954b6bab8cdd5039efca0136c519bd',1,'Device::receive()']]],
+  ['rm_264',['rm',['../classSettings.html#a628ec51c779d0b3bba808182a74c0dec',1,'Settings']]],
+  ['rx_265',['rx',['../classRadio.html#a00ddb9df151faa790e1a04f175287723',1,'Radio']]]
 ];

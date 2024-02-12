@@ -70,7 +70,7 @@ $(function() {
 <div class="title">Meaning.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">_MEANING_H_</span></div>
+<a href="Meaning_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">_MEANING_H_</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_MEANING_H_</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">vector</span><span class="preprocessor">&gt;</span></div>
@@ -80,23 +80,23 @@ $(function() {
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class</span> <a class="code" href="classPulsetrain.html">Pulsetrain</a>;</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">/// @brief Encodes type of modulation for a MeaningElement</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> modulation {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    UNKNOWN,</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    PULSE,</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    GAP,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    PWM,</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    PPM</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} modulation;</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="Meaning_8h.html#aa231d1416ae95c1ddb70794feee5448d">   11</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code" href="Meaning_8h.html#aa231d1416ae95c1ddb70794feee5448d">modulation</a> {</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="Meaning_8h.html#aa231d1416ae95c1ddb70794feee5448da6ce26a62afab55d7606ad4e92428b30c">   12</a></span>&#160;    <a class="code" href="Meaning_8h.html#aa231d1416ae95c1ddb70794feee5448da6ce26a62afab55d7606ad4e92428b30c">UNKNOWN</a>,</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="Meaning_8h.html#aa231d1416ae95c1ddb70794feee5448da6a0aa0c7f1e82444e7df71dfd7509cac">   13</a></span>&#160;    <a class="code" href="Meaning_8h.html#aa231d1416ae95c1ddb70794feee5448da6a0aa0c7f1e82444e7df71dfd7509cac">PULSE</a>,</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="Meaning_8h.html#aa231d1416ae95c1ddb70794feee5448da540e3ab03991d11d4a769dc754287704">   14</a></span>&#160;    <a class="code" href="Meaning_8h.html#aa231d1416ae95c1ddb70794feee5448da540e3ab03991d11d4a769dc754287704">GAP</a>,</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="Meaning_8h.html#aa231d1416ae95c1ddb70794feee5448daef99a276e1f3b62b5df98acc27b38028">   15</a></span>&#160;    <a class="code" href="Meaning_8h.html#aa231d1416ae95c1ddb70794feee5448daef99a276e1f3b62b5df98acc27b38028">PWM</a>,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="Meaning_8h.html#aa231d1416ae95c1ddb70794feee5448dac271a6034e77f707fe192841a95de390">PPM</a></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="Meaning_8h.html#a974d23df6464d1812aa4e88c13902f43">   17</a></span>&#160;} modulation;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">/// @brief Chunks of parsed packet. Either a pulse, a gap or a block of decoded data </span></div>
 <div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="structMeaningElement.html">   20</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span> <a class="code" href="structMeaningElement.html">MeaningElement</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    modulation type;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    std::vector&lt;uint8_t&gt; data;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    uint16_t data_len;   <span class="comment">// in bits</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    uint16_t time1;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    uint16_t time2;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    uint16_t time3;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} MeaningElement;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="structMeaningElement.html#acc1e12fd74fb9106b6854703f7f71de9">   21</a></span>&#160;    modulation <a class="code" href="structMeaningElement.html#acc1e12fd74fb9106b6854703f7f71de9">type</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="structMeaningElement.html#aadfc71a565f9cd3cdcc11a62972e6fe2">   22</a></span>&#160;    <a class="code" href="structMeaningElement.html#aadfc71a565f9cd3cdcc11a62972e6fe2">std</a>::<a class="code" href="structMeaningElement.html#aadfc71a565f9cd3cdcc11a62972e6fe2">vector</a>&lt;<a class="code" href="structMeaningElement.html#aadfc71a565f9cd3cdcc11a62972e6fe2">uint8_t</a>&gt; <a class="code" href="structMeaningElement.html#aadfc71a565f9cd3cdcc11a62972e6fe2">data</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="structMeaningElement.html#a183082aeb03877a904ff3675a78bddd5">   23</a></span>&#160;    <a class="code" href="structMeaningElement.html#a183082aeb03877a904ff3675a78bddd5">uint16_t</a> <a class="code" href="structMeaningElement.html#a183082aeb03877a904ff3675a78bddd5">data_len</a>;   <span class="comment">// in bits</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="structMeaningElement.html#a43b27186cee77a4a6bb7a8f645df851e">   24</a></span>&#160;    <a class="code" href="structMeaningElement.html#a43b27186cee77a4a6bb7a8f645df851e">uint16_t</a> <a class="code" href="structMeaningElement.html#a43b27186cee77a4a6bb7a8f645df851e">time1</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structMeaningElement.html#aa0e771ac1d86a5b949bdb62bb258dab6">   25</a></span>&#160;    <a class="code" href="structMeaningElement.html#aa0e771ac1d86a5b949bdb62bb258dab6">uint16_t</a> <a class="code" href="structMeaningElement.html#aa0e771ac1d86a5b949bdb62bb258dab6">time2</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structMeaningElement.html#aacb26508c9919eac6db9e8ebdcbdca38">   26</a></span>&#160;    <a class="code" href="structMeaningElement.html#aacb26508c9919eac6db9e8ebdcbdca38">uint16_t</a> <a class="code" href="structMeaningElement.html#aacb26508c9919eac6db9e8ebdcbdca38">time3</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="Meaning_8h.html#a95640e9cec33aa90a540c9c10cff307f">   27</a></span>&#160;} MeaningElement;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">/// @brief Holds the parsed packet as a collection of MeaningElements</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classMeaning.html">   30</a></span>&#160;<span class="keyword">class</span> <a class="code" href="classMeaning.html">Meaning</a> {</div>

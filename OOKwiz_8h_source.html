@@ -70,7 +70,7 @@ $(function() {
 <div class="title">OOKwiz.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">_OOKWIZ_H_</span></div>
+<a href="OOKwiz_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">_OOKWIZ_H_</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_OOKWIZ_H_</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">Arduino</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
@@ -89,14 +89,14 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * In the ISR handling of packets, we want to operate on three sets of RawTimings and Pulsetrain </span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * (isr_in, isr_compare and isr_out), hence this struct.</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span> BufferPair {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="classRawTimings.html">RawTimings</a> raw;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="classPulsetrain.html">Pulsetrain</a> train;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span> zap() {</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="structBufferPair.html">   20</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span> <a class="code" href="structBufferPair.html">BufferPair</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="structBufferPair.html#a0364eac89f77a81da5f9f54fb9368b1a">   21</a></span>&#160;    <a class="code" href="classRawTimings.html">RawTimings</a> <a class="code" href="structBufferPair.html#a0364eac89f77a81da5f9f54fb9368b1a">raw</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="structBufferPair.html#a9fba816973c026c9a41b8a4e77f7aae1">   22</a></span>&#160;    <a class="code" href="classPulsetrain.html">Pulsetrain</a> <a class="code" href="structBufferPair.html#a9fba816973c026c9a41b8a4e77f7aae1">train</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="structBufferPair.html#a65aeca803309c3a6dfe79b624092738d">   23</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="structBufferPair.html#a65aeca803309c3a6dfe79b624092738d">zap</a>() {</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        raw.zap();</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        train.zap();</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} BufferPair;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="OOKwiz_8h.html#ab78f034f808f4355ea35101d677c3ad8">   27</a></span>&#160;} BufferPair;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">/**</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * \brief The static functions in the OOKwiz class provide the main controls for OOKwiz&#39; functionality.</span></div>
@@ -154,9 +154,9 @@ $(function() {
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">long</span> repeat_timeout;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> rx_active_high;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> tx_active_high;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">static</span> BufferPair isr_in;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">static</span> BufferPair isr_compare;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">static</span> BufferPair isr_out;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">static</span> <a class="code" href="structBufferPair.html">BufferPair</a> isr_in;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">static</span> <a class="code" href="structBufferPair.html">BufferPair</a> isr_compare;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">static</span> <a class="code" href="structBufferPair.html">BufferPair</a> isr_out;</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">static</span> <a class="code" href="classRawTimings.html">RawTimings</a> loop_raw;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">static</span> <a class="code" href="classPulsetrain.html">Pulsetrain</a> loop_train;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">static</span> <a class="code" href="classMeaning.html">Meaning</a> loop_meaning;</div>

@@ -71,54 +71,364 @@ $(function() {
 <div class="title">Device Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="Device_8h_source.html">Device.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aad954b6bab8cdd5039efca0136c519bd"><td class="memItemLeft" align="right" valign="top"><a id="aad954b6bab8cdd5039efca0136c519bd"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>receive</b> (const <a class="el" href="classRawTimings.html">RawTimings</a> &amp;raw, const <a class="el" href="classPulsetrain.html">Pulsetrain</a> &amp;train, const <a class="el" href="classMeaning.html">Meaning</a> &amp;meaning)</td></tr>
+<tr class="memitem:aad954b6bab8cdd5039efca0136c519bd"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#aad954b6bab8cdd5039efca0136c519bd">receive</a> (const <a class="el" href="classRawTimings.html">RawTimings</a> &amp;raw, const <a class="el" href="classPulsetrain.html">Pulsetrain</a> &amp;train, const <a class="el" href="classMeaning.html">Meaning</a> &amp;meaning)</td></tr>
 <tr class="separator:aad954b6bab8cdd5039efca0136c519bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ddc56f9dab17a2f58664d043a481788"><td class="memItemLeft" align="right" valign="top"><a id="a1ddc56f9dab17a2f58664d043a481788"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>transmit</b> (const String &amp;toTransmit)</td></tr>
+<tr class="memitem:a1ddc56f9dab17a2f58664d043a481788"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#a1ddc56f9dab17a2f58664d043a481788">transmit</a> (const String &amp;toTransmit)</td></tr>
 <tr class="separator:a1ddc56f9dab17a2f58664d043a481788"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a065393b4e6f18adf6d9ba1007eaf7a5c"><td class="memItemLeft" align="right" valign="top"><a id="a065393b4e6f18adf6d9ba1007eaf7a5c"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>setup</b> ()</td></tr>
+<tr class="memitem:a065393b4e6f18adf6d9ba1007eaf7a5c"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#a065393b4e6f18adf6d9ba1007eaf7a5c">setup</a> ()</td></tr>
 <tr class="separator:a065393b4e6f18adf6d9ba1007eaf7a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ce5ef715273fb4fa8c1359b1300912c"><td class="memItemLeft" align="right" valign="top"><a id="a2ce5ef715273fb4fa8c1359b1300912c"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (const char *name, <a class="el" href="classDevice.html">Device</a> *pointer)</td></tr>
+<tr class="memitem:a2ce5ef715273fb4fa8c1359b1300912c"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#a2ce5ef715273fb4fa8c1359b1300912c">add</a> (const char *<a class="el" href="classDevice.html#a20a665975b9fcc0d4b7db32cbbebbaea">name</a>, <a class="el" href="classDevice.html">Device</a> *<a class="el" href="classDevice.html#a54aaf184edf47ce2ff12d5deeb43a169">pointer</a>)</td></tr>
 <tr class="separator:a2ce5ef715273fb4fa8c1359b1300912c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9b533f779da5e859134cb201163efdb"><td class="memItemLeft" align="right" valign="top"><a id="ab9b533f779da5e859134cb201163efdb"></a>
-static String&#160;</td><td class="memItemRight" valign="bottom"><b>list</b> (String separator=&quot;, &quot;)</td></tr>
+<tr class="memitem:ab9b533f779da5e859134cb201163efdb"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#ab9b533f779da5e859134cb201163efdb">list</a> (String separator=&quot;, &quot;)</td></tr>
 <tr class="separator:ab9b533f779da5e859134cb201163efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60f5a81ddc0a56f35981f9d7fb025857"><td class="memItemLeft" align="right" valign="top"><a id="a60f5a81ddc0a56f35981f9d7fb025857"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>new_packet</b> (<a class="el" href="classRawTimings.html">RawTimings</a> &amp;raw, <a class="el" href="classPulsetrain.html">Pulsetrain</a> &amp;train, <a class="el" href="classMeaning.html">Meaning</a> &amp;meaning)</td></tr>
+<tr class="memitem:a60f5a81ddc0a56f35981f9d7fb025857"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#a60f5a81ddc0a56f35981f9d7fb025857">new_packet</a> (<a class="el" href="classRawTimings.html">RawTimings</a> &amp;raw, <a class="el" href="classPulsetrain.html">Pulsetrain</a> &amp;train, <a class="el" href="classMeaning.html">Meaning</a> &amp;meaning)</td></tr>
 <tr class="separator:a60f5a81ddc0a56f35981f9d7fb025857"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62d24001e2d51d7509555abefb5abef1"><td class="memItemLeft" align="right" valign="top"><a id="a62d24001e2d51d7509555abefb5abef1"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>transmit</b> (const String &amp;plugin_name, const String &amp;toTransmit)</td></tr>
+<tr class="memitem:a62d24001e2d51d7509555abefb5abef1"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#a62d24001e2d51d7509555abefb5abef1">transmit</a> (const String &amp;plugin_name, const String &amp;toTransmit)</td></tr>
 <tr class="separator:a62d24001e2d51d7509555abefb5abef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:acbc68b3fd798662dceecb488b35083f4"><td class="memItemLeft" ><a id="acbc68b3fd798662dceecb488b35083f4"></a>
-struct {</td></tr>
-<tr class="memitem:a1f2341635856a8b0caac60da74ff9d7a"><td class="memItemLeft" >
-&#160;&#160;&#160;<a class="el" href="classDevice.html">Device</a> *&#160;&#160;&#160;<b>pointer</b></td></tr>
+<tr class="memitem:acbc68b3fd798662dceecb488b35083f4"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a1f2341635856a8b0caac60da74ff9d7a"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="classDevice.html">Device</a> *&#160;&#160;&#160;<a class="el" href="classDevice.html#a54aaf184edf47ce2ff12d5deeb43a169">pointer</a></td></tr>
 <tr class="separator:a1f2341635856a8b0caac60da74ff9d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f825de18c2f84590bf22122c8cbcf35"><td class="memItemLeft" >
-&#160;&#160;&#160;char&#160;&#160;&#160;<b>name</b> [MAX_DEVICE_NAME_LEN]</td></tr>
+<tr class="memitem:a2f825de18c2f84590bf22122c8cbcf35"><td class="memItemLeft" >&#160;&#160;&#160;char&#160;&#160;&#160;<a class="el" href="classDevice.html#a20a665975b9fcc0d4b7db32cbbebbaea">name</a> [<a class="el" href="config_8h.html#a0666ed218212a20f00a6c65caa3141bc">MAX_DEVICE_NAME_LEN</a>]</td></tr>
 <tr class="separator:a2f825de18c2f84590bf22122c8cbcf35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbc68b3fd798662dceecb488b35083f4"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><b>store</b> [MAX_DEVICES]</td></tr>
+<tr class="memitem:acbc68b3fd798662dceecb488b35083f4"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#acbc68b3fd798662dceecb488b35083f4">store</a> [<a class="el" href="config_8h.html#a4e132cfaa78353e3af1474a86b2dd535">MAX_DEVICES</a>]</td></tr>
 <tr class="separator:acbc68b3fd798662dceecb488b35083f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a923581ec6a1d704fc5ba9fd43279fa13"><td class="memItemLeft" align="right" valign="top"><a id="a923581ec6a1d704fc5ba9fd43279fa13"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>len</b> = 0</td></tr>
+<tr class="memitem:a923581ec6a1d704fc5ba9fd43279fa13"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#a923581ec6a1d704fc5ba9fd43279fa13">len</a> = 0</td></tr>
 <tr class="separator:a923581ec6a1d704fc5ba9fd43279fa13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="Device_8h_source.html#l00032">32</a> of file <a class="el" href="Device_8h_source.html">Device.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a065393b4e6f18adf6d9ba1007eaf7a5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a065393b4e6f18adf6d9ba1007eaf7a5c">&#9670;&nbsp;</a></span>setup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Device::setup </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00012">12</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2ce5ef715273fb4fa8c1359b1300912c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ce5ef715273fb4fa8c1359b1300912c">&#9670;&nbsp;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Device::add </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classDevice.html">Device</a> *&#160;</td>
+          <td class="paramname"><em>pointer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00033">33</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab9b533f779da5e859134cb201163efdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9b533f779da5e859134cb201163efdb">&#9670;&nbsp;</a></span>list()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">String Device::list </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>separator</em> = <code>&quot;,&#160;&quot;</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00044">44</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a60f5a81ddc0a56f35981f9d7fb025857"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60f5a81ddc0a56f35981f9d7fb025857">&#9670;&nbsp;</a></span>new_packet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Device::new_packet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classRawTimings.html">RawTimings</a> &amp;&#160;</td>
+          <td class="paramname"><em>raw</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classPulsetrain.html">Pulsetrain</a> &amp;&#160;</td>
+          <td class="paramname"><em>train</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMeaning.html">Meaning</a> &amp;&#160;</td>
+          <td class="paramname"><em>meaning</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00017">17</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a62d24001e2d51d7509555abefb5abef1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62d24001e2d51d7509555abefb5abef1">&#9670;&nbsp;</a></span>transmit() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Device::transmit </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>plugin_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>toTransmit</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00060">60</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aad954b6bab8cdd5039efca0136c519bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad954b6bab8cdd5039efca0136c519bd">&#9670;&nbsp;</a></span>receive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Device::receive </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRawTimings.html">RawTimings</a> &amp;&#160;</td>
+          <td class="paramname"><em>raw</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classPulsetrain.html">Pulsetrain</a> &amp;&#160;</td>
+          <td class="paramname"><em>train</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMeaning.html">Meaning</a> &amp;&#160;</td>
+          <td class="paramname"><em>meaning</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00069">69</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ddc56f9dab17a2f58664d043a481788"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ddc56f9dab17a2f58664d043a481788">&#9670;&nbsp;</a></span>transmit() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Device::transmit </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>toTransmit</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00073">73</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a54aaf184edf47ce2ff12d5deeb43a169"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54aaf184edf47ce2ff12d5deeb43a169">&#9670;&nbsp;</a></span>pointer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classDevice.html">Device</a>* Device::pointer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Device_8h_source.html#l00035">35</a> of file <a class="el" href="Device_8h_source.html">Device.h</a>.</p>
+
+</div>
+</div>
+<a id="a20a665975b9fcc0d4b7db32cbbebbaea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20a665975b9fcc0d4b7db32cbbebbaea">&#9670;&nbsp;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char Device::name[<a class="el" href="config_8h.html#a0666ed218212a20f00a6c65caa3141bc">MAX_DEVICE_NAME_LEN</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Device_8h_source.html#l00036">36</a> of file <a class="el" href="Device_8h_source.html">Device.h</a>.</p>
+
+</div>
+</div>
+<a id="acbc68b3fd798662dceecb488b35083f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbc68b3fd798662dceecb488b35083f4">&#9670;&nbsp;</a></span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  Device::store[<a class="el" href="config_8h.html#a4e132cfaa78353e3af1474a86b2dd535">MAX_DEVICES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a923581ec6a1d704fc5ba9fd43279fa13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a923581ec6a1d704fc5ba9fd43279fa13">&#9670;&nbsp;</a></span>len</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Device::len = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Device_8h_source.html#l00038">38</a> of file <a class="el" href="Device_8h_source.html">Device.h</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/OOKwiz/OOKwiz/main/src/<a class="el" href="Device_8h_source.html">Device.h</a></li>
 <li>/home/runner/work/OOKwiz/OOKwiz/main/src/<a class="el" href="Device_8cpp_source.html">Device.cpp</a></li>
 </ul>

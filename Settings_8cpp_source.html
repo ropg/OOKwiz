@@ -70,7 +70,7 @@ $(function() {
 <div class="title">Settings.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="Settings_8h.html">&quot;Settings.h&quot;</a></div>
+<a href="Settings_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="Settings_8h.html">&quot;Settings.h&quot;</a></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="config_8h.html">&quot;config.h&quot;</a>                 <span class="comment">// provides factorySettings()</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="serial__output_8h.html">&quot;serial_output.h&quot;</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&quot;FS.h&quot;</span></div>
@@ -80,8 +80,8 @@ $(function() {
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;std::map&lt;String, String&gt; <a class="code" href="classSettings.html">Settings</a>::store;</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// Constructor sets the defaults, see &#39;dummy&#39; at end</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<a class="code" href="classSettings.html">Settings</a>::Settings() {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    factorySettings();</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classSettings.html#ab7169a6eefce79566dd07db3b1e5e967">   11</a></span>&#160;<a class="code" href="classSettings.html">Settings</a>::<a class="code" href="classSettings.html#ab7169a6eefce79566dd07db3b1e5e967">Settings</a>() {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="config_8h.html#a66f6b39afeed5dbfc30920a0a99ab890">factorySettings</a><a class="code" href="config_8h.html#a66f6b39afeed5dbfc30920a0a99ab890">(</a><a class="code" href="config_8h.html#a66f6b39afeed5dbfc30920a0a99ab890">)</a>;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">/// @brief Save settings to file in SPIFFS</span></div>
@@ -372,7 +372,7 @@ $(function() {
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keywordflow">return</span> dflt;</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;}</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<a class="code" href="classSettings.html">Settings</a> dummy;     <span class="comment">// so the constructor runs once for the default settings </span></div>
+<div class="line"><a name="l00303"></a><span class="lineno"><a class="line" href="Settings_8cpp.html#a1cbb2c62e8228e4eba5042682e8f2fe6">  303</a></span>&#160;<a class="code" href="classSettings.html">Settings</a> <a class="code" href="Settings_8cpp.html#a1cbb2c62e8228e4eba5042682e8f2fe6">dummy</a>;     <span class="comment">// so the constructor runs once for the default settings </span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

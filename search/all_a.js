@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['onreceive_35',['onReceive',['../classOOKwiz.html#af3781e60b394207ee592268ee711badb',1,'OOKwiz']]],
-  ['ookwiz_36',['OOKwiz',['../classOOKwiz.html',1,'']]],
-  ['operator_20bool_37',['operator bool',['../classMeaning.html#a8352b4d2681a5c37806f88c143729471',1,'Meaning::operator bool()'],['../classPulsetrain.html#a188cc195c879f5089db46a3bbe132b58',1,'Pulsetrain::operator bool()'],['../classRawTimings.html#a0d8dcc2f5e9182b8e22982d47227fbfb',1,'RawTimings::operator bool()']]]
+  ['name_81',['name',['../classRadio.html#aad88b926e3acd1ea62e8fbf3dd9a7ca4',1,'Radio::name()'],['../classDevice.html#a20a665975b9fcc0d4b7db32cbbebbaea',1,'Device::name()'],['../classRadio.html#a7dc23b5c54dab6e3499029a6db82812f',1,'Radio::name()']]],
+  ['new_5fpacket_82',['new_packet',['../classDevice.html#a60f5a81ddc0a56f35981f9d7fb025857',1,'Device']]],
+  ['nthnumberfrom_83',['nthNumberFrom',['../namespacetools.html#aebc79defa17e988cc1f4583793ac6caf',1,'tools']]]
 ];

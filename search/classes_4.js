@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['radio_72',['Radio',['../classRadio.html',1,'']]],
-  ['rawtimings_73',['RawTimings',['../classRawTimings.html',1,'']]]
+  ['pulsebin_194',['pulseBin',['../structpulseBin.html',1,'']]],
+  ['pulsetrain_195',['Pulsetrain',['../classPulsetrain.html',1,'']]]
 ];

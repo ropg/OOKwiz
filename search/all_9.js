@@ -1,8 +1,19 @@
 var searchData=
 [
-  ['max_30',['max',['../structpulseBin.html#aa1de1a33047653624423f9afad97b108',1,'pulseBin']]],
-  ['maybe_31',['maybe',['../classMeaning.html#a9609c96a21b7435f55f2d883056eabf8',1,'Meaning::maybe()'],['../classPulsetrain.html#aaa4c2407873b533c771a1b5ba28f2077',1,'Pulsetrain::maybe()'],['../classRawTimings.html#a44d4a467e7e18ab3c60ea160fd693ce4',1,'RawTimings::maybe()']]],
-  ['meaning_32',['Meaning',['../classMeaning.html',1,'']]],
-  ['meaningelement_33',['MeaningElement',['../structMeaningElement.html',1,'']]],
-  ['min_34',['min',['../structpulseBin.html#a6a3e3bfa55b591db3517a544651b2136',1,'pulseBin']]]
+  ['mandatory_65',['MANDATORY',['../Settings_8h.html#a7b145ba731f7c94bc53744aa9b9859ad',1,'Settings.h']]],
+  ['max_66',['max',['../structpulseBin.html#aa1de1a33047653624423f9afad97b108',1,'pulseBin']]],
+  ['max_5fbins_67',['MAX_BINS',['../config_8h.html#a55b85e1567aa0d8faaa0e1ad2059e911',1,'config.h']]],
+  ['max_5fdevice_5fname_5flen_68',['MAX_DEVICE_NAME_LEN',['../config_8h.html#a0666ed218212a20f00a6c65caa3141bc',1,'config.h']]],
+  ['max_5fdevices_69',['MAX_DEVICES',['../config_8h.html#a4e132cfaa78353e3af1474a86b2dd535',1,'config.h']]],
+  ['max_5fmeaning_5fdata_70',['MAX_MEANING_DATA',['../config_8h.html#a87abd9a7558ac9127f229551e036023c',1,'config.h']]],
+  ['max_5fradio_5fname_5flen_71',['MAX_RADIO_NAME_LEN',['../config_8h.html#a2e32b84f40735f5ea532538344d86fe8',1,'config.h']]],
+  ['max_5fradios_72',['MAX_RADIOS',['../config_8h.html#aece45bec903c0445f0e3e15e5712b23b',1,'config.h']]],
+  ['maybe_73',['maybe',['../classMeaning.html#a9609c96a21b7435f55f2d883056eabf8',1,'Meaning::maybe()'],['../classPulsetrain.html#aaa4c2407873b533c771a1b5ba28f2077',1,'Pulsetrain::maybe()'],['../classRawTimings.html#a44d4a467e7e18ab3c60ea160fd693ce4',1,'RawTimings::maybe()']]],
+  ['meaning_74',['Meaning',['../classMeaning.html',1,'']]],
+  ['meaning_2ecpp_75',['Meaning.cpp',['../Meaning_8cpp.html',1,'']]],
+  ['meaning_2eh_76',['Meaning.h',['../Meaning_8h.html',1,'']]],
+  ['meaningelement_77',['MeaningElement',['../structMeaningElement.html',1,'MeaningElement'],['../Meaning_8h.html#a95640e9cec33aa90a540c9c10cff307f',1,'MeaningElement():&#160;Meaning.h']]],
+  ['min_78',['min',['../structpulseBin.html#a6a3e3bfa55b591db3517a544651b2136',1,'pulseBin']]],
+  ['modulation_79',['modulation',['../Meaning_8h.html#aa231d1416ae95c1ddb70794feee5448d',1,'modulation():&#160;Meaning.h'],['../Meaning_8h.html#a974d23df6464d1812aa4e88c13902f43',1,'modulation():&#160;Meaning.h']]],
+  ['module_5fdo_80',['MODULE_DO',['../Radio_8h.html#a651a7d1aea5b7f44ea5652f9607d405d',1,'Radio.h']]]
 ];

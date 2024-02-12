@@ -70,7 +70,7 @@ $(function() {
 <div class="title">OOKwiz.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="OOKwiz_8h.html">&quot;OOKwiz.h&quot;</a></div>
+<a href="OOKwiz_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="OOKwiz_8h.html">&quot;OOKwiz.h&quot;</a></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="CLI_8h.html">&quot;CLI.h&quot;</a></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="serial__output_8h.html">&quot;serial_output.h&quot;</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
@@ -92,9 +92,9 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keywordtype">long</span> <a class="code" href="classOOKwiz.html">OOKwiz</a>::repeat_timeout;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classOOKwiz.html">OOKwiz</a>::rx_active_high;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classOOKwiz.html">OOKwiz</a>::tx_active_high;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;BufferPair <a class="code" href="classOOKwiz.html">OOKwiz</a>::isr_in;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;BufferPair <a class="code" href="classOOKwiz.html">OOKwiz</a>::isr_compare;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;BufferPair <a class="code" href="classOOKwiz.html">OOKwiz</a>::isr_out;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<a class="code" href="structBufferPair.html">BufferPair</a> <a class="code" href="classOOKwiz.html">OOKwiz</a>::isr_in;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<a class="code" href="structBufferPair.html">BufferPair</a> <a class="code" href="classOOKwiz.html">OOKwiz</a>::isr_compare;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<a class="code" href="structBufferPair.html">BufferPair</a> <a class="code" href="classOOKwiz.html">OOKwiz</a>::isr_out;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<a class="code" href="classRawTimings.html">RawTimings</a> <a class="code" href="classOOKwiz.html">OOKwiz</a>::loop_raw;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<a class="code" href="classPulsetrain.html">Pulsetrain</a> <a class="code" href="classOOKwiz.html">OOKwiz</a>::loop_train;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<a class="code" href="classMeaning.html">Meaning</a> <a class="code" href="classOOKwiz.html">OOKwiz</a>::loop_meaning;</div>
@@ -146,12 +146,12 @@ $(function() {
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        }</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classRadio.html">Radio</a>::setup()) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classRadio.html">Radio</a><a class="code" href="classRadio.html#aad1884f03968b4a79cedc093344b2d44">::</a><a class="code" href="classRadio.html#aad1884f03968b4a79cedc093344b2d44">setup</a><a class="code" href="classRadio.html#aad1884f03968b4a79cedc093344b2d44">(</a><a class="code" href="classRadio.html#aad1884f03968b4a79cedc093344b2d44">)</a>) {</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <a class="code" href="serial__output_8h.html#a02ce8a968600d004ba60858425c46307">ERROR</a>(<span class="stringliteral">&quot;ERROR: Your radio doesn&#39;t set up correctly. Make sure you set the correct\n       radio and pins, save settings and reboot.\n&quot;</span>);</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="classDevice.html">Device</a>::setup();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="classDevice.html">Device</a><a class="code" href="classDevice.html#a065393b4e6f18adf6d9ba1007eaf7a5c">::</a><a class="code" href="classDevice.html#a065393b4e6f18adf6d9ba1007eaf7a5c">setup</a><a class="code" href="classDevice.html#a065393b4e6f18adf6d9ba1007eaf7a5c">(</a><a class="code" href="classDevice.html#a065393b4e6f18adf6d9ba1007eaf7a5c">)</a>;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="comment">// These settings determine what a valid transmission is</span></div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="Settings_8h.html#a88af212a3da1defc9fc88985d2e249f8">SETTING_OR_ERROR</a>(pulse_gap_len_new_packet);</div>
@@ -226,7 +226,7 @@ $(function() {
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    }</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="comment">// Have CLI&#39;s loop check the serial port for data</span></div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">if</span> (!serial_cli_disable) {</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        CLI::loop();</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <a class="code" href="namespaceCLI.html">CLI</a><a class="code" href="namespaceCLI.html#a9af91bae9053f9d192801dc2b147d62b">::</a><a class="code" href="namespaceCLI.html#a9af91bae9053f9d192801dc2b147d62b">loop</a><a class="code" href="namespaceCLI.html#a9af91bae9053f9d192801dc2b147d62b">(</a><a class="code" href="namespaceCLI.html#a9af91bae9053f9d192801dc2b147d62b">)</a>;</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    }</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="comment">// If there was not a packet received, we can end OOKwiz::loop() now.</span></div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordflow">if</span> (!isr_out.train) {</div>
@@ -236,7 +236,7 @@ $(function() {
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="comment">// Copy away the isr output and allow isr machinery to fill with new</span></div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    loop_train = isr_out.train;</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    loop_raw = isr_out.raw;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    isr_out.zap();</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    isr_out<a class="code" href="structBufferPair.html#a65aeca803309c3a6dfe79b624092738d">.</a><a class="code" href="structBufferPair.html#a65aeca803309c3a6dfe79b624092738d">zap</a><a class="code" href="structBufferPair.html#a65aeca803309c3a6dfe79b624092738d">(</a><a class="code" href="structBufferPair.html#a65aeca803309c3a6dfe79b624092738d">)</a>;</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="comment">// Warn if we lost packets before this one</span></div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">if</span> (lost_packets) {</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <a class="code" href="serial__output_8h.html#a02ce8a968600d004ba60858425c46307">ERROR</a>(<span class="stringliteral">&quot;\n\nWARNING: %i packets lost because loop() was not fast enough.\n&quot;</span>, lost_packets);</div>
@@ -281,7 +281,7 @@ $(function() {
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    }</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="comment">// Pass what was received to all the device plugins, making their output show up</span></div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="comment">// at the right spot underneath the meaning output.</span></div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <a class="code" href="classDevice.html">Device</a>::new_packet(loop_raw, loop_train, loop_meaning);</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <a class="code" href="classDevice.html">Device</a><a class="code" href="classDevice.html#a60f5a81ddc0a56f35981f9d7fb025857">::</a><a class="code" href="classDevice.html#a60f5a81ddc0a56f35981f9d7fb025857">new_packet</a><a class="code" href="classDevice.html#a60f5a81ddc0a56f35981f9d7fb025857">(</a>loop_raw<a class="code" href="classDevice.html#a60f5a81ddc0a56f35981f9d7fb025857">,</a> loop_train<a class="code" href="classDevice.html#a60f5a81ddc0a56f35981f9d7fb025857">,</a> loop_meaning<a class="code" href="classDevice.html#a60f5a81ddc0a56f35981f9d7fb025857">)</a>;</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="comment">// received() can take it now.</span></div>
 <div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keywordflow">if</span> (callback != <span class="keywordtype">nullptr</span>) {</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        callback(loop_raw, loop_train, loop_meaning);</div>

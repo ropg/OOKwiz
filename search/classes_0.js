@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['device_66',['Device',['../classDevice.html',1,'']]]
+  ['bufferpair_189',['BufferPair',['../structBufferPair.html',1,'']]]
 ];

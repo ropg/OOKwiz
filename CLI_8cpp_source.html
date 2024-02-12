@@ -70,7 +70,7 @@ $(function() {
 <div class="title">CLI.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="CLI_8h.html">&quot;CLI.h&quot;</a></div>
+<a href="CLI_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="CLI_8h.html">&quot;CLI.h&quot;</a></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="config_8h.html">&quot;config.h&quot;</a></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="serial__output_8h.html">&quot;serial_output.h&quot;</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="tools_8h.html">&quot;tools.h&quot;</a></div>
@@ -78,25 +78,25 @@ $(function() {
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="Radio_8h.html">&quot;Radio.h&quot;</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="OOKwiz_8h.html">&quot;OOKwiz.h&quot;</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">COMMAND</span><span class="preprocessor">(</span><span class="preprocessor">c</span><span class="preprocessor">)</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="CLI_8cpp.html#ae524697576f78a9707a790011fe750f1">    9</a></span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">COMMAND</span><span class="preprocessor">(</span><span class="preprocessor">c</span><span class="preprocessor">)</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="preprocessor">tmp</span> <span class="preprocessor">=</span> <span class="preprocessor">c</span><span class="preprocessor">;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordflow">if</span> <span class="preprocessor">(</span><span class="preprocessor">cmd</span><span class="preprocessor">.</span><span class="preprocessor">startsWith</span><span class="preprocessor">(</span><span class="preprocessor">tmp</span><span class="preprocessor">)</span><span class="preprocessor">)</span> <span class="preprocessor">{</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="preprocessor">args</span> <span class="preprocessor">=</span> <span class="preprocessor">cmd</span><span class="preprocessor">.</span><span class="preprocessor">substring</span><span class="preprocessor">(</span><span class="preprocessor">tmp</span><span class="preprocessor">.</span><span class="preprocessor">length</span><span class="preprocessor">(</span><span class="preprocessor">)</span> <span class="preprocessor">+</span> 1<span class="preprocessor">)</span><span class="preprocessor">;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="preprocessor">tools</span><span class="preprocessor">::</span><span class="preprocessor">trim</span><span class="preprocessor">(</span><span class="preprocessor">args</span><span class="preprocessor">)</span><span class="preprocessor">;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">END_CMD</span> <span class="keywordflow">return</span><span class="preprocessor">;</span> <span class="preprocessor">}</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="CLI_8cpp.html#a534859233b15fe77e8f1ff06151cd163">   15</a></span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">END_CMD</span> <span class="keywordflow">return</span><span class="preprocessor">;</span> <span class="preprocessor">}</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace</span> CLI {</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="namespaceCLI.html">   18</a></span>&#160;<span class="keyword">namespace</span> <a class="code" href="namespaceCLI.html">CLI</a> {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">bool</span> cli_start_msg_printed = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    String serial_buffer;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">void</span> parse(String cmd);</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="namespaceCLI.html#ac1a0c60454bd3a361cb4fc3ec4d64693">   20</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespaceCLI.html#ac1a0c60454bd3a361cb4fc3ec4d64693">cli_start_msg_printed</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="namespaceCLI.html#a268599b898b8618cbb0996922a5358d6">   21</a></span>&#160;    <a class="code" href="namespaceCLI.html#a268599b898b8618cbb0996922a5358d6">String</a> <a class="code" href="namespaceCLI.html#a268599b898b8618cbb0996922a5358d6">serial_buffer</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceCLI.html#a8757901cd08f4f81efb19b3b226f28b2">parse</a>(String cmd);</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> loop() {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> (!cli_start_msg_printed) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="namespaceCLI.html#a9af91bae9053f9d192801dc2b147d62b">   24</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceCLI.html#a9af91bae9053f9d192801dc2b147d62b">loop</a>() {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="namespaceCLI.html#ac1a0c60454bd3a361cb4fc3ec4d64693">cli_start_msg_printed</a>) {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            <a class="code" href="serial__output_8h.html#aedf01192151e10a6620567952711ff69">INFO</a>(<span class="stringliteral">&quot;CLI started on Serial. Type &#39;help&#39; for list of commands.\n&quot;</span>);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            cli_start_msg_printed = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <a class="code" href="namespaceCLI.html#ac1a0c60454bd3a361cb4fc3ec4d64693">cli_start_msg_printed</a> = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        }</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">while</span> (Serial.available()) {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keywordtype">char</span> inp = Serial.read();</div>
@@ -112,7 +112,7 @@ $(function() {
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        }</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> parse(String cmd) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="namespaceCLI.html#a8757901cd08f4f81efb19b3b226f28b2">   43</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceCLI.html#a8757901cd08f4f81efb19b3b226f28b2">parse</a>(String cmd) {</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        String args;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        String tmp;</div>
