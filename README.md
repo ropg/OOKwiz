@@ -311,17 +311,135 @@ you end up transmitting the packet from our example. Note that the last form mak
 
 ### [`OOKwiz`](https://ropg.github.io/OOKwiz/classOOKwiz.html)
 
+As you've already seen, the minimal progra, to interact with OOKwiz sets up the serial port, calls `OOKwiz::setup()` and then has `OOKwiz::loop()` in its own `loop()` function. The OOKwiz class has more static methods, that allow for starting and stopping reception, transmitting and simulating packets, making your own code able to do the same things one can also do via the Command Line Interface. Click [here](https://ropg.github.io/OOKwiz/classOOKwiz.html) for a full list of the available functions in `OOKwiz::` and how to use them.
+
 ### [`Settings`](https://ropg.github.io/OOKwiz/classSettings.html)
+
+Your code can set and unset all of OOKwiz' settings, as well as read and write them to files in the SPIFFS flash file system. This allows you to create a program that does not depend on flash at all: simply set all the deviations from the factory settings and call `OOKwiz::setup(true)`, the `true` makes OOKwiz ignore the settings in the flash file 'default' that it would normally load.
 
 ## Callback function and `OOKwiz::onReceive()`
 
+Your code can receive all the packets that OOKwiz sees by setting up a callback function and telling OOKwiz about it. Here's an example:
+
+```cpp
+#include <OOKwiz.h>
+
+void setup() {
+    Serial.begin(115200);
+    OOKwiz::setup();
+    OOKwiz::onReceive(receive);
+}
+
+void loop() {
+    OOKwiz::loop();
+}
+
+void receive(RawTimings raw, Pulsetrain train, Meaning meaning) {
+    Serial.println("RECEIVE TRIGGERED");
+}
+```
+
+This will simply print a message underneath OOKwiz' own output for each packet, but it shows that the function was called each time a packet came in. Make sure you define your own function exactly like this one. You can chnage the names of the function and the arguments, but your function must accept all three, in this order. Also note that the argument to `OOKwiz::onReceive()` is just the name of the function, without parenthesis.
+
 ## Same packet, three ways of looking at it
+
+So your code can see all the packets received, and it gets three representations of it to look at. Let's have a look at all three.
 
 ### [`RawTimings`](https://ropg.github.io/OOKwiz/classRawTimings.html)
 
+The first representation is an instance of the RawTimings class. It holds the exact times between the transitions of the signal turning on and off. These times are held in an [`std::vector`](https://en.cppreference.com/w/cpp/container/vector) container holding the transition times as an array of 16-bit unsigned integers. In the above code example, the String representation of this could be printed with `Serial.println(raw.toString())`, but you'll notice OOKwiz already prints these, it's the first line of the output for each packet. If you want to access these values for something, you could do:
+
+```cpp
+for (n = 0; n < raw.intervals.size(); n++) {
+    doSomethingWith(raw.intervals[n]);
+}
+```
+
+If you don't need the index (the value of n), you can even do:
+
+```cpp
+for (auto t : raw.intervals) {
+    doSomethingWith(t);
+}
+```
+The `RawTimings` class contains functions to convert to and from the String representation as well as to and from `Pulsetrain`, which we'll be look at next. Click [here](https://ropg.github.io/OOKwiz/classRawTimings.html) for a complete list of functions to execute on a RawTimings instance. 
+
 ### [`Pulsetrain`](https://ropg.github.io/OOKwiz/classPulsetrain.html)
 
+The next format the data comes in is a little more involved. Here OOKwiz has taken the intervals in the packet, sorted them by length and then made 'bins' for each cluster of intervals that are similar. It does this with the help of the setting `bin_width`, which defaults to 150 µs. If you look at the data OOKwiz prints about a packet, the majority of the lines are output from function in the `Pulsetrain` class. Here's our example packet again:
+
+```
+5906,180,581,184,578,174,600,552,203,178,592,556,207,563,218,559,197,173,594,560,215,556,206,557,206,182,591,179,579,568,209,172,590,563,203,181,581,568,202,175,593,171,591,561,205,181,581,179,587
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▝▀▝▀▝▀ ▝▝▀ ▝ ▝ ▝▝▀ ▝ ▝ ▝▝▀▝▀ ▝▝▀ ▝▝▀ ▝▝▀▝▀ ▝▝▀▝▀
+25 pulses over 24287 µs, repeated 6 times with gaps of 132 µs
+2010101100110101001101010010110011001100101100101,190,575,5906*6@132
+ bin     min     avg     max  count
+   0     171     190     218     24
+   1     552     575     600     24
+   2    5906    5906    5906      1
+pulse(5906) + pwm(timing 190/575, 24 bits 0x1772A4)  Repeated 6 times with 132 µs gap.
+```
+
+The first line is the String representation of the RawTimings as discussed above., the second line its `visualizer()` representation. Then the third line is what's printed by Pulsetrain's `summary()` function. The fourth is the Pulsetrain's `toString()` representation where you can see which 'bin' each interval falls into, as well as the average duration for intervals in each bin. The next four lines are the `binList()`: more detailed information about the distribution of interval lengths in each bin.
+
+#### Repeats
+
+As you can see, Pulsetrain holds data about a packet and because the packets are written in a form that is the same every time, packets can be compared, and only packets that are different are presented. What that means is that when your receive function gets called, it only gets the RawTimings for the first packet. All identical repeat packets received immediately after were only used to increase the repeat counter and measure the minimum gap between packets.
+
+#### Using Pulsetrain to understand the packet
+
+If packets you are interested in are not sufficiently decoded to a Meaning instance, the Pulsetrain is probably the best starting point for making sense: your code can access the string of bin numbers that the packet has been reduced to as an [`std::vector`](https://en.cppreference.com/w/cpp/container/vector)  of unsigned 8-bit integers in `somePulsetrain.transitions`. An std::vector holds information about the bins as type `PulseBin`. There's a host of functions and properties of the instance available, click [here](https://ropg.github.io/OOKwiz/classPulsetrain.html) for a detailed description.
+
 ### [`Meaning`](https://ropg.github.io/OOKwiz/classMeaning.html)
+
+Meaning instances represent the highest level of abstraction: in the conversion to this format, an attempt is made to decode the packet and derive meaning as represented by the last line of the example packet output shown above. As you can see, the packet has been reduced to a long pulse (also called a preamble) of 5906 µs, followed by 24 bits of PWM encoded data. Here's a receive function example for accessing this data.
+
+```cpp
+void receive(RawTimings raw, Pulsetrain train, Meaning meaning) {
+    if (
+        meaning.elements.size() != 2 ||
+        meaning.elements[0].type != PULSE ||
+        !tools::between(meaning.elements[0].time1, 5800, 6000) ||
+        meaning.elements[1].type != PWM ||
+        !tools::between(meaning.elements[1].time1, 175, 205) ||
+        !tools::between(meaning.elements[1].time2, 560, 590) ||
+        meaning.elements[1].data_len != 24
+    ) {
+        return;
+    }
+    // .data() on an std::vector gives a pointer to the first element
+    uint8_t *data = meaning.elements[1].data.data();
+    Serial.printf("Data received 0:%02X 1:%02X 2:%02X", data[0], data[1], data[2]);
+}
+```
+
+As you can see this code ignores any packet that does not have the right length preamble or does not encode 24 bits using PWM with the correct timings. The fact that the space and mark times for the PWM are averages makes it possibe to make the bounds fairly narrow and reject packets that do not match the exact characteristics we're looking for. (`tools::between` is a convenience function that comes with OOKwiz which merely checks if a value lies between two other ones.)
+
+There's four kinds of `MeaningElement`, denoted by their `type` property: `PULSE`, `GAP`, `PWM` and `PPM`. The first two have their durations in `time1`, PWM stores 'space' and 'mark' timings in `time1` and `time2`, and PPM stores 'space', 'mark' and 'filler' timings in `time1` through `time3`.  To transmit a packet like the one above, one could write:
+
+```cpp
+#include <OOKwiz.h>
+
+void setup() {
+    Serial.begin(115200);
+    if (OOKwiz::setup()) {
+        Meaning newPacket;
+        newPacket.addPulse(5900);
+        uint8_t data[3] = {0x17, 0x72, 0xA4};
+        // 190 and 575 are space and mark timings, 24 is data length in bits
+        newPacket.addPWM(190, 575, 24, data);
+        newPacket.repeats = 6;
+        newPacket.gap = 130;    
+        OOKwiz::transmit(newPacket);
+    }
+}
+
+void loop() {
+    OOKwiz::loop();
+}
+```
+
+A complete list of functionality surrounding `Meaning` instances can be found [here](https://ropg.github.io/OOKwiz/classMeaning.html)
 
 ## Radio plugins
 
