@@ -30,6 +30,7 @@ namespace tools {
     void shiftInBit(uint8_t* buf, const int len, const bool bit);
     bool shiftOutBit(uint8_t* buf, const int len);
     void split(const String &in, const String &separator, String &before, String &after);
+    bool between(const int &compare, const int &lower_bound, const int &upper_bound);
 
 }
 

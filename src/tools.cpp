@@ -86,4 +86,11 @@ namespace tools {
         }
     }
 
+    bool between(const int &compare, const int &lower_bound, const int &upper_bound) {
+        if (compare >= lower_bound && compare <= upper_bound) {
+            return true;
+        }
+        return false;
+    }
+
 }
