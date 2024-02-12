@@ -75,6 +75,7 @@ private:
     static int noise_threshold;
     static int noise_score;
     static bool no_noise_fix;
+    static int lost_packets;
     static int64_t last_transition;
     static hw_timer_t *transitionTimer;
     static hw_timer_t *repeatTimer;

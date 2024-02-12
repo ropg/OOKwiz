@@ -13,6 +13,7 @@ int OOKwiz::noise_penalty;
 int OOKwiz::noise_threshold;
 int OOKwiz::noise_score;
 bool OOKwiz::no_noise_fix = false;
+int OOKwiz::lost_packets = 0;
 int64_t OOKwiz::last_transition;
 hw_timer_t* OOKwiz::transitionTimer = nullptr;
 hw_timer_t* OOKwiz::repeatTimer = nullptr;
@@ -164,6 +165,11 @@ bool OOKwiz::loop() {
     loop_train = isr_out.train;
     loop_raw = isr_out.raw;
     isr_out.zap();
+    // Warn if we lost packets before this one
+    if (lost_packets) {
+        ERROR("\n\nWARNING: %i packets lost because loop() was not fast enough.\n", lost_packets);
+        lost_packets = 0;
+    }
     // Print to Serial what needs to be printed
     if (Settings::isSet("print_raw") ||
         Settings::isSet("print_visualizer") ||
@@ -326,6 +332,8 @@ void IRAM_ATTR OOKwiz::process_train() {
         // Only move waiting train to output if the previous one was taken.
         if (!isr_out.train) {
             isr_out = isr_compare;
+        } else {
+            lost_packets++;
         }
         isr_compare = isr_in;
         isr_in.zap();
