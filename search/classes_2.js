@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ookwiz_66',['OOKwiz',['../classOOKwiz.html',1,'']]]
+  ['ookwiz_69',['OOKwiz',['../classOOKwiz.html',1,'']]]
 ];

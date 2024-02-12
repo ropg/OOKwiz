@@ -96,6 +96,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:aaf2557983cae38cb469ac677c0f026eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRawTimings.html#aaf2557983cae38cb469ac677c0f026eb">fromPulsetrain</a> (<a class="el" href="classPulsetrain.html">Pulsetrain</a> &amp;train)</td></tr>
 <tr class="memdesc:aaf2557983cae38cb469ac677c0f026eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert <a class="el" href="classPulsetrain.html" title="Instances of Pulsetrain represent packets in a normalized way, meaning all intervals of similar lengt...">Pulsetrain</a> into <a class="el" href="classRawTimings.html" title="RawTimings instances store the time in µs of each interval.">RawTimings</a>. Loses stats about bins as well as information about repeats.  <a href="classRawTimings.html#aaf2557983cae38cb469ac677c0f026eb">More...</a><br /></td></tr>
 <tr class="separator:aaf2557983cae38cb469ac677c0f026eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0371f9aa6b33c151c9c43e3f35a8698e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classPulsetrain.html">Pulsetrain</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRawTimings.html#a0371f9aa6b33c151c9c43e3f35a8698e">toPulsetrain</a> ()</td></tr>
+<tr class="memdesc:a0371f9aa6b33c151c9c43e3f35a8698e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRawTimings.html" title="RawTimings instances store the time in µs of each interval.">RawTimings</a> to <a class="el" href="classPulsetrain.html" title="Instances of Pulsetrain represent packets in a normalized way, meaning all intervals of similar lengt...">Pulsetrain</a>.  <a href="classRawTimings.html#a0371f9aa6b33c151c9c43e3f35a8698e">More...</a><br /></td></tr>
+<tr class="separator:a0371f9aa6b33c151c9c43e3f35a8698e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abaedd23dec2455966aafbeb679575f68"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRawTimings.html#abaedd23dec2455966aafbeb679575f68">visualizer</a> ()</td></tr>
 <tr class="memdesc:abaedd23dec2455966aafbeb679575f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">The visualizer like above, with base taken from <code>visualizer_pixel</code> setting.  <a href="classRawTimings.html#abaedd23dec2455966aafbeb679575f68">More...</a><br /></td></tr>
 <tr class="separator:abaedd23dec2455966aafbeb679575f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -226,13 +229,35 @@ std::vector&lt; uint16_t &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <p>Convert <a class="el" href="classPulsetrain.html" title="Instances of Pulsetrain represent packets in a normalized way, meaning all intervals of similar lengt...">Pulsetrain</a> into <a class="el" href="classRawTimings.html" title="RawTimings instances store the time in µs of each interval.">RawTimings</a>. Loses stats about bins as well as information about repeats. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">train</td><td>the Puksetrain you want to convert from </td></tr>
+    <tr><td class="paramname">train</td><td>the <a class="el" href="classPulsetrain.html" title="Instances of Pulsetrain represent packets in a normalized way, meaning all intervals of similar lengt...">Pulsetrain</a> you want to convert from </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Always <code>true</code> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="RawTimings_8cpp_source.html#l00088">88</a> of file <a class="el" href="RawTimings_8cpp_source.html">RawTimings.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0371f9aa6b33c151c9c43e3f35a8698e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0371f9aa6b33c151c9c43e3f35a8698e">&#9670;&nbsp;</a></span>toPulsetrain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPulsetrain.html">Pulsetrain</a> RawTimings::toPulsetrain </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="classRawTimings.html" title="RawTimings instances store the time in µs of each interval.">RawTimings</a> to <a class="el" href="classPulsetrain.html" title="Instances of Pulsetrain represent packets in a normalized way, meaning all intervals of similar lengt...">Pulsetrain</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classPulsetrain.html" title="Instances of Pulsetrain represent packets in a normalized way, meaning all intervals of similar lengt...">Pulsetrain</a> instance </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RawTimings_8cpp_source.html#l00097">97</a> of file <a class="el" href="RawTimings_8cpp_source.html">RawTimings.cpp</a>.</p>
 
 </div>
 </div>
@@ -254,7 +279,7 @@ std::vector&lt; uint16_t &gt;&#160;</td><td class="memItemRight" valign="bottom"
 <p>The visualizer like above, with base taken from <code>visualizer_pixel</code> setting. </p>
 <dl class="section return"><dt>Returns</dt><dd>visualizer String </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RawTimings_8cpp_source.html#l00129">129</a> of file <a class="el" href="RawTimings_8cpp_source.html">RawTimings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RawTimings_8cpp_source.html#l00137">137</a> of file <a class="el" href="RawTimings_8cpp_source.html">RawTimings.cpp</a>.</p>
 
 </div>
 </div>
@@ -283,13 +308,13 @@ std::vector&lt; uint16_t &gt;&#160;</td><td class="memItemRight" valign="bottom"
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>visualizer String </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RawTimings_8cpp_source.html#l00098">98</a> of file <a class="el" href="RawTimings_8cpp_source.html">RawTimings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RawTimings_8cpp_source.html#l00106">106</a> of file <a class="el" href="RawTimings_8cpp_source.html">RawTimings.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/runner/work/OOKwiz/OOKwiz/src/<a class="el" href="RawTimings_8h_source.html">RawTimings.h</a></li>
-<li>/home/runner/work/OOKwiz/OOKwiz/src/<a class="el" href="RawTimings_8cpp_source.html">RawTimings.cpp</a></li>
+<li>/home/runner/work/OOKwiz/OOKwiz/main/src/<a class="el" href="RawTimings_8h_source.html">RawTimings.h</a></li>
+<li>/home/runner/work/OOKwiz/OOKwiz/main/src/<a class="el" href="RawTimings_8cpp_source.html">RawTimings.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OOKwiz: /home/runner/work/OOKwiz/OOKwiz/src/Pulsetrain.h Source File</title>
+<title>OOKwiz: /home/runner/work/OOKwiz/OOKwiz/main/src/Pulsetrain.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -116,20 +116,22 @@ $(function() {
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> IRAM_ATTR <a class="code" href="classPulsetrain.html">zap</a>();</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classPulsetrain.html">IRAM_ATTR</a> <a class="code" href="classPulsetrain.html">sameAs</a>(<span class="keyword">const</span> <a class="code" href="classPulsetrain.html">Pulsetrain</a> &amp;<a class="code" href="classPulsetrain.html">other_train</a>);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classPulsetrain.html">IRAM_ATTR</a> <a class="code" href="classPulsetrain.html">fromRawTimings</a>(<span class="keyword">const</span> <a class="code" href="classPulsetrain.html">RawTimings</a> &amp;<a class="code" href="classPulsetrain.html">raw</a>);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">bool</span> fromMeaning(<span class="keyword">const</span> <a class="code" href="classMeaning.html">Meaning</a> &amp;meaning);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="classPulsetrain.html#acc6284eb8394052923e93072e0e52295">String</a> <a class="code" href="classPulsetrain.html#acc6284eb8394052923e93072e0e52295">summary</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classPulsetrain.html#a0297ffdae1f26ab35309cb0b7fba0d46">fromString</a>(String in);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="classPulsetrain.html#a7977bd9f2a586a753220b70205d2eece">String</a> <a class="code" href="classPulsetrain.html#a7977bd9f2a586a753220b70205d2eece">toString</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="classPulsetrain.html#a6bc7365d3096bf60eb469b63a5eca622">String</a> <a class="code" href="classPulsetrain.html#a6bc7365d3096bf60eb469b63a5eca622">binList</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="classPulsetrain.html#aefcd392c199947c4afcdd3c9de0ced3b">String</a> <a class="code" href="classPulsetrain.html#aefcd392c199947c4afcdd3c9de0ced3b">visualizer</a>();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="classPulsetrain.html#a44ca5bc980551ac7b4cb670e0224048b">String</a> <a class="code" href="classPulsetrain.html#a44ca5bc980551ac7b4cb670e0224048b">visualizer</a>(<span class="keywordtype">int</span> <a class="code" href="classPulsetrain.html#a44ca5bc980551ac7b4cb670e0224048b">base</a>);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> addToBins(<span class="keywordtype">int</span> time);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">int</span> binFromTime(<span class="keywordtype">int</span> time);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;};</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="classRawTimings.html">RawTimings</a> <a class="code" href="classPulsetrain.html#a2df66858f7503473d7b54f8ac42056d7">toRawTimings</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">bool</span> fromMeaning(<span class="keyword">const</span> <a class="code" href="classMeaning.html">Meaning</a> &amp;meaning);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="classMeaning.html">Meaning</a> <a class="code" href="classPulsetrain.html#a17ffe4e6963e090128c3dbafdf7d6904">toMeaning</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="classPulsetrain.html#acc6284eb8394052923e93072e0e52295">String</a> <a class="code" href="classPulsetrain.html#acc6284eb8394052923e93072e0e52295">summary</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classPulsetrain.html#a0297ffdae1f26ab35309cb0b7fba0d46">fromString</a>(String in);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="classPulsetrain.html#a7977bd9f2a586a753220b70205d2eece">String</a> <a class="code" href="classPulsetrain.html#a7977bd9f2a586a753220b70205d2eece">toString</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="classPulsetrain.html#a6bc7365d3096bf60eb469b63a5eca622">String</a> <a class="code" href="classPulsetrain.html#a6bc7365d3096bf60eb469b63a5eca622">binList</a>();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="classPulsetrain.html#aefcd392c199947c4afcdd3c9de0ced3b">String</a> <a class="code" href="classPulsetrain.html#aefcd392c199947c4afcdd3c9de0ced3b">visualizer</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="classPulsetrain.html#a44ca5bc980551ac7b4cb670e0224048b">String</a> <a class="code" href="classPulsetrain.html#a44ca5bc980551ac7b4cb670e0224048b">visualizer</a>(<span class="keywordtype">int</span> <a class="code" href="classPulsetrain.html#a44ca5bc980551ac7b4cb670e0224048b">base</a>);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> addToBins(<span class="keywordtype">int</span> time);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">int</span> binFromTime(<span class="keywordtype">int</span> time);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
