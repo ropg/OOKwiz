@@ -44,7 +44,9 @@ public:
     void IRAM_ATTR zap();
     bool IRAM_ATTR sameAs(const Pulsetrain &other_train);
     bool IRAM_ATTR fromRawTimings(const RawTimings &raw);
+    RawTimings toRawTimings();
     bool fromMeaning(const Meaning &meaning);
+    Meaning toMeaning();
     String summary() const;
     bool fromString(String in); 
     String toString() const;

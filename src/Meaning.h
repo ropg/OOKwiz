@@ -42,6 +42,7 @@ public:
     operator bool();
     void zap();
     bool fromPulsetrain(Pulsetrain &train);
+    Pulsetrain toPulsetrain();
     bool addPulse(uint16_t pulse_time);
     bool addGap(uint16_t pulse_time);
     bool addPWM(int space, int mark, int bits, uint8_t* tmp_data);

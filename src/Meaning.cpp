@@ -229,6 +229,14 @@ int Meaning::parsePPM(const Pulsetrain &train, int from, int to, int space, int 
     }
 }
 
+/// @brief Meaning to Pulsetrain
+/// @return Pulsetrain instance
+Pulsetrain Meaning::toPulsetrain() {
+    Pulsetrain res;
+    res.fromMeaning(*this);
+    return res;
+}
+
 /// @brief Get the String representation, which looks like `pulse(5906) + pwm(timing 190/575, 24 bits 0x1772A4)`
 /// @return the String representation
 String Meaning::toString() {

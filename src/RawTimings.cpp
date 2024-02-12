@@ -83,13 +83,21 @@ bool RawTimings::fromString(const String &in) {
 }
 
 /// @brief Convert Pulsetrain into RawTimings. Loses stats about bins as well as information about repeats.
-/// @param train the Puksetrain you want to convert from
+/// @param train the Pulsetrain you want to convert from
 /// @return Always `true`
 bool RawTimings::fromPulsetrain(Pulsetrain &train) {
     for (int transition : train.transitions) {
         intervals.push_back(train.bins[transition].average);
     }
     return true;
+}
+
+/// @brief RawTimings to Pulsetrain
+/// @return Pulsetrain instance
+Pulsetrain RawTimings::toPulsetrain() {
+    Pulsetrain res;
+    res.fromRawTimings(*this);
+    return res;
 }
 
 /// @brief Returns the viasualizer (the blocky time-graph) for the pulses in this RawTimings instance

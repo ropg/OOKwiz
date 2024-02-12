@@ -309,9 +309,9 @@ you end up transmitting the packet from our example. Note that the last form mak
 
 ## Interacting with OOKwiz
 
-### [`OOKwiz` class](https://ropg.github.io/OOKwiz/classOOKwiz.html)
+### [`OOKwiz`](https://ropg.github.io/OOKwiz/classOOKwiz.html)
 
-### [`Settings` class](https://ropg.github.io/OOKwiz/classSettings.html)
+### [`Settings`](https://ropg.github.io/OOKwiz/classSettings.html)
 
 ## Callback function and `OOKwiz::onReceive()`
 

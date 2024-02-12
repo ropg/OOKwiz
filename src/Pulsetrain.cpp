@@ -207,6 +207,14 @@ bool IRAM_ATTR Pulsetrain::fromRawTimings(const RawTimings &raw) {
     return true;
 }
 
+/// @brief Pulsetrain to RawTimings
+/// @return RawTimings instance
+RawTimings Pulsetrain::toRawTimings() {
+    RawTimings res;
+    res.fromPulsetrain(*this);
+    return res;
+}
+
 /// @brief Get information about the bins in this Pulsetrain, such as lowest, average and highest interval as well as number of pulses in each bin.
 /// @return multi-line String with bin information, 5 columns with header
 String Pulsetrain::binList() {
@@ -359,6 +367,14 @@ bool Pulsetrain::fromMeaning(const Meaning &meaning) {
     repeats = meaning.repeats;
     gap = meaning.gap;
     return true;
+}
+
+/// @brief Pulsetrain to Meaning
+/// @return Meaning instance
+Meaning Pulsetrain::toMeaning() {
+    Meaning res;
+    res.fromPulsetrain(*this);
+    return res;
 }
 
 void Pulsetrain::addToBins(int time) {

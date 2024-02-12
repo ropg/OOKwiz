@@ -20,6 +20,7 @@ public:
     String toString();
     bool fromString(const String &in);
     bool fromPulsetrain(Pulsetrain &train);
+    Pulsetrain toPulsetrain();
     String visualizer();
     String visualizer(int base);
 };
