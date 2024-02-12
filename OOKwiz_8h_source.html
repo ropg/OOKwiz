@@ -147,31 +147,32 @@ $(function() {
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> noise_threshold;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> noise_score;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> no_noise_fix;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">static</span> int64_t last_transition;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">static</span> hw_timer_t *transitionTimer;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">static</span> hw_timer_t *repeatTimer;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">long</span> repeat_timeout;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> rx_active_high;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> tx_active_high;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">static</span> BufferPair isr_in;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">static</span> BufferPair isr_compare;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">static</span> BufferPair isr_out;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">static</span> <a class="code" href="classRawTimings.html">RawTimings</a> loop_raw;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">static</span> <a class="code" href="classPulsetrain.html">Pulsetrain</a> loop_train;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">static</span> <a class="code" href="classMeaning.html">Meaning</a> loop_meaning;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">static</span> int64_t last_periodic;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> (*callback)(<a class="code" href="classRawTimings.html">RawTimings</a>, <a class="code" href="classPulsetrain.html">Pulsetrain</a>, <a class="code" href="classMeaning.html">Meaning</a>);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> IRAM_ATTR <a class="code" href="classOOKwiz.html">process_raw</a>();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> IRAM_ATTR <a class="code" href="classOOKwiz.html">process_train</a>();</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> IRAM_ATTR <a class="code" href="classOOKwiz.html">ISR_transition</a>();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> IRAM_ATTR <a class="code" href="classOOKwiz.html">ISR_transitionTimeout</a>();</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> IRAM_ATTR <a class="code" href="classOOKwiz.html">ISR_repeatTimeout</a>();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IRAM_ATTR <a class="code" href="classOOKwiz.html">sameAs</a>(<span class="keyword">const</span> <a class="code" href="classOOKwiz.html">Pulsetrain</a> &amp;<a class="code" href="classOOKwiz.html">train1</a>, <span class="keyword">const</span> <a class="code" href="classOOKwiz.html">Pulsetrain</a> &amp;<a class="code" href="classOOKwiz.html">train2</a>);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> tryToBeNice(<span class="keywordtype">int</span> ms);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> lost_packets;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">static</span> int64_t last_transition;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">static</span> hw_timer_t *transitionTimer;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">static</span> hw_timer_t *repeatTimer;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">long</span> repeat_timeout;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> rx_active_high;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> tx_active_high;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">static</span> BufferPair isr_in;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">static</span> BufferPair isr_compare;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">static</span> BufferPair isr_out;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">static</span> <a class="code" href="classRawTimings.html">RawTimings</a> loop_raw;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">static</span> <a class="code" href="classPulsetrain.html">Pulsetrain</a> loop_train;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">static</span> <a class="code" href="classMeaning.html">Meaning</a> loop_meaning;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">static</span> int64_t last_periodic;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> (*callback)(<a class="code" href="classRawTimings.html">RawTimings</a>, <a class="code" href="classPulsetrain.html">Pulsetrain</a>, <a class="code" href="classMeaning.html">Meaning</a>);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> IRAM_ATTR <a class="code" href="classOOKwiz.html">process_raw</a>();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> IRAM_ATTR <a class="code" href="classOOKwiz.html">process_train</a>();</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> IRAM_ATTR <a class="code" href="classOOKwiz.html">ISR_transition</a>();</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> IRAM_ATTR <a class="code" href="classOOKwiz.html">ISR_transitionTimeout</a>();</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> IRAM_ATTR <a class="code" href="classOOKwiz.html">ISR_repeatTimeout</a>();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IRAM_ATTR <a class="code" href="classOOKwiz.html">sameAs</a>(<span class="keyword">const</span> <a class="code" href="classOOKwiz.html">Pulsetrain</a> &amp;<a class="code" href="classOOKwiz.html">train1</a>, <span class="keyword">const</span> <a class="code" href="classOOKwiz.html">Pulsetrain</a> &amp;<a class="code" href="classOOKwiz.html">train2</a>);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> tryToBeNice(<span class="keywordtype">int</span> ms);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;};</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
