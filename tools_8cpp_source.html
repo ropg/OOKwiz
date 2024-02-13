@@ -145,27 +145,37 @@ $(function() {
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">return</span> carry;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="namespacetools.html#a07aa9b30761272a28221dad0c8fe6481">   76</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespacetools.html#a07aa9b30761272a28221dad0c8fe6481">split</a>(<span class="keyword">const</span> String &amp;in, <span class="keyword">const</span> String &amp;separator, String &amp;before, String &amp;after) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordtype">int</span> found = in.indexOf(separator);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span> (found != -1) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            before = in.substring(0, found);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            trim(before);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            after = in.substring(found + separator.length());</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            trim(after);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            before = in;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            after = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="namespacetools.html#a8d9d12165e3072508ba950ae0b7302a6">   89</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespacetools.html#a8d9d12165e3072508ba950ae0b7302a6">between</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;compare, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;lower_bound, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;upper_bound) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">if</span> (compare &gt;= lower_bound &amp;&amp; compare &lt;= upper_bound) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="comment">/// @brief Will split a srting in two on first occurence of String separator. </span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="comment">/// @param in String to be examined</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">/// @param separator substring to be found</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="comment">/// @param before Will be set to part before first occurence of separator </span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="comment">/// @param after Will be set to part after first occurence of separator </span></div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="namespacetools.html#a07aa9b30761272a28221dad0c8fe6481">   81</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespacetools.html#a07aa9b30761272a28221dad0c8fe6481">split</a>(<span class="keyword">const</span> String &amp;in, <span class="keyword">const</span> String &amp;separator, String &amp;before, String &amp;after) {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordtype">int</span> found = in.indexOf(separator);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">if</span> (found != -1) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            before = in.substring(0, found);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            trim(before);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            after = in.substring(found + separator.length());</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            trim(after);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            before = in;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            after = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="comment">/// @brief See if number is between two bounds</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">/// @param compare Number to compare</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="comment">/// @param lower_bound lower bound</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment">/// @param upper_bound upper bound</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="comment">/// @return `true` if compare &gt;= lower and &lt;= upper bound</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="namespacetools.html#a8d9d12165e3072508ba950ae0b7302a6">   99</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespacetools.html#a8d9d12165e3072508ba950ae0b7302a6">between</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;compare, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;lower_bound, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;upper_bound) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span> (compare &gt;= lower_bound &amp;&amp; compare &lt;= upper_bound) {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

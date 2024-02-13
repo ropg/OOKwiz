@@ -16,10 +16,11 @@ var searchData=
   ['rawtimings_125',['RawTimings',['../classRawTimings.html',1,'']]],
   ['rawtimings_2ecpp_126',['RawTimings.cpp',['../RawTimings_8cpp.html',1,'']]],
   ['rawtimings_2eh_127',['RawTimings.h',['../RawTimings_8h.html',1,'']]],
-  ['receive_128',['receive',['../classDevice.html#aad954b6bab8cdd5039efca0136c519bd',1,'Device::receive()'],['../classOOKwiz.html#aee9333712dd3338bb21978c5fc542592',1,'OOKwiz::receive()']]],
-  ['repeats_129',['repeats',['../classMeaning.html#a325d097999f58331611b179d38fdb0d6',1,'Meaning::repeats()'],['../classPulsetrain.html#adbd908c37fcfe1215fdf72f0e238aa04',1,'Pulsetrain::repeats()']]],
+  ['receive_128',['receive',['../classOOKwiz.html#aee9333712dd3338bb21978c5fc542592',1,'OOKwiz::receive()'],['../classDevice.html#aad954b6bab8cdd5039efca0136c519bd',1,'Device::receive()']]],
+  ['repeats_129',['repeats',['../classPulsetrain.html#adbd908c37fcfe1215fdf72f0e238aa04',1,'Pulsetrain::repeats()'],['../classMeaning.html#a325d097999f58331611b179d38fdb0d6',1,'Meaning::repeats()']]],
   ['rflink_130',['RFLINK',['../serial__output_8h.html#a206c41414b18385e84f16bc4f2dbab97',1,'serial_output.h']]],
   ['rflink_5fseq_5fnr_131',['rflink_seq_nr',['../serial__output_8h.html#a0bc0a877667a75a95d689b6bd2a25d4a',1,'rflink_seq_nr():&#160;serial_output.c'],['../serial__output_8c.html#a0bc0a877667a75a95d689b6bd2a25d4a',1,'rflink_seq_nr():&#160;serial_output.c']]],
-  ['rm_132',['rm',['../classSettings.html#a628ec51c779d0b3bba808182a74c0dec',1,'Settings']]],
-  ['rx_133',['rx',['../classRadio.html#a00ddb9df151faa790e1a04f175287723',1,'Radio']]]
+  ['rflinkparse_132',['RFlinkParse',['../namespaceCLI.html#a51cd44763a758e752f1e430e21be16a3',1,'CLI']]],
+  ['rm_133',['rm',['../classSettings.html#a628ec51c779d0b3bba808182a74c0dec',1,'Settings']]],
+  ['rx_134',['rx',['../classRadio.html#a00ddb9df151faa790e1a04f175287723',1,'Radio']]]
 ];

@@ -77,8 +77,10 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aad954b6bab8cdd5039efca0136c519bd"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#aad954b6bab8cdd5039efca0136c519bd">receive</a> (const <a class="el" href="classRawTimings.html">RawTimings</a> &amp;raw, const <a class="el" href="classPulsetrain.html">Pulsetrain</a> &amp;train, const <a class="el" href="classMeaning.html">Meaning</a> &amp;meaning)</td></tr>
+<tr class="memdesc:aad954b6bab8cdd5039efca0136c519bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">virtual, to be overridden in de individual plugins  <a href="classDevice.html#aad954b6bab8cdd5039efca0136c519bd">More...</a><br /></td></tr>
 <tr class="separator:aad954b6bab8cdd5039efca0136c519bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ddc56f9dab17a2f58664d043a481788"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#a1ddc56f9dab17a2f58664d043a481788">transmit</a> (const String &amp;toTransmit)</td></tr>
+<tr class="memdesc:a1ddc56f9dab17a2f58664d043a481788"><td class="mdescLeft">&#160;</td><td class="mdescRight">virtual, to be overridden in de individual plugins  <a href="classDevice.html#a1ddc56f9dab17a2f58664d043a481788">More...</a><br /></td></tr>
 <tr class="separator:a1ddc56f9dab17a2f58664d043a481788"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -86,12 +88,16 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a065393b4e6f18adf6d9ba1007eaf7a5c"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#a065393b4e6f18adf6d9ba1007eaf7a5c">setup</a> ()</td></tr>
 <tr class="separator:a065393b4e6f18adf6d9ba1007eaf7a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ce5ef715273fb4fa8c1359b1300912c"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#a2ce5ef715273fb4fa8c1359b1300912c">add</a> (const char *<a class="el" href="classDevice.html#a20a665975b9fcc0d4b7db32cbbebbaea">name</a>, <a class="el" href="classDevice.html">Device</a> *<a class="el" href="classDevice.html#a54aaf184edf47ce2ff12d5deeb43a169">pointer</a>)</td></tr>
+<tr class="memdesc:a2ce5ef715273fb4fa8c1359b1300912c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an instance of <a class="el" href="classDevice.html">Device</a>, i.e. a devuce plugin in the static <code>store</code>  <a href="classDevice.html#a2ce5ef715273fb4fa8c1359b1300912c">More...</a><br /></td></tr>
 <tr class="separator:a2ce5ef715273fb4fa8c1359b1300912c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9b533f779da5e859134cb201163efdb"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#ab9b533f779da5e859134cb201163efdb">list</a> (String separator=&quot;, &quot;)</td></tr>
+<tr class="memdesc:ab9b533f779da5e859134cb201163efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a String with alist of registered device plugins, appending " [disabled]" if needed.  <a href="classDevice.html#ab9b533f779da5e859134cb201163efdb">More...</a><br /></td></tr>
 <tr class="separator:ab9b533f779da5e859134cb201163efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60f5a81ddc0a56f35981f9d7fb025857"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#a60f5a81ddc0a56f35981f9d7fb025857">new_packet</a> (<a class="el" href="classRawTimings.html">RawTimings</a> &amp;raw, <a class="el" href="classPulsetrain.html">Pulsetrain</a> &amp;train, <a class="el" href="classMeaning.html">Meaning</a> &amp;meaning)</td></tr>
+<tr class="memdesc:a60f5a81ddc0a56f35981f9d7fb025857"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static, passes all 3 forms of an incoming packet to each non-disabled device plugin.  <a href="classDevice.html#a60f5a81ddc0a56f35981f9d7fb025857">More...</a><br /></td></tr>
 <tr class="separator:a60f5a81ddc0a56f35981f9d7fb025857"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62d24001e2d51d7509555abefb5abef1"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDevice.html#a62d24001e2d51d7509555abefb5abef1">transmit</a> (const String &amp;plugin_name, const String &amp;toTransmit)</td></tr>
+<tr class="memdesc:a62d24001e2d51d7509555abefb5abef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">static, passes a String to a named device's <code>tx()</code> function  <a href="classDevice.html#a62d24001e2d51d7509555abefb5abef1">More...</a><br /></td></tr>
 <tr class="separator:a62d24001e2d51d7509555abefb5abef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
@@ -171,7 +177,17 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00033">33</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
+<p>Registers an instance of <a class="el" href="classDevice.html">Device</a>, i.e. a devuce plugin in the static <code>store</code> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>(char*) Name of plugin, maximum MAX_DEVICE_NAME_LEN characters </td></tr>
+    <tr><td class="paramname">pointer</td><td>Pointer to the plugin instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>false</code> if store already holds info on MAX_DEVICES plugins </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00040">40</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
 
 </div>
 </div>
@@ -199,7 +215,16 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00044">44</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
+<p>Returns a String with alist of registered device plugins, appending " [disabled]" if needed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">separator</td><td>Between the names, e.g. ", " </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The list </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00056">56</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
 
 </div>
 </div>
@@ -243,7 +268,18 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00017">17</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
+<p>Static, passes all 3 forms of an incoming packet to each non-disabled device plugin. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">raw</td><td>incoming packet </td></tr>
+    <tr><td class="paramname">train</td><td>incoming packet </td></tr>
+    <tr><td class="paramname">meaning</td><td>incoming packet </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> as soon as one of the plugin rx functions returns <code>true</code>, <code>false</code> otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00022">22</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
 
 </div>
 </div>
@@ -281,7 +317,18 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00060">60</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
+<p>static, passes a String to a named device's <code>tx()</code> function </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">plugin_name</td><td>name of plugin </td></tr>
+    <tr><td class="paramname">toTransmit</td><td>String to be passed to <code>tx()</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><br  />
+ </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00076">76</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
 
 </div>
 </div>
@@ -325,7 +372,18 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00069">69</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
+<p>virtual, to be overridden in de individual plugins </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">raw</td><td>incoming packet </td></tr>
+    <tr><td class="paramname">train</td><td>incoming packet </td></tr>
+    <tr><td class="paramname">meaning</td><td>incoming packet </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>false</code> if not overridden </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00092">92</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
 
 </div>
 </div>
@@ -353,7 +411,16 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00073">73</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
+<p>virtual, to be overridden in de individual plugins </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">toTransmit</td><td>String for plugin to make sense of and be transmitted </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>false</code> if not overridden </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Device_8cpp_source.html#l00099">99</a> of file <a class="el" href="Device_8cpp_source.html">Device.cpp</a>.</p>
 
 </div>
 </div>
