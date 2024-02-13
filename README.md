@@ -118,10 +118,6 @@ These fixed-frequency [transceiver modules](https://www.aurelwireless.com/wp-con
 
 These modules need a lot of pins set up that are driven high or low depending on whether you're transmitting or receiving. The functionality for this copied from rflink32 and nothing complex happens, so this should just work as is. If you're going to build new things, you will probably want to use one of these newer RadioLib-supported radio modules.
 
-### Making your own radio plugin
-
-Whatever your radio is, the OOKwiz radio plugin just needs to know how to initialize your radio after startup, and then how to switch it between any of three modes: tx, rx and standby. The rest of OOKwiz just expects received data on the GPIO set in `rx_pin` and expects to transmit when it wiggles `tx_pin`. By default these pins are active low, meaning a transmission is when they go to ground. You can reverse that with the `rx_active_high` and `tx_active_high` settings. Take a look at the the existing plugins and you can probably figure out how to make your own. 
-
 &nbsp;
 
 ## Setting up the radio
@@ -443,7 +439,17 @@ A complete list of functionality surrounding `Meaning` instances can be found [h
 
 ## Radio plugins
 
+Whatever your radio is, the OOKwiz radio plugin just needs to know how to initialize your radio after startup, and then how to switch it between any of three modes: tx, rx and standby. The rest of OOKwiz just expects received data on the GPIO set in `rx_pin` and expects to transmit when it wiggles `tx_pin`. By default these pins are active low, meaning a transmission is when they go to ground. You can reverse that with the `rx_active_high` and `tx_active_high` settings. Take a look at the the existing plugins and you can probably figure out how to make your own. Just make sure MAX_RADIOS in `config.h` is at least the number of radio plugins you want to load, and include your plugin from the file `RADIO_INDEX`.
+
+You really only need to implement the four function overrides you see in all the other plugins and you'll have a plugin. But if you care about the internals of it: the macros at the beginning and end of the plugin are defined in `Radio.h` and will show you that the plugin is actually an instance of the `Radio` class. [Here is the generated documentation](https://ropg.github.io/OOKwiz/classRadio.html) for that class. You'll see there's an auto-register trick that causes the plugins to be instantiated and their name and pointer stored in the static `store` struct before the main code even runs. This is why all you need to do is include it in `RADIO_INDEX` and presto.
+
 ## Device plugins
+
+Work very much like radio plugins, except here the goal is to override `receive()` and `transmit()`.
+
+The first, `receive()` gets the three representations of a pcket and is to return `true` if it determines that this packet belongs to it, at which point OOKwiz will stop presenting the packets to further plugins. Next to returning `true`, the plugin can do whatever actions you see fit: provide serial output in rflink format, in readable text, update the information for an MQTT client, the internal presentation of a matter device, you name it.
+
+Your plugin's `transmit()` function is handed a String whenever the static function `Device::transmit()` is called with your plugin's name and a String to be transmitted. The format can be whatever you want it to be, OOKwiz is just passing it on. From the Command Line Interpreter, you may enter either "transmit <device name>:<transmitted string>" or "10;<device name>;<transmitted string>" to transmit something via a given device plugin.
 
 &nbsp;
 

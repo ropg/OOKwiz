@@ -73,6 +73,11 @@ namespace tools {
         return carry;
     }
 
+    /// @brief Will split a srting in two on first occurence of String separator. 
+    /// @param in String to be examined
+    /// @param separator substring to be found
+    /// @param before Will be set to part before first occurence of separator 
+    /// @param after Will be set to part after first occurence of separator 
     void split(const String &in, const String &separator, String &before, String &after) {
         int found = in.indexOf(separator);
         if (found != -1) {
@@ -86,6 +91,11 @@ namespace tools {
         }
     }
 
+    /// @brief See if number is between two bounds
+    /// @param compare Number to compare
+    /// @param lower_bound lower bound
+    /// @param upper_bound upper bound
+    /// @return `true` if compare >= lower and <= upper bound
     bool between(const int &compare, const int &lower_bound, const int &upper_bound) {
         if (compare >= lower_bound && compare <= upper_bound) {
             return true;

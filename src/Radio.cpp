@@ -11,9 +11,13 @@ Radio* Radio::current = nullptr;
 int Radio::pin_rx;
 int Radio::pin_tx;
 
-// Uses char*, and does not DEBUG or INFO because this is ran pre-main by the 
-// constructor of the AutoRegister trick: String and Serial are not available yet. 
+/// @brief Registers an instance of Radio, i.e. a radio plugin in the static `store`
+/// @param name (char*) Name of plugin, maximum MAX_RADIO_NAME_LEN characters
+/// @param pointer Pointer to the plugin instance
+/// @return `false` if store already holds info on MAX_RADIOS plugins
 bool Radio::add(const char* name, Radio *pointer) {
+    // Uses char*, and does not DEBUG or INFO because this is ran pre-main by the 
+    // constructor of the AutoRegister trick: String and Serial are not available yet. 
     if (len == MAX_RADIOS) {
         return false;
     }
@@ -24,6 +28,8 @@ bool Radio::add(const char* name, Radio *pointer) {
     return true;
 }
 
+/// @brief Shows loaded plugins, selects the radio in setting `radio` and inits it
+/// @return `false` if no radio could be selected, whatever `radio_init()` returned oterwise
 bool Radio::setup() {
     MANDATORY(radio);
     INFO("Radio plugins loaded: %s\n", list().c_str());
@@ -33,6 +39,9 @@ bool Radio::setup() {
     return false;
 }
 
+/// @brief Selects radio given a name by storing its pointer in static `current`
+/// @param name Name of plugin t be selected
+/// @return `true` if that radio exists.
 bool Radio::select(const String &name) {
     for (int n = 0; n < len; n++) {
         if (strcmp(store[n].name, name.c_str()) == 0) {
@@ -45,6 +54,9 @@ bool Radio::select(const String &name) {
     return false;
 }
 
+/// @brief Returns a String with alist of registered radio plugins
+/// @param separator Between the names, e.g. ", "
+/// @return The list
 String Radio::list(String separator) {
     String ret;
     for (int n = 0; n < len; n++) {
@@ -56,6 +68,8 @@ String Radio::list(String separator) {
     return ret;
 }
 
+/// @brief Returns the name of the plugin as a String
+/// @return Name of plugin
 String Radio::name() {
     for (int n = 0; n < len; n++) {
         if (store[n].pointer == this) {
@@ -64,6 +78,8 @@ String Radio::name() {
     }
 }
 
+/// @brief Static, called as `Radio::radio_init()`, will call overridden `init()` in plugin
+/// @return whatever plugin's `init()` returns, or `false` if no radio is selected
 bool Radio::radio_init() {
     CHECK_RADIO_SET;
     INFO("Initializing radio.\n");
@@ -72,6 +88,8 @@ bool Radio::radio_init() {
     return current->init();
 }
 
+/// @brief Static, called as `Radio::radio_rx()`, will call overridden `rx()` in plugin
+/// @return whatever plugin's `rx()` returns, or `false` if no radio is selected or no `pin_rx` set
 bool Radio::radio_rx() {
     CHECK_RADIO_SET;
     DEBUG("Configuring radio for receiving.\n");
@@ -83,6 +101,8 @@ bool Radio::radio_rx() {
     return current->rx();
 }
 
+/// @brief Static, called as `Radio::radio_tx()`, will call overridden `tx()` in plugin
+/// @return whatever plugin's `tx()` returns, or `false` if no radio is selected or no `pin_tx` set
 bool Radio::radio_tx() {
     CHECK_RADIO_SET;
     DEBUG("Configuring radio for transmission.\n");
@@ -95,30 +115,41 @@ bool Radio::radio_tx() {
     return current->tx();
 }
 
+/// @brief Static, called as `Radio::radio_standby()`, will call overridden `standby()` in plugin
+/// @return whatever plugin's `standby()` returns, or `false` if no radio is selected.
 bool Radio::radio_standby() {
     CHECK_RADIO_SET;
     DEBUG("Radio entering standby mode.\n");
     return current->standby();
 }
 
+/// @brief virtual, to be overridden by each plugin
+/// @return `false` if not overridden
 bool Radio::init() {
     return false;
 }
 
+/// @brief virtual, to be overridden by each plugin
+/// @return `false` if not overridden
 bool Radio::rx() {
     return false;
 }
 
+/// @brief virtual, to be overridden by each plugin
+/// @return `false` if not overridden
 bool Radio::tx() {
     return false;
 }
 
+/// @brief virtual, to be overridden by each plugin
+/// @return `false` if not overridden
 bool Radio::standby() {
     return false;
 }
 
 // RadioLib-specific
 
+/// @brief Sets up the SPI port, inits a RadioLib `Module`, outputs diagnostics wrt RadioLib parameters like freq and bandwidth
 void Radio::radiolibInit() {
     int pin_sck;
     SETTING_WITH_DEFAULT(pin_sck, -1);
@@ -156,6 +187,9 @@ void Radio::radiolibInit() {
     INFO("%s: Frequency: %.2f Mhz, bandwidth %.1f kHz, bitrate %.3f kbps\n", name().c_str(), frequency, bandwidth, bitrate);
 }
 
+/// @brief Serial output of the command as a string and the RadioLib result value
+/// @param result the numeric value from RadioLib 
+/// @param action The command that was executed as a char*
 void Radio::showRadiolibResult(const int result, const char* action) {
     switch (result) {
     case 0:
@@ -171,6 +205,11 @@ void Radio::showRadiolibResult(const int result, const char* action) {
     }
 }
 
+/// @brief RadioLib-specific picking of one of three constants based on `threshold_type` setting
+/// @param fixed constant to mean fixed threshold
+/// @param average constant to mean average threshold
+/// @param peak constant to mean peak threshold
+/// @return one of these constants, based on what's in `threshold_type` setting
 int Radio::thresholdSetup(const int fixed, const int average, const int peak) {
     String threshold_type;
     SETTING_WITH_DEFAULT(threshold_type, "peak");

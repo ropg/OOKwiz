@@ -7,7 +7,7 @@
 
 std::map<String, String> Settings::store;
 
-// Constructor sets the defaults, see 'dummy' at end
+// Constructor sets the defaults from config.cpp, see 'dummy' at end
 Settings::Settings() {
     factorySettings();
 }
