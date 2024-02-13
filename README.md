@@ -445,9 +445,9 @@ You really only need to implement the four function overrides you see in all the
 
 ## Device plugins
 
-Work very much like radio plugins, except here the goal is to override `receive()` and `transmit()`.
+There is [generated documentation](https://ropg.github.io/OOKwiz/classDevice.html), but you're probably better off just looking at the example plugins. These work very much like radio plugins, except here the goal is to override the `receive()` and `transmit()` virtual functions.
 
-The first, `receive()` gets the three representations of a pcket and is to return `true` if it determines that this packet belongs to it, at which point OOKwiz will stop presenting the packets to further plugins. Next to returning `true`, the plugin can do whatever actions you see fit: provide serial output in rflink format, in readable text, update the information for an MQTT client, the internal presentation of a matter device, you name it.
+The first, `receive()` gets the three representations of a packet and is to return `true` if it determines that this packet belongs to it, at which point OOKwiz will stop presenting the packets to further plugins. Next to returning `true`, the plugin can do whatever actions you see fit: provide serial output in rflink format or in more human-readable form, update the information for an MQTT client, adjust the presentation of a matter device via Wifi, you name it. Note that the order in which the plugins are included from DEVICE_INDEX determines the order in which plugin's `receive()` get to see (and thus claim, if they return `true`) the packets.
 
 Your plugin's `transmit()` function is handed a String whenever the static function `Device::transmit()` is called with your plugin's name and a String to be transmitted. The format can be whatever you want it to be, OOKwiz is just passing it on. From the Command Line Interpreter, you may enter either "transmit <device name>:<transmitted string>" or "10;<device name>;<transmitted string>" to transmit something via a given device plugin.
 
