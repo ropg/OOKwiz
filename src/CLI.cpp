@@ -18,8 +18,10 @@
 namespace CLI {
 
     bool cli_start_msg_printed = false;
+    bool semicolon_parsing = true;
     String serial_buffer;
     void parse(String cmd);
+    void RFlinkParse(String cmd);
 
     void loop() {
         if (!cli_start_msg_printed) {
@@ -28,10 +30,19 @@ namespace CLI {
         }
         while (Serial.available()) {
             char inp = Serial.read();
-            if (inp == char(13) || inp == char(10) || inp == ';') {
+            if (inp == ';' && serial_buffer == "10") {
+                // RFlink format uses semicolons, so when command starts with "10;",keep it together until eol
+                semicolon_parsing = false;
+            }
+            if (inp == char(13) || inp == char(10) || (inp == ';' && semicolon_parsing)) {
+                semicolon_parsing = true;
                 tools::trim(serial_buffer);
                 if (serial_buffer != "") {
-                    parse(serial_buffer);
+                    if (serial_buffer.startsWith("10;")) {
+                        RFlinkParse(serial_buffer);
+                    } else {
+                        parse(serial_buffer);
+                    }
                 }   
                 serial_buffer = "";
             } else {
@@ -158,6 +169,18 @@ See the OOKwiz README.md on GitHub for a quick-start guide and full documentatio
         END_CMD
 
         INFO("Unknown command '%s'. Enter 'help' for a list of commands.\n", cmd.c_str());
+    }
+
+    void RFlinkParse(String cmd) {
+        INFO("\nCLI: %s\n", cmd.c_str());
+        cmd = cmd.substring(3); // get rid of "10;"
+
+        // This may parse further commands later, now it just assumes the first term in semicolons
+        // after "10;" is a plugin name and the rest is what is to be transmitted.
+        String plugin_name;
+        String txString;
+        tools::split(cmd, ";", plugin_name, txString);
+        Device::transmit(plugin_name, txString);
     }
 
 }
