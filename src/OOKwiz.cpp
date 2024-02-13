@@ -478,6 +478,11 @@ bool OOKwiz::transmit(String &str) {
         if (meaning.fromString(str)) {
             return transmit(meaning);
         }
+    } else if (str.indexOf(":") != -1) {
+        String plugin_name;
+        String tx_str;
+        tools::split(str, ":", plugin_name, tx_str);
+        return Device::transmit(plugin_name, tx_str);
     } else {
         ERROR("ERROR: string does not look like RawTimings, Pulsetrain or Meaning.\n");
     }

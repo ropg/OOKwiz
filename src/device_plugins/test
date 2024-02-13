@@ -5,4 +5,9 @@ bool receive(const RawTimings &raw, const Pulsetrain &train, const Meaning &mean
     return false;
 }
 
+bool transmit(const String &toTransmit) override {
+    INFO ("Received '%s' for transmission.\n", toTransmit.c_str());
+    return true;
+}
+
 DEVICE_PLUGIN_END(test);
