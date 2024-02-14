@@ -299,7 +299,7 @@ you end up transmitting the packet from our example. Note that the last form mak
 
 ### [`OOKwiz`](https://ropg.github.io/OOKwiz/classOOKwiz.html)
 
-As you've already seen, the minimal progra, to interact with OOKwiz sets up the serial port, calls `OOKwiz::setup()` and then has `OOKwiz::loop()` in its own `loop()` function. The OOKwiz class has more static methods, that allow for starting and stopping reception, transmitting and simulating packets, making your own code able to do the same things one can also do via the Command Line Interface. Click [here](https://ropg.github.io/OOKwiz/classOOKwiz.html) for a full list of the available functions in `OOKwiz::` and how to use them.
+As you've already seen, the minimal program to interact with OOKwiz sets up the serial port, calls `OOKwiz::setup()` and then has `OOKwiz::loop()` in its own `loop()` function. The OOKwiz class has more static methods, that allow for starting and stopping reception, transmitting and simulating packets, making your own code able to do the same things one can also do via the Command Line Interface. Click [here](https://ropg.github.io/OOKwiz/classOOKwiz.html) for a full list of the available functions in `OOKwiz::` and how to use them.
 
 ### [`Settings`](https://ropg.github.io/OOKwiz/classSettings.html)
 
