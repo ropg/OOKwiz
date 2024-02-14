@@ -20,14 +20,6 @@ pulse(5906) + pwm(timing 190/575, 24 bits 0x1772A4)  Repeated 6 times with 132 Â
 
 &nbsp;
 
-## Other projects to do with on/off-keying
-
-### RFlink / RFlink32
-
-### rtl_433_esp
-
-&nbsp;
-
 ## Introduction
 
 On/Off Keying is the method of transmission used on various license-free radio frequencies to transmit signals. Remote controls for lights, garage doors, air conditioners as well as signals from outdoor weather stations and other sensors might be sent using On/Off Keying. The method of transmission is as basic as the name implies: no fancy modulations, just turn a transmitter on a given frequency on and off, and the timings of turning it on and off are used by the receiver to reconstruct a short digital message. Individidual pulses are usually in the order of about a millisecond long and messages are usually a low number of bytes.
@@ -409,7 +401,7 @@ void receive(RawTimings raw, Pulsetrain train, Meaning meaning) {
 }
 ```
 
-As you can see this code ignores any packet that does not have the right length preamble or does not encode 24 bits using PWM with the correct timings. The fact that the space and mark times for the PWM are averages makes it possibe to make the bounds fairly narrow and reject packets that do not match the exact characteristics we're looking for. (`tools::between` is a convenience function that comes with OOKwiz which merely checks if a value lies between two other ones.)
+As you can see this code ignores any packet that does not have the right length preamble or does not encode 24 bits using PWM with the correct timings. The fact that the space and mark times for the PWM are averages makes it possibe to make the bounds fairly narrow and reject packets that do not match the exact characteristics we're looking for. (`tools::between()` is a convenience function that comes with OOKwiz which merely checks if a value lies between two other ones.)
 
 There's four kinds of `MeaningElement`, denoted by their `type` property: `PULSE`, `GAP`, `PWM` and `PPM`. The first two have their durations in `time1`, PWM stores 'space' and 'mark' timings in `time1` and `time2`, and PPM stores 'space', 'mark' and 'filler' timings in `time1` through `time3`.  To transmit a packet like the one above, one could write:
 
@@ -482,8 +474,3 @@ As soon as `repeat_timeout` expires or a new and different packet arrives, the p
 OOKwiz::loop() stores the `RawTimings` and `Pulsetrain` of the packet in its own temporary storage and empties `isr_out` so that the next packet can be put there. It generates a `Meaning` instance from `Pulsetrain` and prints all sorts of information about them, including their string representations, as individually enabled by various settings whose names start with `print_`. It then provides the `RawTimings`, `Pulsetrain` and `Meaning` to the user callback function, if one is set using `OOKwiz::onReceive()`, as well as passing them to all device plugins (see section about device plugins) that were not disabled in the settings.
 
 `OOKwiz::loop` also calls the `CLI::loop()` function to see if there's any serial data that needs to be processed, and once a second it sees if it needs to update any of the the internal variables described above that affect the recognition and processing of packets from the settings.
-
-# Coming soon: more of the manual
-
-A lot is still missing from this document: how to interact with OOKwiz from your own code, how to write device plugins and much more. That's all coming soon, stay tuned.
-
