@@ -23,8 +23,10 @@
 }
 
 #define RFLINK(...) \
-    Serial.printf("20;%02X;", rflink_seq_nr++);\
-    Serial.printf(__VA_ARGS__);
+    if (!Settings::isSet("rflink_disable")) {\
+        Serial.printf("20;%02X;", rflink_seq_nr++);\
+        Serial.printf(__VA_ARGS__);\
+    }
 
 extern uint8_t rflink_seq_nr;
 
