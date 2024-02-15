@@ -185,8 +185,11 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    Serial.printf(<span class="stringliteral">&quot;20;%02X;&quot;</span>, <a class="code" href="serial__output_8h.html#a0bc0a877667a75a95d689b6bd2a25d4a">rflink_seq_nr</a>++);\</div>
-<div class="line">    Serial.printf(__VA_ARGS__);</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (!<a class="code" href="classSettings.html#acc958f3787da63d0f50d1f3629436cf2">Settings::isSet</a>(<span class="stringliteral">&quot;rflink_disable&quot;</span>)) {\</div>
+<div class="line">        Serial.printf(<span class="stringliteral">&quot;20;%02X;&quot;</span>, <a class="code" href="serial__output_8h.html#a0bc0a877667a75a95d689b6bd2a25d4a">rflink_seq_nr</a>++);\</div>
+<div class="line">        Serial.printf(__VA_ARGS__);\</div>
+<div class="line">    }</div>
+<div class="ttc" id="aclassSettings_html_acc958f3787da63d0f50d1f3629436cf2"><div class="ttname"><a href="classSettings.html#acc958f3787da63d0f50d1f3629436cf2">Settings::isSet</a></div><div class="ttdeci">static bool isSet(const String &amp;name)</div><div class="ttdoc">Find out if a key with given name exists in memory.</div><div class="ttdef"><b>Definition:</b> <a href="Settings_8cpp_source.html#l00178">Settings.cpp:178</a></div></div>
 <div class="ttc" id="aserial__output_8h_html_a0bc0a877667a75a95d689b6bd2a25d4a"><div class="ttname"><a href="serial__output_8h.html#a0bc0a877667a75a95d689b6bd2a25d4a">rflink_seq_nr</a></div><div class="ttdeci">uint8_t rflink_seq_nr</div><div class="ttdef"><b>Definition:</b> <a href="serial__output_8c_source.html#l00003">serial_output.c:3</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00025">25</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
