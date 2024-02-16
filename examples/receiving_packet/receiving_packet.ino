@@ -29,5 +29,5 @@ void receive(RawTimings raw, Pulsetrain train, Meaning meaning) {
     }
     // .data() on an std::vector gives a pointer to the first element
     uint8_t *data = meaning.elements[1].data.data();
-    Serial.printf("Data received 0:%02X 1:%02X 2:%02X", data[0], data[1], data[2]);
+    Serial.printf("Data received 0:%02X 1:%02X 2:%02X\n", data[0], data[1], data[2]);
 }
