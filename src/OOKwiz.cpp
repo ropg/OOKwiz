@@ -120,6 +120,14 @@ bool OOKwiz::setup(bool skip_saved_defaults) {
 */
 /// @return always returns `true` 
 bool OOKwiz::loop() {
+    // Have CLI's loop check the serial port for data
+    if (!serial_cli_disable) {
+        CLI::loop();
+    }
+    // If the transitionTimer is not set up, we're not ready to do anything yet
+    if (transitionTimer == nullptr) {
+        return true;
+    }
     // Stuff that happens only once a seccond
     if (esp_timer_get_time() - last_periodic > 1000000) {
         // If any of the core parameters have changed in settings,
@@ -139,10 +147,6 @@ bool OOKwiz::loop() {
         }
         int new_r_t = Settings::getInt("repeat_timeout", -1);
         last_periodic = esp_timer_get_time();
-    }
-    // Have CLI's loop check the serial port for data
-    if (!serial_cli_disable) {
-        CLI::loop();
     }
     // See if the packet in loop_compare has timed out
     if (
