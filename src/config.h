@@ -4,7 +4,7 @@
 #define ARDUINO_LOOP_TASK_STACK_SIZE    (16 * 1024)
 #define SERIAL_RX_BUFFER_SIZE           1024
 
-#define OOKWIZ_VERSION          "0.1.4"
+#define OOKWIZ_VERSION          "0.2.0"
 #define SPIFFS_PREFIX           /OOKwiz
 
 #define MAX_BINS                10
