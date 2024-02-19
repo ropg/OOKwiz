@@ -168,9 +168,10 @@ String Pulsetrain::summary() const {
 bool IRAM_ATTR Pulsetrain::fromRawTimings(const RawTimings &raw) {
     int bin_width;
     SETTING_WITH_DEFAULT(bin_width, 150);
+    // First copy the intervals and sort them
     std::vector<uint16_t> sorted = raw.intervals;
-    // Create the bins
     std::sort(sorted.begin(), sorted.end());
+    // Then make the bins by starting a new one every time bin_width is exceeded
     bool just_begun = true;
     for (auto interval : sorted) {
         if (just_begun || interval > bins.back().min + bin_width) {
