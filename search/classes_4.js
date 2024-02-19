@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['pulsebin_196',['pulseBin',['../structpulseBin.html',1,'']]],
-  ['pulsetrain_197',['Pulsetrain',['../classPulsetrain.html',1,'']]]
+  ['pulsebin_197',['pulseBin',['../structpulseBin.html',1,'']]],
+  ['pulsetrain_198',['Pulsetrain',['../classPulsetrain.html',1,'']]]
 ];

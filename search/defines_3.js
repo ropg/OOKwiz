@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['end_5fcmd_357',['END_CMD',['../CLI_8cpp.html#a534859233b15fe77e8f1ff06151cd163',1,'CLI.cpp']]],
-  ['error_358',['ERROR',['../serial__output_8h.html#a02ce8a968600d004ba60858425c46307',1,'serial_output.h']]]
+  ['error_359',['ERROR',['../serial__output_8h.html#a02ce8a968600d004ba60858425c46307',1,'serial_output.h']]]
 ];

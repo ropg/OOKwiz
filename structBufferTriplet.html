@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OOKwiz: BufferPair Struct Reference</title>
+<title>OOKwiz: BufferTriplet Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -65,9 +65,9 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structBufferPair-members.html">List of all members</a>  </div>
+<a href="structBufferTriplet-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">BufferPair Struct Reference</div>  </div>
+<div class="title">BufferTriplet Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -75,23 +75,25 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a65aeca803309c3a6dfe79b624092738d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBufferPair.html#a65aeca803309c3a6dfe79b624092738d">zap</a> ()</td></tr>
-<tr class="separator:a65aeca803309c3a6dfe79b624092738d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ee69300020fe66f75cadadbce0f96f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBufferTriplet.html#a7ee69300020fe66f75cadadbce0f96f5">zap</a> ()</td></tr>
+<tr class="separator:a7ee69300020fe66f75cadadbce0f96f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a0364eac89f77a81da5f9f54fb9368b1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRawTimings.html">RawTimings</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBufferPair.html#a0364eac89f77a81da5f9f54fb9368b1a">raw</a></td></tr>
-<tr class="separator:a0364eac89f77a81da5f9f54fb9368b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fba816973c026c9a41b8a4e77f7aae1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classPulsetrain.html">Pulsetrain</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBufferPair.html#a9fba816973c026c9a41b8a4e77f7aae1">train</a></td></tr>
-<tr class="separator:a9fba816973c026c9a41b8a4e77f7aae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1db1bb92d04e52d54fa719c199e2179"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRawTimings.html">RawTimings</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBufferTriplet.html#af1db1bb92d04e52d54fa719c199e2179">raw</a></td></tr>
+<tr class="separator:af1db1bb92d04e52d54fa719c199e2179"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77cf42607eef6f4b0373993bd1a51e21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classPulsetrain.html">Pulsetrain</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBufferTriplet.html#a77cf42607eef6f4b0373993bd1a51e21">train</a></td></tr>
+<tr class="separator:a77cf42607eef6f4b0373993bd1a51e21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4da57e0f8fc3c4ffb9585553ada24742"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMeaning.html">Meaning</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBufferTriplet.html#a4da57e0f8fc3c4ffb9585553ada24742">meaning</a></td></tr>
+<tr class="separator:a4da57e0f8fc3c4ffb9585553ada24742"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>In the <a class="el" href="namespaceCLI.html#a9af91bae9053f9d192801dc2b147d62b">loop()</a> handling of packets, we want to operate on sets of <a class="el" href="classRawTimings.html" title="RawTimings instances store the time in µs of each interval.">RawTimings</a> and <a class="el" href="classPulsetrain.html" title="Instances of Pulsetrain represent packets in a normalized way, meaning all intervals of similar lengt...">Pulsetrain</a>. </p>
+<div class="textblock"><p>In the <a class="el" href="namespaceCLI.html#a9af91bae9053f9d192801dc2b147d62b">loop()</a> handling of packets, we want to operate on triplets of <a class="el" href="classRawTimings.html" title="RawTimings instances store the time in µs of each interval.">RawTimings</a>, <a class="el" href="classPulsetrain.html" title="Instances of Pulsetrain represent packets in a normalized way, meaning all intervals of similar lengt...">Pulsetrain</a> and <a class="el" href="classMeaning.html" title="Holds the parsed packet as a collection of MeaningElements.">Meaning</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8h_source.html#l00020">20</a> of file <a class="el" href="OOKwiz_8h_source.html">OOKwiz.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8h_source.html#l00033">33</a> of file <a class="el" href="OOKwiz_8h_source.html">OOKwiz.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a65aeca803309c3a6dfe79b624092738d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65aeca803309c3a6dfe79b624092738d">&#9670;&nbsp;</a></span>zap()</h2>
+<a id="a7ee69300020fe66f75cadadbce0f96f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ee69300020fe66f75cadadbce0f96f5">&#9670;&nbsp;</a></span>zap()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -100,7 +102,7 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void BufferPair::zap </td>
+          <td class="memname">void BufferTriplet::zap </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -113,40 +115,56 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8h_source.html#l00023">23</a> of file <a class="el" href="OOKwiz_8h_source.html">OOKwiz.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8h_source.html#l00037">37</a> of file <a class="el" href="OOKwiz_8h_source.html">OOKwiz.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a0364eac89f77a81da5f9f54fb9368b1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0364eac89f77a81da5f9f54fb9368b1a">&#9670;&nbsp;</a></span>raw</h2>
+<a id="af1db1bb92d04e52d54fa719c199e2179"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1db1bb92d04e52d54fa719c199e2179">&#9670;&nbsp;</a></span>raw</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRawTimings.html">RawTimings</a> BufferPair::raw</td>
+          <td class="memname"><a class="el" href="classRawTimings.html">RawTimings</a> BufferTriplet::raw</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8h_source.html#l00021">21</a> of file <a class="el" href="OOKwiz_8h_source.html">OOKwiz.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8h_source.html#l00034">34</a> of file <a class="el" href="OOKwiz_8h_source.html">OOKwiz.h</a>.</p>
 
 </div>
 </div>
-<a id="a9fba816973c026c9a41b8a4e77f7aae1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fba816973c026c9a41b8a4e77f7aae1">&#9670;&nbsp;</a></span>train</h2>
+<a id="a77cf42607eef6f4b0373993bd1a51e21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77cf42607eef6f4b0373993bd1a51e21">&#9670;&nbsp;</a></span>train</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classPulsetrain.html">Pulsetrain</a> BufferPair::train</td>
+          <td class="memname"><a class="el" href="classPulsetrain.html">Pulsetrain</a> BufferTriplet::train</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8h_source.html#l00022">22</a> of file <a class="el" href="OOKwiz_8h_source.html">OOKwiz.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8h_source.html#l00035">35</a> of file <a class="el" href="OOKwiz_8h_source.html">OOKwiz.h</a>.</p>
+
+</div>
+</div>
+<a id="a4da57e0f8fc3c4ffb9585553ada24742"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4da57e0f8fc3c4ffb9585553ada24742">&#9670;&nbsp;</a></span>meaning</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMeaning.html">Meaning</a> BufferTriplet::meaning</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8h_source.html#l00036">36</a> of file <a class="el" href="OOKwiz_8h_source.html">OOKwiz.h</a>.</p>
 
 </div>
 </div>

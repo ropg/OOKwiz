@@ -90,6 +90,8 @@ $(function() {
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBufferPair.html">BufferPair</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBufferTriplet.html">BufferTriplet</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOOKwiz.html">OOKwiz</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The static functions in the <a class="el" href="classOOKwiz.html" title="The static functions in the OOKwiz class provide the main controls for OOKwiz&#39; functionality....">OOKwiz</a> class provide the main controls for <a class="el" href="classOOKwiz.html" title="The static functions in the OOKwiz class provide the main controls for OOKwiz&#39; functionality....">OOKwiz</a>' functionality. Prefix them with <code><a class="el" href="classOOKwiz.html" title="The static functions in the OOKwiz class provide the main controls for OOKwiz&#39; functionality....">OOKwiz</a>::</code> to use them from your own code.  <a href="classOOKwiz.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -98,6 +100,8 @@ Classes</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:ab78f034f808f4355ea35101d677c3ad8"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structBufferPair.html">BufferPair</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OOKwiz_8h.html#ab78f034f808f4355ea35101d677c3ad8">BufferPair</a></td></tr>
 <tr class="separator:ab78f034f808f4355ea35101d677c3ad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6059cd5e14ba1723ca5dee4c53a212bc"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structBufferTriplet.html">BufferTriplet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="OOKwiz_8h.html#a6059cd5e14ba1723ca5dee4c53a212bc">BufferTriplet</a></td></tr>
+<tr class="separator:a6059cd5e14ba1723ca5dee4c53a212bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="ab78f034f808f4355ea35101d677c3ad8"></a>
@@ -111,7 +115,22 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>In the ISR handling of packets, we want to operate on three sets of <a class="el" href="classRawTimings.html" title="RawTimings instances store the time in µs of each interval.">RawTimings</a> and <a class="el" href="classPulsetrain.html" title="Instances of Pulsetrain represent packets in a normalized way, meaning all intervals of similar lengt...">Pulsetrain</a> (isr_in, isr_compare and isr_out), hence this struct. </p>
+<p>In the <a class="el" href="namespaceCLI.html#a9af91bae9053f9d192801dc2b147d62b">loop()</a> handling of packets, we want to operate on sets of <a class="el" href="classRawTimings.html" title="RawTimings instances store the time in µs of each interval.">RawTimings</a> and <a class="el" href="classPulsetrain.html" title="Instances of Pulsetrain represent packets in a normalized way, meaning all intervals of similar lengt...">Pulsetrain</a>. </p>
+
+</div>
+</div>
+<a id="a6059cd5e14ba1723ca5dee4c53a212bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6059cd5e14ba1723ca5dee4c53a212bc">&#9670;&nbsp;</a></span>BufferTriplet</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structBufferTriplet.html">BufferTriplet</a> <a class="el" href="structBufferTriplet.html">BufferTriplet</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>In the <a class="el" href="namespaceCLI.html#a9af91bae9053f9d192801dc2b147d62b">loop()</a> handling of packets, we want to operate on triplets of <a class="el" href="classRawTimings.html" title="RawTimings instances store the time in µs of each interval.">RawTimings</a>, <a class="el" href="classPulsetrain.html" title="Instances of Pulsetrain represent packets in a normalized way, meaning all intervals of similar lengt...">Pulsetrain</a> and <a class="el" href="classMeaning.html" title="Holds the parsed packet as a collection of MeaningElements.">Meaning</a>. </p>
 
 </div>
 </div>

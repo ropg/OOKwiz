@@ -68,7 +68,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
@@ -90,13 +89,6 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceCLI"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceCLI.html">CLI</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ae524697576f78a9707a790011fe750f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CLI_8cpp.html#ae524697576f78a9707a790011fe750f1">COMMAND</a>(c)</td></tr>
-<tr class="separator:ae524697576f78a9707a790011fe750f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a534859233b15fe77e8f1ff06151cd163"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CLI_8cpp.html#a534859233b15fe77e8f1ff06151cd163">END_CMD</a>&#160;&#160;&#160;return; }</td></tr>
-<tr class="separator:a534859233b15fe77e8f1ff06151cd163"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8757901cd08f4f81efb19b3b226f28b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceCLI.html#a8757901cd08f4f81efb19b3b226f28b2">CLI::parse</a> (String cmd)</td></tr>
@@ -115,48 +107,6 @@ Variables</h2></td></tr>
 <tr class="memitem:a268599b898b8618cbb0996922a5358d6"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceCLI.html#a268599b898b8618cbb0996922a5358d6">CLI::serial_buffer</a></td></tr>
 <tr class="separator:a268599b898b8618cbb0996922a5358d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="ae524697576f78a9707a790011fe750f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae524697576f78a9707a790011fe750f1">&#9670;&nbsp;</a></span>COMMAND</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define COMMAND</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">c</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    tmp = c;\</div>
-<div class="line">    if (cmd.startsWith(tmp)) {\</div>
-<div class="line">        args = cmd.substring(tmp.length() + 1);<a class="code" href="namespacetools.html#af65c903a50ffc843b950355af6bd05f4">\</a></div>
-<div class="line"><a class="code" href="namespacetools.html#af65c903a50ffc843b950355af6bd05f4">        tools::trim</a>(args);</div>
-<div class="ttc" id="anamespacetools_html_af65c903a50ffc843b950355af6bd05f4"><div class="ttname"><a href="namespacetools.html#af65c903a50ffc843b950355af6bd05f4">tools::trim</a></div><div class="ttdeci">void trim(String &amp;in)</div><div class="ttdoc">Takes spaces off start and end of supplied string, operates in place on String passed in.</div><div class="ttdef"><b>Definition:</b> <a href="tools_8cpp_source.html#l00012">tools.cpp:12</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="CLI_8cpp_source.html#l00009">9</a> of file <a class="el" href="CLI_8cpp_source.html">CLI.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a534859233b15fe77e8f1ff06151cd163"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a534859233b15fe77e8f1ff06151cd163">&#9670;&nbsp;</a></span>END_CMD</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define END_CMD&#160;&#160;&#160;return; }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="CLI_8cpp_source.html#l00015">15</a> of file <a class="el" href="CLI_8cpp_source.html">CLI.cpp</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

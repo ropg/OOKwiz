@@ -126,10 +126,10 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><span class="keywordtype">void</span> <a class="code" href="classOOKwiz.html#a9df8d82c503e5085895123efcd0521da">loop</a>() {</div>
 <div class="line">    <a class="code" href="classOOKwiz.html#a9df8d82c503e5085895123efcd0521da">OOKwiz::loop</a>();</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassOOKwiz_html_a9df8d82c503e5085895123efcd0521da"><div class="ttname"><a href="classOOKwiz.html#a9df8d82c503e5085895123efcd0521da">OOKwiz::loop</a></div><div class="ttdeci">static bool loop()</div><div class="ttdoc">To be called from your own loop() function.</div><div class="ttdef"><b>Definition:</b> <a href="OOKwiz_8cpp_source.html#l00130">OOKwiz.cpp:130</a></div></div>
-<div class="ttc" id="aclassOOKwiz_html_aeb6ce0192e77cd8e3f24f1aa58ff7b65"><div class="ttname"><a href="classOOKwiz.html#aeb6ce0192e77cd8e3f24f1aa58ff7b65">OOKwiz::setup</a></div><div class="ttdeci">static bool setup(bool skip_saved_defaults=false)</div><div class="ttdoc">Starts OOKwiz. Loads settings, initializes the radio and starts receiving if it finds the appropriate...</div><div class="ttdef"><b>Definition:</b> <a href="OOKwiz_8cpp_source.html#l00043">OOKwiz.cpp:43</a></div></div>
+<div class="ttc" id="aclassOOKwiz_html_a9df8d82c503e5085895123efcd0521da"><div class="ttname"><a href="classOOKwiz.html#a9df8d82c503e5085895123efcd0521da">OOKwiz::loop</a></div><div class="ttdeci">static bool loop()</div><div class="ttdoc">To be called from your own loop() function.</div><div class="ttdef"><b>Definition:</b> <a href="OOKwiz_8cpp_source.html#l00122">OOKwiz.cpp:122</a></div></div>
+<div class="ttc" id="aclassOOKwiz_html_aeb6ce0192e77cd8e3f24f1aa58ff7b65"><div class="ttname"><a href="classOOKwiz.html#aeb6ce0192e77cd8e3f24f1aa58ff7b65">OOKwiz::setup</a></div><div class="ttdeci">static bool setup(bool skip_saved_defaults=false)</div><div class="ttdoc">Starts OOKwiz. Loads settings, initializes the radio and starts receiving if it finds the appropriate...</div><div class="ttdef"><b>Definition:</b> <a href="OOKwiz_8cpp_source.html#l00042">OOKwiz.cpp:42</a></div></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8h_source.html#l00044">44</a> of file <a class="el" href="OOKwiz_8h_source.html">OOKwiz.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8h_source.html#l00059">59</a> of file <a class="el" href="OOKwiz_8h_source.html">OOKwiz.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aeb6ce0192e77cd8e3f24f1aa58ff7b65"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeb6ce0192e77cd8e3f24f1aa58ff7b65">&#9670;&nbsp;</a></span>setup()</h2>
@@ -166,7 +166,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if setup succeeded, false if it could not complete, e.g. because the radio is not configured yet. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00043">43</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00042">42</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
 
 </div>
 </div>
@@ -196,7 +196,7 @@ Static Public Member Functions</h2></td></tr>
 <p>To be called from your own <code><a class="el" href="classOOKwiz.html#a9df8d82c503e5085895123efcd0521da" title="To be called from your own loop() function.">loop()</a></code> function. </p>
 <p>Does the high-level processing of packets as soon as they are received and processed by the ISR functions. Handles the serial port output of each packet as well as calling the user's own callback function and the various device plugins. </p><dl class="section return"><dt>Returns</dt><dd>always returns <code>true</code> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00130">130</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00122">122</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
 
 </div>
 </div>
@@ -226,7 +226,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Tell <a class="el" href="classOOKwiz.html" title="The static functions in the OOKwiz class provide the main controls for OOKwiz&#39; functionality....">OOKwiz</a> to start receiving and processing packets. </p>
 <p><a class="el" href="classOOKwiz.html" title="The static functions in the OOKwiz class provide the main controls for OOKwiz&#39; functionality....">OOKwiz</a> starts in receive mode normally, so you would only need to call this if your code has turned off reception (with <code><a class="el" href="classOOKwiz.html#a0f91668e73cf87f0c150ec230443adb0" title="Sets radio standby mode, turning off reception.">standby()</a></code>) or if you configured <a class="el" href="classOOKwiz.html" title="The static functions in the OOKwiz class provide the main controls for OOKwiz&#39; functionality....">OOKwiz</a> to not start in receive mode by setting <code>start_in_standby</code>. </p><dl class="section return"><dt>Returns</dt><dd><code>true</code> if receive mode could be activated, <code>false</code> if not. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00383">383</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00376">376</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
 
 </div>
 </div>
@@ -270,7 +270,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="line">    Serial.println(<span class="stringliteral">&quot;A packet was received and myReceiveFunction was called.&quot;</span>);</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassMeaning_html"><div class="ttname"><a href="classMeaning.html">Meaning</a></div><div class="ttdoc">Holds the parsed packet as a collection of MeaningElements.</div><div class="ttdef"><b>Definition:</b> <a href="Meaning_8h_source.html#l00030">Meaning.h:30</a></div></div>
-<div class="ttc" id="aclassOOKwiz_html_af3781e60b394207ee592268ee711badb"><div class="ttname"><a href="classOOKwiz.html#af3781e60b394207ee592268ee711badb">OOKwiz::onReceive</a></div><div class="ttdeci">static bool onReceive(void(*callback_function)(RawTimings, Pulsetrain, Meaning))</div><div class="ttdoc">Use this to supply your own function that will be called every time a packet is received.</div><div class="ttdef"><b>Definition:</b> <a href="OOKwiz_8cpp_source.html#l00371">OOKwiz.cpp:371</a></div></div>
+<div class="ttc" id="aclassOOKwiz_html_af3781e60b394207ee592268ee711badb"><div class="ttname"><a href="classOOKwiz.html#af3781e60b394207ee592268ee711badb">OOKwiz::onReceive</a></div><div class="ttdeci">static bool onReceive(void(*callback_function)(RawTimings, Pulsetrain, Meaning))</div><div class="ttdoc">Use this to supply your own function that will be called every time a packet is received.</div><div class="ttdef"><b>Definition:</b> <a href="OOKwiz_8cpp_source.html#l00364">OOKwiz.cpp:364</a></div></div>
 <div class="ttc" id="aclassPulsetrain_html"><div class="ttname"><a href="classPulsetrain.html">Pulsetrain</a></div><div class="ttdoc">Instances of Pulsetrain represent packets in a normalized way, meaning all intervals of similar lengt...</div><div class="ttdef"><b>Definition:</b> <a href="Pulsetrain_8h_source.html#l00024">Pulsetrain.h:24</a></div></div>
 <div class="ttc" id="aclassRawTimings_html"><div class="ttname"><a href="classRawTimings.html">RawTimings</a></div><div class="ttdoc">RawTimings instances store the time in µs of each interval.</div><div class="ttdef"><b>Definition:</b> <a href="RawTimings_8h_source.html#l00011">RawTimings.h:11</a></div></div>
 </div><!-- fragment --><p>Make sure your own function is defined exactly as like this, even if you don't need all the parameters. You may change the names of the function and the parameters, but nothing else. </p><dl class="params"><dt>Parameters</dt><dd>
@@ -281,7 +281,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>always returns <code>true</code> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00371">371</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00364">364</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
 
 </div>
 </div>
@@ -311,7 +311,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Sets radio standby mode, turning off reception. </p>
 <dl class="section return"><dt>Returns</dt><dd>The counterpart to <code><a class="el" href="classOOKwiz.html#aee9333712dd3338bb21978c5fc542592" title="Tell OOKwiz to start receiving and processing packets.">receive()</a></code>, turns off reception. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00595">595</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00584">584</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
 
 </div>
 </div>
@@ -348,7 +348,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if it worked, <code>false</code> if not. Will show error message telling you why it didn't work in latter case. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00407">407</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00400">400</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
 
 </div>
 </div>
@@ -385,7 +385,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if it worked, <code>false</code> if not. Will show error message telling you why it didn't work in latter case. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00433">433</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00425">425</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
 
 </div>
 </div>
@@ -422,7 +422,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if it worked, <code>false</code> if not. Will show error message telling you why it didn't work in latter case. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00443">443</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00434">434</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
 
 </div>
 </div>
@@ -459,7 +459,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if it worked, <code>false</code> if not. Will show error message telling you why it didn't work in latter case. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00454">454</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00443">443</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
 
 </div>
 </div>
@@ -496,7 +496,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if it worked, <code>false</code> if not. Will show error message telling you why it didn't work in latter case. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00465">465</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00454">454</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
 
 </div>
 </div>
@@ -533,7 +533,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if it worked, <code>false</code> if not. Will show error message telling you why it didn't work in latter case. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00495">495</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00484">484</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
 
 </div>
 </div>
@@ -570,7 +570,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if it worked, <code>false</code> if not. Will show error message telling you why it didn't work in latter case. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00538">538</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00527">527</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
 
 </div>
 </div>
@@ -607,7 +607,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if it worked, <code>false</code> if not. Will show error message telling you why it didn't work in latter case. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00585">585</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="OOKwiz_8cpp_source.html#l00574">574</a> of file <a class="el" href="OOKwiz_8cpp_source.html">OOKwiz.cpp</a>.</p>
 
 </div>
 </div>

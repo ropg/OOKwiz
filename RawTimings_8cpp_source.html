@@ -106,18 +106,18 @@ $(function() {
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">/// @brief If you try to evaluate the instance as a bool, for instance in `if (myRawTimings) ...`, it will be `true` if there&#39;s intervals stored.</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classRawTimings.html#a0d8dcc2f5e9182b8e22982d47227fbfb">   37</a></span>&#160;<a class="code" href="classRawTimings.html">RawTimings</a>::<a class="code" href="classRawTimings.html#a0d8dcc2f5e9182b8e22982d47227fbfb">operator</a> <span class="keywordtype">bool</span>() {</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classRawTimings.html#aedd13355133b5cc03684c812cf48835f">   37</a></span>&#160;IRAM_ATTR RawTimings::operator <span class="keywordtype">bool</span>() {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> (intervals.size() &gt; 0);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">/// @brief empty out the stored intervals</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classRawTimings.html#a6d22dd6da5edd26c7bf1b9467e16a8f1">   42</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRawTimings.html">RawTimings</a>::<a class="code" href="classRawTimings.html#a6d22dd6da5edd26c7bf1b9467e16a8f1">zap</a>() {</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classRawTimings.html#a18ac86520d81fdd07ac2bea2ef8da2fd">   42</a></span>&#160;<span class="keywordtype">void</span> IRAM_ATTR RawTimings::zap() {</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    intervals.clear();</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">/// @brief Get the String representation, which is a comma-separated list of intervals</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">/// @return the String representation</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classRawTimings.html#a288f3c992411bc2a3c9437796cbf5a80">   48</a></span>&#160;<a class="code" href="classRawTimings.html#a288f3c992411bc2a3c9437796cbf5a80">String</a> <a class="code" href="classRawTimings.html">RawTimings</a>::<a class="code" href="classRawTimings.html#a288f3c992411bc2a3c9437796cbf5a80">toString</a>() {</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classRawTimings.html#a288f3c992411bc2a3c9437796cbf5a80">   48</a></span>&#160;String RawTimings::toString() {</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    String res = <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> count = 0; count &lt; intervals.size(); count++) {</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        res += intervals[count];</div>
@@ -130,7 +130,7 @@ $(function() {
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">/// @brief Read a String representation, which is a comma-separated list of intervals, and store in this instance</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">/// @return `true` if it worked, `false` (with error message) if it didn&#39;t.</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classRawTimings.html#a3d4b1d20d45043e54465653b91f9eba2">   61</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRawTimings.html">RawTimings</a>::<a class="code" href="classRawTimings.html#a3d4b1d20d45043e54465653b91f9eba2">fromString</a>(<span class="keyword">const</span> String &amp;in) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classRawTimings.html#a3d4b1d20d45043e54465653b91f9eba2">   61</a></span>&#160;<span class="keywordtype">bool</span> RawTimings::fromString(<span class="keyword">const</span> String &amp;in) {</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">bool</span> error = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    intervals.clear();</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">int</span> pos = 0;</div>
@@ -157,7 +157,7 @@ $(function() {
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">/// @brief Convert Pulsetrain into RawTimings. Loses stats about bins as well as information about repeats.</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">/// @param train the Pulsetrain you want to convert from</span></div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">/// @return Always `true`</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classRawTimings.html#aaf2557983cae38cb469ac677c0f026eb">   88</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRawTimings.html">RawTimings</a>::<a class="code" href="classRawTimings.html#aaf2557983cae38cb469ac677c0f026eb">fromPulsetrain</a>(<a class="code" href="classPulsetrain.html">Pulsetrain</a> &amp;train) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classRawTimings.html#aaf2557983cae38cb469ac677c0f026eb">   88</a></span>&#160;<span class="keywordtype">bool</span> RawTimings::fromPulsetrain(Pulsetrain &amp;train) {</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> transition : train.transitions) {</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        intervals.push_back(train.bins[transition].average);</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
@@ -166,8 +166,8 @@ $(function() {
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">/// @brief RawTimings to Pulsetrain</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">/// @return Pulsetrain instance</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classRawTimings.html#a0371f9aa6b33c151c9c43e3f35a8698e">   97</a></span>&#160;<a class="code" href="classPulsetrain.html">Pulsetrain</a> <a class="code" href="classRawTimings.html">RawTimings</a>::<a class="code" href="classRawTimings.html#a0371f9aa6b33c151c9c43e3f35a8698e">toPulsetrain</a>() {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="classPulsetrain.html">Pulsetrain</a> res;</div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classRawTimings.html#a0371f9aa6b33c151c9c43e3f35a8698e">   97</a></span>&#160;Pulsetrain RawTimings::toPulsetrain() {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    Pulsetrain res;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    res.fromRawTimings(*<span class="keyword">this</span>);</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">return</span> res;</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
@@ -175,7 +175,7 @@ $(function() {
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">/// @brief Returns the viasualizer (the blocky time-graph) for the pulses in this RawTimings instance</span></div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">/// @param base µs per (half-character) block. Every interval gets at least one block so all pulses are guaranteed visible</span></div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">/// @return visualizer String</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classRawTimings.html#acc71a663684d673461ccbfda1c78011e">  106</a></span>&#160;<a class="code" href="classRawTimings.html#acc71a663684d673461ccbfda1c78011e">String</a> <a class="code" href="classRawTimings.html">RawTimings</a>::<a class="code" href="classRawTimings.html#acc71a663684d673461ccbfda1c78011e">visualizer</a>(<span class="keywordtype">int</span> <a class="code" href="classRawTimings.html#acc71a663684d673461ccbfda1c78011e">base</a>) {</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classRawTimings.html#acc71a663684d673461ccbfda1c78011e">  106</a></span>&#160;String RawTimings::visualizer(<span class="keywordtype">int</span> base) {</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">if</span> (base == 0) {</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
@@ -206,7 +206,7 @@ $(function() {
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">/// @brief The visualizer like above, with base taken from `visualizer_pixel` setting.</span></div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">/// @return visualizer String</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="classRawTimings.html#abaedd23dec2455966aafbeb679575f68">  137</a></span>&#160;<a class="code" href="classRawTimings.html#abaedd23dec2455966aafbeb679575f68">String</a> <a class="code" href="classRawTimings.html">RawTimings</a>::<a class="code" href="classRawTimings.html#abaedd23dec2455966aafbeb679575f68">visualizer</a>() {</div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="classRawTimings.html#abaedd23dec2455966aafbeb679575f68">  137</a></span>&#160;String RawTimings::visualizer() {</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordtype">int</span> visualizer_pixel;</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <a class="code" href="Settings_8h.html#a113856706189648e4adb0e60f203c48a">SETTING_WITH_DEFAULT</a>(visualizer_pixel, 200);</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">return</span> visualizer(visualizer_pixel);</div>
