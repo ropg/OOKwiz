@@ -89,7 +89,7 @@ bool Settings::rm(const String filename) {
         return false;
     }
     if (SPIFFS.remove(actual_filename)) {
-        INFO("File '%s' deleted.\r\n", filename.c_str());
+        INFO("File '%s' deleted.\n", filename.c_str());
         return true;
     }
     ERROR("ERROR: rm '%s': file not found.\n", filename);  
@@ -127,9 +127,11 @@ bool Settings::fromList(String in) {
             break;
         }
         String this_one = in.substring(0, lf);
-        int equals_sign = in.indexOf("=");
+        int equals_sign = this_one.indexOf("=");
         if (equals_sign != -1) {
             store[this_one.substring(0, equals_sign)] = this_one.substring(equals_sign + 1);
+        } else {
+            store[this_one.substring(0, equals_sign)] = "";
         }
         in = in.substring(lf + 1);
     }
