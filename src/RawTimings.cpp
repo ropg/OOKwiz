@@ -34,12 +34,12 @@ bool RawTimings::maybe(String str) {
 }
 
 /// @brief If you try to evaluate the instance as a bool, for instance in `if (myRawTimings) ...`, it will be `true` if there's intervals stored.
-RawTimings::operator bool() {
+IRAM_ATTR RawTimings::operator bool() {
     return (intervals.size() > 0);
 }
 
 /// @brief empty out the stored intervals
-void RawTimings::zap() {
+void IRAM_ATTR RawTimings::zap() {
     intervals.clear();
 }
 

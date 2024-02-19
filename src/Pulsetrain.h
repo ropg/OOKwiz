@@ -40,10 +40,10 @@ public:
     /// @brief Smallest gap between repeated transmissions 
     uint16_t gap = 0;
 
-    IRAM_ATTR operator bool();
-    void IRAM_ATTR zap();
-    bool IRAM_ATTR sameAs(const Pulsetrain &other_train);
-    bool IRAM_ATTR fromRawTimings(const RawTimings &raw);
+    operator bool();
+    void zap();
+    bool sameAs(const Pulsetrain &other_train);
+    bool fromRawTimings(const RawTimings &raw);
     RawTimings toRawTimings();
     bool fromMeaning(const Meaning &meaning);
     Meaning toMeaning();

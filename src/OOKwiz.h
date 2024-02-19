@@ -14,8 +14,8 @@
 #include "serial_output.h"
 
 /**
- * In the ISR handling of packets, we want to operate on three sets of RawTimings and Pulsetrain 
- * (isr_in, isr_compare and isr_out), hence this struct.
+ * In the loop() handling of packets, we want to operate on sets of RawTimings
+ * and Pulsetrain.
 */
 typedef struct BufferPair {
     RawTimings raw;
@@ -25,6 +25,21 @@ typedef struct BufferPair {
         train.zap();
     }
 } BufferPair;
+
+/**
+ * In the loop() handling of packets, we want to operate on triplets of RawTimings,
+ * Pulsetrain and Meaning.
+*/
+typedef struct BufferTriplet {
+    RawTimings raw;
+    Pulsetrain train;
+    Meaning meaning;
+    void zap() {
+        raw.zap();
+        train.zap();
+        meaning.zap();
+    }
+} BufferTriplet;
 
 /**
  * \brief The static functions in the OOKwiz class provide the main controls for OOKwiz' functionality.
@@ -78,24 +93,20 @@ private:
     static int lost_packets;
     static int64_t last_transition;
     static hw_timer_t *transitionTimer;
-    static hw_timer_t *repeatTimer;
+    static int64_t repeat_time_start;
     static long repeat_timeout;
     static bool rx_active_high;
     static bool tx_active_high;
-    static BufferPair isr_in;
-    static BufferPair isr_compare;
-    static BufferPair isr_out;
-    static RawTimings loop_raw;
-    static Pulsetrain loop_train;
-    static Meaning loop_meaning;
+    static RawTimings isr_in;
+    static RawTimings isr_out;
+    static BufferPair loop_in;
+    static BufferPair loop_compare;
+    static BufferTriplet loop_ready;
     static int64_t last_periodic;
     static void (*callback)(RawTimings, Pulsetrain, Meaning);
-    static void IRAM_ATTR process_raw();
-    static void IRAM_ATTR process_train();
     static void IRAM_ATTR ISR_transition();
     static void IRAM_ATTR ISR_transitionTimeout();
-    static void IRAM_ATTR ISR_repeatTimeout();
-    static bool IRAM_ATTR sameAs(const Pulsetrain &train1, const Pulsetrain &train2);
+    static void IRAM_ATTR process_raw();
     static bool tryToBeNice(int ms);
 
 };

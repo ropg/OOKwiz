@@ -16,16 +16,15 @@ bool OOKwiz::no_noise_fix = false;
 int OOKwiz::lost_packets = 0;
 int64_t OOKwiz::last_transition;
 hw_timer_t* OOKwiz::transitionTimer = nullptr;
-hw_timer_t* OOKwiz::repeatTimer = nullptr;
+int64_t OOKwiz::repeat_time_start = 0;
 long OOKwiz::repeat_timeout;
 bool OOKwiz::rx_active_high;
 bool OOKwiz::tx_active_high;
-BufferPair OOKwiz::isr_in;
-BufferPair OOKwiz::isr_compare;
-BufferPair OOKwiz::isr_out;
-RawTimings OOKwiz::loop_raw;
-Pulsetrain OOKwiz::loop_train;
-Meaning OOKwiz::loop_meaning;
+RawTimings OOKwiz::isr_in;
+RawTimings OOKwiz::isr_out;
+BufferPair OOKwiz::loop_in;
+BufferPair OOKwiz::loop_compare;
+BufferTriplet OOKwiz::loop_ready;
 int64_t OOKwiz::last_periodic = 0;
 void (*OOKwiz::callback)(RawTimings, Pulsetrain, Meaning) = nullptr;
 
@@ -101,13 +100,6 @@ bool OOKwiz::setup(bool skip_saved_defaults) {
     timerAlarmEnable(transitionTimer);
     timerStart(transitionTimer);
 
-    // Timer for repeat_timeout
-    repeatTimer = timerBegin(1, 80, true);
-    timerAttachInterrupt(repeatTimer, &ISR_repeatTimeout, false);
-    timerAlarmWrite(repeatTimer, repeat_timeout, true);
-    timerAlarmEnable(repeatTimer);
-    timerStart(repeatTimer);
-
     // The ISR that actually reads the data
     attachInterrupt(Radio::pin_rx, ISR_transition, CHANGE);    
 
@@ -146,85 +138,159 @@ bool OOKwiz::loop() {
             timerAlarmWrite(transitionTimer, pulse_gap_len_new_packet, true);
         }
         int new_r_t = Settings::getInt("repeat_timeout", -1);
-        if (new_r_t != repeat_timeout) {
-            repeat_timeout = new_r_t;
-            timerAlarmWrite(repeatTimer, repeat_timeout, true);
-        }
         last_periodic = esp_timer_get_time();
     }
     // Have CLI's loop check the serial port for data
     if (!serial_cli_disable) {
         CLI::loop();
     }
-    // If there was not a packet received, we can end OOKwiz::loop() now.
-    if (!isr_out.train) {
-        return true;
-    }
-    // OK, so there's a new packet...
-    // Copy away the isr output and allow isr machinery to fill with new
-    loop_train = isr_out.train;
-    loop_raw = isr_out.raw;
-    isr_out.zap();
-    // Warn if we lost packets before this one
-    if (lost_packets) {
-        ERROR("\n\nWARNING: %i packets lost because loop() was not fast enough.\n", lost_packets);
-        lost_packets = 0;
-    }
-    // Print to Serial what needs to be printed
-    if (Settings::isSet("print_raw") ||
-        Settings::isSet("print_visualizer") ||
-        Settings::isSet("print_summary") ||
-        Settings::isSet("print_pulsetrain") ||
-        Settings::isSet("print_binlist") ||
-        Settings::isSet("print_meaning")
+    // See if the packet in loop_compare has timed out
+    if (
+        loop_compare.train &&
+        esp_timer_get_time() - repeat_time_start > repeat_timeout
     ) {
-        INFO("\n\n");
+        loop_ready.raw = loop_compare.raw;
+        loop_ready.train = loop_compare.train;
+        loop_compare.zap();
+    } else if (isr_out) {
+    // Process packet from ISRs if there is one
+        // So from here, we're processing a new RawTimings received by the ISRs
+        loop_in.raw = isr_out;
+        isr_out.zap();
+        // reject if not the required minimum number of pulses
+        if (loop_in.raw.intervals.size() < (min_nr_pulses * 2) + 1) {
+            return true;
+        }
+        // Remove last transition if number is even because in that case the
+        // last transition is the off state, which is not part of a train.
+        if (loop_in.raw.intervals.size() % 2 == 0) {
+            loop_in.raw.intervals.pop_back();
+        }
+        if (!no_noise_fix) {
+            // fix noise: too-short transitions found are merged into one with transitions before and after.
+            bool noisy = true;
+            while (noisy) {
+                noisy = false;
+                for (int n = 1; n < loop_in.raw.intervals.size() - 1; n++) {
+                    if (loop_in.raw.intervals[n] < pulse_gap_min_len) {
+                        int new_interval = loop_in.raw.intervals[n - 1] + loop_in.raw.intervals[n] + loop_in.raw.intervals[n + 1];
+                        loop_in.raw.intervals.erase(loop_in.raw.intervals.begin() + n - 1, loop_in.raw.intervals.begin() + n + 2);
+                        loop_in.raw.intervals.insert(loop_in.raw.intervals.begin() + n - 1, new_interval);
+                        noisy = true;
+                        break;
+                    }
+                }
+            }
+            // Simply cut off last pulse and preceding gap if pulse too short.
+            if (loop_in.raw.intervals.back() < pulse_gap_min_len) {
+                loop_in.raw.intervals.pop_back();
+                loop_in.raw.intervals.pop_back();
+            }    
+            // Check we still meet the required minimum number of pulses after noise removal.
+            if (loop_in.raw.intervals.size() < (min_nr_pulses * 2) + 1) {
+                return true;
+            }
+        }
+        // Release excess reserved memory
+        loop_in.raw.intervals.shrink_to_fit();
+        // And then go to normalizing, comparing, etc.
+        loop_in.train.fromRawTimings(loop_in.raw);
     }
-    if (Settings::isSet("print_raw") && loop_raw) {
-        INFO("%s\n", loop_raw.toString().c_str());
-    }
-    if (Settings::isSet("print_visualizer")) {
-        // If we simulate a Pulsetrain, the raw buffer will be empty still,
-        // so we visualize the Pulsetrain instead. 
-        if (loop_raw) {
-            INFO("%s\n", loop_raw.visualizer().c_str());
+    // This is split up so that simulate(Pulsetrain) can stick in a train
+    if (loop_in.train) {
+        // If there is no packet in loop_compare, just put the new one there
+        if (!loop_compare.train) {
+            loop_compare = loop_in;
+            loop_in.zap();
+            // Start the timer on it expiring and being handed to the user
+            repeat_time_start = esp_timer_get_time();
+        // Otherwise check if it's a duplicate
+        } else if (loop_in.train && loop_in.train.sameAs(loop_compare.train)) {
+            // If so just add to number of repeats
+            loop_compare.train.repeats++;
+            // Check if the observed gap is smaller than what we had and if so store.
+            int64_t gap = (esp_timer_get_time() - loop_compare.train.last_at) - loop_compare.train.duration;
+            if (gap < loop_compare.train.gap || loop_compare.train.gap == 0) {
+                loop_compare.train.gap = gap;
+            }
+            loop_compare.train.last_at = esp_timer_get_time();
+            loop_in.zap();
+            // Restart the repeat timer
+            repeat_time_start = esp_timer_get_time();
+        // It's no duplicate, so push out the packet in loop_compare and put this one there
         } else {
-            INFO("%s\n", loop_train.visualizer().c_str());
+            loop_ready.raw = loop_compare.raw;
+            loop_ready.train = loop_compare.train;
+            loop_compare = loop_in;
+            loop_in.zap();
+            repeat_time_start = esp_timer_get_time();
+        }
+        loop_in.zap();
+    }
+    if (loop_ready.train) {
+        // Warn if we lost packets before this one
+        if (lost_packets) {
+            ERROR("\n\nWARNING: %i packets lost because loop() was not fast enough.\n", lost_packets);
+            lost_packets = 0;
+        }
+        // Print to Serial what needs to be printed
+        if (Settings::isSet("print_raw") ||
+            Settings::isSet("print_visualizer") ||
+            Settings::isSet("print_summary") ||
+            Settings::isSet("print_pulsetrain") ||
+            Settings::isSet("print_binlist") ||
+            Settings::isSet("print_meaning")
+        ) {
+            INFO("\n\n");
+        }
+        if (Settings::isSet("print_raw") && loop_ready.raw) {
+            INFO("%s\n", loop_ready.raw.toString().c_str());
+        }
+        if (Settings::isSet("print_visualizer")) {
+            // If we simulate a Pulsetrain, the raw buffer will be empty still,
+            // so we visualize the Pulsetrain instead. 
+            if (loop_ready.raw) {
+                INFO("%s\n", loop_ready.raw.visualizer().c_str());
+            } else {
+                INFO("%s\n", loop_ready.train.visualizer().c_str());
+            }
+        }
+        if (Settings::isSet("print_summary")) {
+            INFO("%s\n", loop_ready.train.summary().c_str());
+        }
+        if (Settings::isSet("print_pulsetrain")) {
+            INFO("%s\n", loop_ready.train.toString().c_str());
+        }
+        if (Settings::isSet("print_binlist")) {
+            INFO("%s\n", loop_ready.train.binList().c_str());
+        }
+        // Process the received pulsetrain for meaning
+        // (Done here so errors and debug output ends up in logical spot)
+        loop_ready.meaning.fromPulsetrain(loop_ready.train);
+        if (loop_ready.meaning && Settings::isSet("print_meaning")) {
+            INFO("%s\n", loop_ready.meaning.toString().c_str());
+        }
+        // Pass what was received to all the device plugins, making their output show up
+        // at the right spot underneath the meaning output.
+        Device::new_packet(loop_ready.raw, loop_ready.train, loop_ready.meaning);
+        // received() can take it now.
+        if (callback != nullptr) {
+            callback(loop_ready.raw, loop_ready.train, loop_ready.meaning);
         }
     }
-    if (Settings::isSet("print_summary")) {
-        INFO("%s\n", loop_train.summary().c_str());
-    }
-    if (Settings::isSet("print_pulsetrain")) {
-        INFO("%s\n", loop_train.toString().c_str());
-    }
-    if (Settings::isSet("print_binlist")) {
-        INFO("%s\n", loop_train.binList().c_str());
-    }
-    // Process the received pulsetrain for meaning
-    // (Done here so errors and debug output ends up in logical spot)
-    loop_meaning.fromPulsetrain(loop_train);
-    if (loop_meaning && Settings::isSet("print_meaning")) {
-        INFO("%s\n", loop_meaning.toString().c_str());
-    }
-    // Pass what was received to all the device plugins, making their output show up
-    // at the right spot underneath the meaning output.
-    Device::new_packet(loop_raw, loop_train, loop_meaning);
-    // received() can take it now.
-    if (callback != nullptr) {
-        callback(loop_raw, loop_train, loop_meaning);
-    }
+    loop_ready.zap();
     return true;
 }
 
 void IRAM_ATTR OOKwiz::ISR_transition() {
     int64_t t = esp_timer_get_time() - last_transition;
+    last_transition = esp_timer_get_time();
     if (rx_state == RX_WAIT_PREAMBLE) {
         // Set the state machine to put the transitions in isr_in
         if (t > first_pulse_min_len && digitalRead(Radio::pin_rx) != rx_active_high) {
             noise_score = 0;
             isr_in.zap();
-            isr_in.raw.intervals.reserve((max_nr_pulses * 2) + 1);
+            isr_in.intervals.reserve((max_nr_pulses * 2) + 1);
             rx_state = RX_RECEIVING_DATA;
         }
     }
@@ -239,14 +305,13 @@ void IRAM_ATTR OOKwiz::ISR_transition() {
         } else {
             noise_score -= noise_score > 0;
         }
-        isr_in.raw.intervals.push_back(t);
+        isr_in.intervals.push_back(t);
         // Longer would be too long: stop and process what we have
-        if (isr_in.raw.intervals.size() == (max_nr_pulses * 2) + 1) {
+        if (isr_in.intervals.size() == (max_nr_pulses * 2) + 1) {
             process_raw();
         }
 
     }
-    last_transition = esp_timer_get_time();
     timerRestart(transitionTimer);
 }
 
@@ -256,89 +321,13 @@ void IRAM_ATTR OOKwiz::ISR_transitionTimeout() {
     }
 }
 
-void IRAM_ATTR OOKwiz::ISR_repeatTimeout() {
-    if (isr_compare.train && !isr_out.train) {
-        isr_out = isr_compare;
-        isr_compare.zap();
-    }
-}
-
 void IRAM_ATTR OOKwiz::process_raw() {
-    // reject if not the required minimum number of pulses
-    if (isr_in.raw.intervals.size() < (min_nr_pulses * 2) + 1) {
-        rx_state = RX_WAIT_PREAMBLE;
-        return;
-    }
-    // Remove last transition if number is even because in that case the
-    // last transition is the off state, which is not part of a train.
-    if (isr_in.raw.intervals.size() % 2 == 0) {
-        isr_in.raw.intervals.pop_back();
-    }
-    if (!no_noise_fix) {
-        // fix noise: too-short transitions found are merged into one with transitions before and after.
-        bool noisy = true;
-        while (noisy) {
-            noisy = false;
-            for (int n = 1; n < isr_in.raw.intervals.size() - 1; n++) {
-                if (isr_in.raw.intervals[n] < pulse_gap_min_len) {
-                    int new_interval = isr_in.raw.intervals[n - 1] + isr_in.raw.intervals[n] + isr_in.raw.intervals[n + 1];
-                    isr_in.raw.intervals.erase(isr_in.raw.intervals.begin() + n - 1, isr_in.raw.intervals.begin() + n + 2);
-                    isr_in.raw.intervals.insert(isr_in.raw.intervals.begin() + n - 1, new_interval);
-                    noisy = true;
-                    break;
-                }
-            }
-        }
-        // Simply cut off last pulse and preceding gap if pulse too short.
-        if (isr_in.raw.intervals.back() < pulse_gap_min_len) {
-            isr_in.raw.intervals.pop_back();
-            isr_in.raw.intervals.pop_back();
-        }    
-        // Check we still meet the required minimum number of pulses after noise removal.
-        if (isr_in.raw.intervals.size() < (min_nr_pulses * 2) + 1) {
-            rx_state = RX_WAIT_PREAMBLE;
-            return;
-        }
-    }
-    // Release excess reserved memory
-    isr_in.raw.intervals.shrink_to_fit();
-    // And then go to normalizing, comparing, etc.
-    isr_in.train.fromRawTimings(isr_in.raw);
-    process_train();
-}
-
-void IRAM_ATTR OOKwiz::process_train() {
-    rx_state = RX_PROCESSING;
-    // If there is no packet in the middle buffer, just put the new one there
-    if (!isr_compare.train) {
-        isr_compare = isr_in;
-        isr_in.zap();
-        // Start the timer on it expiring and being handed to the user
-        timerRestart(repeatTimer);
-    // Otherwise check if it's a duplicate
-    } else if (isr_in.train && isr_in.train.sameAs(isr_compare.train)) {
-        // If so just add to number of repeats
-        isr_compare.train.repeats++;
-        // Check if the observed gap is smaller than what we had and if so store.
-        int64_t gap = (esp_timer_get_time() - isr_compare.train.last_at) - isr_compare.train.duration;
-        if (gap < isr_compare.train.gap || isr_compare.train.gap == 0) {
-            isr_compare.train.gap = gap;
-        }
-        isr_compare.train.last_at = esp_timer_get_time();
-        isr_in.zap();
-        // Restart the repeat timer
-        timerRestart(repeatTimer);
+    if (!isr_out) {
+        isr_out = isr_in;
     } else {
-        // Only move waiting train to output if the previous one was taken.
-        if (!isr_out.train) {
-            isr_out = isr_compare;
-        } else {
-            lost_packets++;
-        }
-        isr_compare = isr_in;
-        isr_in.zap();
-        timerRestart(repeatTimer);
+        lost_packets++;
     }
+    isr_in.zap();
     rx_state = RX_WAIT_PREAMBLE;
 }
 
@@ -393,7 +382,7 @@ bool OOKwiz::tryToBeNice(int ms) {
     // Try and wait for max ms for current reception to end
     // return false if it doesn't end, true if it does
     long start = millis();
-    while (millis() - start < 500) {
+    while (millis() - start < ms) {
         if (rx_state == RX_WAIT_PREAMBLE) {
             return true;
         }
@@ -417,7 +406,6 @@ bool OOKwiz::simulate(String &str) {
         }
     } else if (Meaning::maybe(str)) {
         Meaning meaning;
-        Pulsetrain train;
         if (meaning.fromString(str)) {
             return simulate(meaning);
         }
@@ -431,9 +419,8 @@ bool OOKwiz::simulate(String &str) {
 /// @param raw  the instance to be simulated
 /// @return `true` if it worked, `false` if not. Will show error message telling you why it didn't work in latter case.
 bool OOKwiz::simulate(RawTimings &raw) {
-    tryToBeNice(500);
-    isr_in.raw = raw;
-    process_raw();
+    tryToBeNice(50);
+    isr_out = raw;
     return true;
 }
 
@@ -441,10 +428,8 @@ bool OOKwiz::simulate(RawTimings &raw) {
 /// @param train  the instance to be simulated
 /// @return `true` if it worked, `false` if not. Will show error message telling you why it didn't work in latter case.
 bool OOKwiz::simulate(Pulsetrain &train) {
-    tryToBeNice(500);
-    isr_in.train = train;
-    isr_in.raw.zap();
-    process_train();
+    tryToBeNice(50);
+    loop_ready.train = train;
     return true;
 }
 

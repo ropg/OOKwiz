@@ -15,8 +15,8 @@ public:
     /// @brief std::vector of uint16_t times in µs for each interval
     std::vector<uint16_t>intervals;
     
-    operator bool();
-    void zap();
+    IRAM_ATTR operator bool();
+    void IRAM_ATTR zap();
     String toString();
     bool fromString(const String &in);
     bool fromPulsetrain(Pulsetrain &train);
