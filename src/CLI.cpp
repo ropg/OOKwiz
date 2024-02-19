@@ -6,14 +6,6 @@
 #include "Radio.h"
 #include "OOKwiz.h"
 
-#define COMMAND(c)\
-    tmp = c;\
-    if (cmd.startsWith(tmp)) {\
-        args = cmd.substring(tmp.length() + 1);\
-        tools::trim(args);
-
-#define END_CMD return; }
-
 
 namespace CLI {
 
@@ -51,14 +43,13 @@ namespace CLI {
         }
     }
 
-    void parse(String cmd) {
-
+    void parse(String cli_string) {
+        INFO("\nCLI: %s\n", cli_string.c_str());
+        String cmd;
         String args;
-        String tmp;
+        tools::split(cli_string, " ", cmd, args);
 
-        INFO("\nCLI: %s\n", cmd.c_str());
-
-        COMMAND("help")
+        if (cmd == "help") {
 INFO(R"(
 OOKwiz version %s Command Line Interpreter help.
 
@@ -89,9 +80,10 @@ sr                 - shorthand for "save;reboot"
 See the OOKwiz README.md on GitHub for a quick-start guide and full documentation
 
 )", OOKWIZ_VERSION);
-        END_CMD
+            return;
+        }
 
-        COMMAND("set")
+        if (cmd == "set") {
             if (args == "") {
                 INFO("%s\n", Settings::list().c_str());
                 return;            
@@ -108,65 +100,77 @@ See the OOKwiz README.md on GitHub for a quick-start guide and full documentatio
                     INFO("'%s' set\n", name.c_str());
                 }
             }
-        END_CMD
+            return;
+        }
 
-        COMMAND("unset")
+        if (cmd == "unset") {
             if (Settings::unset(args)) {
                 INFO("Setting '%s' removed.\n", args.c_str());
             }
-        END_CMD
+            return;
+        }
 
-        COMMAND("load")
+        if (cmd == "load") {
             if (args == "") {
                 args = "default";
             }
             Settings::load(args);
-        END_CMD
+            return;
+        }
 
-        COMMAND("save")
+        if (cmd == "save") {
             if (args == "") {
                 args = "default";
             }
             Settings::save(args);
-        END_CMD
+            return;
+        }
 
-        COMMAND("ls")
+        if (cmd == "ls") {
             Settings::ls();
-        END_CMD
+            return;
+        }
 
-        COMMAND("rm")
+        if (cmd == "rm") {
             Settings::rm(args);
-        END_CMD
+            return;
+        }
 
-        COMMAND("reboot")
+        if (cmd == "reboot") {
             ESP.restart();
-        END_CMD
+            return;
+        }
 
-        COMMAND("receive")
+        if (cmd == "receive") {
             if (OOKwiz::receive()) {
                 INFO("Receiver active, waiting for pulses.\n");
             }
-        END_CMD
+            return;
+        }
 
-        COMMAND("standby")
+        if (cmd == "standby") {
             if (OOKwiz::standby()) {
                 INFO("Transceiver placed in standby mode.\n");
             }
-        END_CMD
+            return;
+        }
 
-        COMMAND("transmit")
+        if (cmd == "transmit") {
             OOKwiz::transmit(args);
-        END_CMD
+            return;
+        }
 
-        COMMAND("sim")
+        if (cmd == "sim") {
             OOKwiz::simulate(args);
-        END_CMD
+            return;
+        }
 
-        COMMAND("sr")
+        if (cmd == "sr") {
             if (Settings::save("default")) {
                 ESP.restart();
             }
-        END_CMD
+            return;
+        }
 
         INFO("Unknown command '%s'. Enter 'help' for a list of commands.\n", cmd.c_str());
     }
