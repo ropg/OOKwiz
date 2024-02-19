@@ -81,10 +81,10 @@ namespace tools {
     void split(const String &in, const String &separator, String &before, String &after) {
         int found = in.indexOf(separator);
         if (found != -1) {
-            before = in.substring(0, found);
-            trim(before);
             after = in.substring(found + separator.length());
             trim(after);
+            before = in.substring(0, found);
+            trim(before);
         } else {
             before = in;
             after = "";
