@@ -98,7 +98,7 @@ The data pin is called DIO2, and there's definitely modules out there that do no
 
 #### SX1276
 
-Haven't been able to find a module with this one, so it's one I haven't tested yet. Very much like the SX1278, the RadioLib class just implements a few methods that have different accepted value ranges. So the plugin is a copy of the SX1278 one, and I expect things to work.
+The data pin is DIO2 again. Very much like the SX1278, the RadioLib class just implements a few methods that have different accepted value ranges.
 
 ### Other radio modules
 
